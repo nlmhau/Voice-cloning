@@ -31,11 +31,11 @@ Toàn bộ các tệp âm thanh được quy chuẩn hóa về **16 kHz Mono**, 
 ```text
                TỔNG HỢP 75 CHIỀU ĐẶC TRƯNG ÂM HỌC
 ┌──────────────────────────────────────────────────────────────────┐
-│ F₁ (52 chiều): MFCC & Delta                                     │
+│ F₁ (52 chiều): MFCC & Delta                                      │
 │  • 13 hệ số MFCC bậc 0-12 (Mean + Std = 26 chiều)                │
 │  • 13 hệ số Delta bậc 1 (Mean + Std = 26 chiều)                  │
 ├──────────────────────────────────────────────────────────────────┤
-│ F₂ (18 chiều): Cấu trúc phổ âm thanh (Spectral Features)        │
+│ F₂ (18 chiều): Cấu trúc phổ âm thanh (Spectral Features)         │
 │  • Trọng tâm phổ (Centroid Mean + Std = 2 chiều)                 │
 │  • Băng thông phổ (Bandwidth Mean + Std = 2 chiều)               │
 │  • Tần số Rolloff 95% (Mean + Std = 2 chiều)                     │
@@ -46,7 +46,7 @@ Toàn bộ các tệp âm thanh được quy chuẩn hóa về **16 kHz Mono**, 
 │  • Thời lượng clip sau cắt (Duration = 1 chiều)                  │
 │  • Tỷ lệ khoảng lặng VAD (Silence Ratio = 1 chiều)               │
 │  • Độ biến thiên khung âm lượng (Frame RMS Std = 1 chiều)        │
-│  • Tần số đổi dấu sóng âm (ZCR Mean + Std = 2 chiều)            │
+│  • Tần số đổi dấu sóng âm (ZCR Mean + Std = 2 chiều)             │
 └──────────────────────────────────────────────────────────────────┘
 ```
 
