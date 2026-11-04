@@ -1,0 +1,1985 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VoiceLab · Demo Nhận Dạng & Soi Giọng Nói AI</title>
+<!-- Google Fonts: Inter with full Vietnamese glyphs support -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #182a38;
+  --ink-secondary: #4a5c68;
+  --muted: #71818c;
+  --line: #dde7e6;
+  --line-subtle: #edf3f0;
+  
+  --teal: #1b6b61;
+  --teal-hover: #15584f;
+  --teal-light: #eff7f3;
+  --teal-border: #cbe3d9;
+  
+  --paper: #f5f7f5;
+  --panel: #ffffff;
+  
+  /* Verdict Colors */
+  --real-ink: #166534;
+  --real-bg: #f0fdf4;
+  --real-border: #bbf7d0;
+  
+  --fake-ink: #991b1b;
+  --fake-bg: #fef2f2;
+  --fake-border: #fecaca;
+  
+  --amber-ink: #854d0e;
+  --amber-bg: #fffbf0;
+  --amber-border: #fef08a;
+
+  --shadow: 0 5px 20px rgba(32, 56, 48, 0.05);
+  --shadow-sm: 0 1px 3px rgba(32, 56, 48, 0.04);
+  --radius: 16px;
+  --radius-sm: 10px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--paper);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color: var(--ink);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+button, input, textarea, select { font: inherit; }
+button { cursor: pointer; border: none; outline: none; }
+button:disabled { cursor: not-allowed; opacity: 0.48; }
+a { color: inherit; text-decoration: none; }
+
+/* TOPBAR */
+.topbar {
+  height: 68px;
+  background: #ffffff;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 max(28px, calc((100% - 1320px) / 2));
+  gap: 20px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  font-size: 20px;
+  color: var(--ink);
+}
+.brand img {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  object-fit: cover;
+  box-shadow: 0 2px 8px rgba(27, 107, 97, 0.2);
+}
+.brand small {
+  font-size: 11px;
+  color: #849398;
+  letter-spacing: 0.1em;
+  font-weight: 700;
+  margin-left: 6px;
+  background: #f1f6f4;
+  padding: 3px 7px;
+  border-radius: 6px;
+}
+.nav {
+  display: flex;
+  gap: 24px;
+  color: #60747d;
+  font-size: 13px;
+  font-weight: 600;
+}
+.nav a:hover { color: var(--teal); }
+.top-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  background: #f1f6f4;
+  border: 1px solid #e1ece7;
+  border-radius: 100px;
+  padding: 6px 14px;
+  color: #436960;
+  white-space: nowrap;
+}
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #20a77d;
+  box-shadow: 0 0 0 2px rgba(32, 167, 125, 0.2);
+}
+.dot.warn { background: #eab308; box-shadow: 0 0 0 2px rgba(234, 179, 8, 0.2); }
+
+/* MAIN LAYOUT */
+.wrap {
+  max-width: 1320px;
+  margin: auto;
+  padding: 32px 28px 70px;
+}
+
+/* HERO */
+.hero {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 25px;
+  margin-bottom: 28px;
+}
+.eyebrow {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  color: var(--teal);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.hero h1 {
+  font-size: clamp(28px, 3.2vw, 40px);
+  line-height: 1.15;
+  letter-spacing: -0.05em;
+  font-weight: 800;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+.hero p {
+  color: #6c7e86;
+  font-size: 14.5px;
+  max-width: 680px;
+  line-height: 1.5;
+}
+.hero-badge {
+  border: 1px solid #d9e4df;
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 9px 15px;
+  color: #526f68;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  box-shadow: var(--shadow-sm);
+}
+
+/* 2-COLUMN GRID */
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(320px, 0.95fr);
+  gap: 24px;
+  align-items: start;
+}
+
+/* CARDS */
+.panel {
+  border: 1px solid var(--line);
+  background: var(--panel);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+.panel-head {
+  padding: 20px 24px 18px;
+  border-bottom: 1px solid var(--line-subtle);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+  background: #ffffff;
+}
+.panel-head h2 {
+  font-size: 17px;
+  letter-spacing: -0.025em;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 2px;
+}
+.panel-head p {
+  font-size: 12px;
+  color: var(--muted);
+}
+.pill {
+  font-size: 10px;
+  font-weight: 750;
+  letter-spacing: 0.08em;
+  border-radius: 20px;
+  background: #ecf6f2;
+  color: #246a57;
+  padding: 5px 10px;
+  white-space: nowrap;
+}
+
+.panel-body { padding: 22px 24px; }
+
+/* TAB SWITCHER */
+.tab-nav {
+  display: flex;
+  background: #f1f5f3;
+  padding: 3px;
+  border-radius: 9px;
+  margin-bottom: 16px;
+  gap: 4px;
+}
+.tab-btn {
+  flex: 1;
+  padding: 8px 12px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #556b65;
+  background: transparent;
+  border-radius: 7px;
+  transition: all 0.15s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+.tab-btn.active {
+  background: #ffffff;
+  color: var(--teal);
+  font-weight: 700;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+
+/* DROPZONE */
+.drop {
+  display: block;
+  text-align: center;
+  border: 1.5px dashed #b5d0c5;
+  border-radius: 13px;
+  padding: 26px 20px;
+  background: #f8fbf9;
+  transition: border-color 0.15s, background 0.15s;
+  cursor: pointer;
+}
+.drop:hover, .drop.drag {
+  border-color: #3b8b73;
+  background: #f0f8f3;
+}
+.upload-icon {
+  height: 44px;
+  width: 44px;
+  border-radius: 12px;
+  margin: 0 auto 10px;
+  background: #e2f1e8;
+  color: #3b8b73;
+  display: grid;
+  place-items: center;
+}
+.drop strong {
+  display: block;
+  font-size: 14px;
+  color: var(--ink);
+  font-weight: 700;
+}
+.drop span {
+  display: block;
+  color: #8c9c9b;
+  font-size: 11.5px;
+  margin-top: 4px;
+}
+.drop input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+
+/* MIC BOX */
+.mic-box {
+  display: none;
+  text-align: center;
+  padding: 22px 20px;
+  background: #f8fbf9;
+  border: 1.5px dashed #b5d0c5;
+  border-radius: 13px;
+}
+.mic-btn {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 2px solid #b5d0c5;
+  color: var(--teal);
+  display: inline-grid;
+  place-items: center;
+  transition: all 0.2s;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+}
+.mic-btn:hover { border-color: var(--teal); transform: scale(1.05); }
+.mic-btn.recording {
+  background: #ef4444;
+  border-color: #ef4444;
+  color: white;
+  animation: pulse-red 1.5s infinite;
+}
+@keyframes pulse-red {
+  0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); }
+  70% { box-shadow: 0 0 0 14px rgba(239, 68, 68, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+}
+.mic-time {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-top: 10px;
+  font-family: monospace;
+}
+.mic-meter-bar {
+  width: 140px;
+  height: 5px;
+  background: #e2eae6;
+  border-radius: 3px;
+  margin: 10px auto 0;
+  overflow: hidden;
+}
+.mic-meter-fill {
+  height: 100%;
+  width: 0%;
+  background: var(--teal);
+  transition: width 0.08s ease;
+}
+
+/* FILELINE */
+.fileline {
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 14px;
+  padding: 10px 14px;
+  background: #f6f8f7;
+  border: 1px solid #e7eeea;
+  border-radius: 9px;
+  font-size: 12px;
+  color: #506862;
+}
+.fileline strong {
+  color: #1f3d35;
+  font-weight: 700;
+  word-break: break-all;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.file-tag {
+  background: #e6f2ec;
+  color: #216d58;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 6px;
+}
+
+/* REAL WAVEFORM CONTAINER (CANVAS) */
+.waveform-box {
+  display: none;
+  margin-top: 14px;
+  padding: 12px 14px 10px;
+  background: #f8faf9;
+  border: 1px solid #e2eae6;
+  border-radius: 12px;
+}
+.waveform-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 11.5px;
+  margin-bottom: 6px;
+}
+.waveform-title {
+  font-weight: 700;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.waveform-timer {
+  font-family: monospace;
+  font-weight: 700;
+  color: var(--teal);
+}
+.waveform-canvas {
+  width: 100%;
+  height: 58px;
+  background: #ffffff;
+  border: 1px solid #e5ede9;
+  border-radius: 8px;
+  cursor: pointer;
+  display: block;
+}
+.waveform-hint {
+  font-size: 10.5px;
+  color: var(--muted);
+  margin-top: 6px;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* PLAYER */
+.player {
+  display: none;
+  width: 100%;
+  height: 38px;
+  margin-top: 12px;
+}
+
+/* BUTTONS */
+.primary, .secondary {
+  border: 0;
+  border-radius: 9px;
+  padding: 12px 16px;
+  font-weight: 700;
+  font-size: 13px;
+  transition: transform 0.15s, background 0.15s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.primary {
+  background: var(--teal);
+  color: white;
+}
+.primary:hover:not(:disabled) {
+  background: var(--teal-hover);
+  transform: translateY(-1px);
+}
+.secondary {
+  background: white;
+  border: 1px solid #dbe6e1;
+  color: #42685d;
+}
+.secondary:hover { background: #f2f7f4; }
+.analyze-btn {
+  width: 100%;
+  margin-top: 15px;
+  padding: 13px 18px;
+  font-size: 14px;
+}
+
+/* EXAMPLES SECTION */
+.examples {
+  border-top: 1px solid #eef2f0;
+  margin-top: 20px;
+  padding-top: 18px;
+}
+.example-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.example-head strong { font-size: 12px; color: var(--ink); font-weight: 700; }
+.example-head span { font-size: 11px; color: #9ba8a6; }
+.example-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.example-card {
+  background: white;
+  text-align: left;
+  border: 1px solid #e2eae6;
+  border-radius: 10px;
+  padding: 11px 12px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  transition: border-color 0.15s, background 0.15s;
+}
+.example-card:hover {
+  border-color: #87b9a2;
+  background: #f7fbf8;
+}
+.play-icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  background: #e7f3ed;
+  color: var(--teal);
+  flex: none;
+  font-size: 11px;
+}
+.extext b { display: block; font-size: 12px; color: var(--ink); }
+.extext span { display: block; color: #8f9e9d; font-size: 10.5px; margin-top: 2px; }
+
+/* NOTICES */
+.alert-note {
+  font-size: 11.5px;
+  color: #7b6131;
+  background: #fffaf0;
+  border: 1px solid #faeacc;
+  border-radius: 9px;
+  padding: 10px 12px;
+  margin-top: 15px;
+  line-height: 1.5;
+}
+.err-box {
+  display: none;
+  background: #fff0ee;
+  border: 1px solid #f1d2ce;
+  color: #9d443b;
+  padding: 11px 14px;
+  border-radius: 9px;
+  font-size: 12.5px;
+  margin-top: 14px;
+  line-height: 1.45;
+}
+
+/* RIGHT COLUMN - RESULTS */
+.result-empty {
+  min-height: 240px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 30px 20px;
+  color: #8a9d9b;
+}
+.result-empty .signal {
+  width: 60px;
+  height: 60px;
+  background: #f0f7f3;
+  border-radius: 18px;
+  display: grid;
+  place-items: center;
+  color: #6da48f;
+  margin-bottom: 14px;
+}
+.result-empty strong { font-size: 14px; color: #4f6860; font-weight: 700; }
+.result-empty p { font-size: 12px; max-width: 250px; margin: 6px 0 0; line-height: 1.45; }
+
+.results-view { display: none; padding: 22px 24px; }
+
+/* VERDICT CARD */
+.verdict-box {
+  padding: 16px 18px;
+  border-radius: 12px;
+  border: 1px solid transparent;
+  margin-bottom: 16px;
+}
+.verdict-box.real {
+  background: var(--real-bg);
+  border-color: var(--real-border);
+}
+.verdict-box.fake {
+  background: var(--fake-bg);
+  border-color: var(--fake-border);
+}
+.verdict-label {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.verdict-box.real .verdict-label { color: #166534; }
+.verdict-box.fake .verdict-label { color: #991b1b; }
+
+.verdict-title {
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  margin: 6px 0 4px;
+}
+.verdict-box.real .verdict-title { color: #15803d; }
+.verdict-box.fake .verdict-title { color: #dc2626; }
+
+.verdict-sub {
+  font-size: 12px;
+  margin-bottom: 12px;
+}
+.verdict-box.real .verdict-sub { color: #166534; }
+.verdict-box.fake .verdict-sub { color: #991b1b; }
+
+.prob-track {
+  height: 7px;
+  background: rgba(0,0,0,0.06);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 6px;
+}
+.prob-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.4s ease;
+}
+.verdict-box.real .prob-fill { background: #16a34a; }
+.verdict-box.fake .prob-fill { background: #dc2626; }
+
+.prob-score {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  font-weight: 600;
+}
+.verdict-box.real .prob-score { color: #166534; }
+.verdict-box.fake .prob-score { color: #991b1b; }
+
+/* SPEAKER CARD */
+.speaker-box {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 16px 18px;
+  margin-bottom: 16px;
+}
+.speaker-title {
+  font-size: 22px;
+  font-weight: 800;
+  color: #3730a3;
+  letter-spacing: -0.03em;
+  margin: 4px 0;
+}
+.spk-bar-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 8px;
+  font-size: 11.5px;
+}
+.spk-id { width: 90px; font-weight: 700; color: #475569; }
+.spk-track { flex: 1; height: 6px; background: #e2e8f0; border-radius: 3px; overflow: hidden; }
+.spk-fill { height: 100%; background: #6366f1; border-radius: 3px; }
+.spk-pct { width: 45px; text-align: right; font-weight: 700; color: #334155; font-family: monospace; }
+
+/* METRICS GRID */
+.metrics-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 16px 0;
+}
+.metric-tile {
+  background: #f8faf9;
+  border: 1px solid #e6eeea;
+  border-radius: 10px;
+  padding: 10px 12px;
+}
+.metric-name {
+  font-size: 10.5px;
+  color: var(--muted);
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+.metric-val {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+}
+
+/* BUTTON DETAIL */
+.btn-features {
+  width: 100%;
+  padding: 10px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--teal);
+  background: var(--teal-light);
+  border: 1px solid var(--teal-border);
+  border-radius: 9px;
+  transition: all 0.15s;
+}
+.btn-features:hover { background: #e2efe9; }
+
+/* METHODOLOGY BOX */
+.method {
+  margin-top: 20px;
+  padding: 20px 22px;
+  background: #ebf4ef;
+  border: 1px solid #d9eae0;
+  border-radius: 15px;
+}
+.method h3 {
+  font-size: 13.5px;
+  font-weight: 750;
+  color: var(--ink);
+  margin-bottom: 12px;
+}
+.method-row {
+  display: flex;
+  gap: 12px;
+  margin: 12px 0;
+}
+.stepnum {
+  height: 24px;
+  width: 24px;
+  border-radius: 7px;
+  background: #d4e9dc;
+  color: #276c4e;
+  display: grid;
+  place-items: center;
+  font-size: 11px;
+  font-weight: 800;
+  flex: none;
+}
+.method-row b { display: block; font-size: 12px; color: var(--ink); }
+.method-row span { font-size: 11px; color: #698379; line-height: 1.45; }
+
+/* NEURAL TTS STUDIO (BOTTOM PANEL) */
+.tts-panel {
+  margin-top: 28px;
+}
+.tts-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 22px;
+}
+.field-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 7px;
+}
+.tts-textarea {
+  width: 100%;
+  border: 1px solid #dce6e0;
+  border-radius: 10px;
+  padding: 12px 14px;
+  color: var(--ink);
+  background: white;
+  outline: none;
+  min-height: 110px;
+  resize: vertical;
+  line-height: 1.5;
+  transition: border-color 0.15s;
+}
+.tts-textarea:focus { border-color: #5ea588; }
+.prompt-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+.prompt-chip {
+  background: #f1f6f4;
+  border: 1px solid #dfe9e4;
+  border-radius: 6px;
+  font-size: 11px;
+  color: #4a665e;
+  padding: 3px 8px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.prompt-chip:hover {
+  background: #e4efe9;
+  border-color: #b5d5c7;
+}
+
+.tts-select {
+  width: 100%;
+  border: 1px solid #dce6e0;
+  border-radius: 10px;
+  padding: 10px 12px;
+  color: var(--ink);
+  background: white;
+  outline: none;
+}
+.tts-select:focus { border-color: #5ea588; }
+
+.param-row {
+  margin-top: 14px;
+}
+.slider-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 5px;
+}
+.slider-group input[type="range"] {
+  flex: 1;
+  accent-color: var(--teal);
+}
+.slider-val {
+  width: 44px;
+  font-size: 12px;
+  font-weight: 700;
+  font-family: monospace;
+  text-align: right;
+  color: var(--teal);
+}
+
+.tts-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+.tts-status-msg {
+  font-size: 12px;
+  color: #7b6338;
+}
+
+/* LOOPBACK BUTTON */
+.btn-loopback {
+  display: none;
+  margin-top: 14px;
+  width: 100%;
+  padding: 12px 16px;
+  background: #eef8f4;
+  border: 1.5px solid #a8d5c2;
+  color: #1b6b61;
+  border-radius: 10px;
+  font-weight: 750;
+  font-size: 13px;
+  transition: all 0.15s;
+}
+.btn-loopback:hover {
+  background: #dff2eb;
+  border-color: #78be9f;
+  transform: translateY(-1px);
+}
+
+/* MODAL 75 FEATURES */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(18, 30, 26, 0.45);
+  backdrop-filter: blur(4px);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.modal-card {
+  background: white;
+  width: 100%;
+  max-width: 820px;
+  max-height: 85vh;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+  overflow: hidden;
+}
+.modal-head {
+  padding: 18px 24px;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.modal-head h3 { font-size: 16px; font-weight: 750; color: var(--ink); }
+.modal-close {
+  background: #f1f5f3;
+  border-radius: 8px;
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  color: #607470;
+  font-size: 16px;
+  cursor: pointer;
+}
+.modal-close:hover { background: #e5ede9; color: var(--ink); }
+.modal-filter {
+  padding: 12px 24px;
+  background: #f8faf9;
+  border-bottom: 1px solid var(--line-subtle);
+  display: flex;
+  gap: 12px;
+}
+.modal-filter input {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  font-size: 12px;
+}
+.modal-body {
+  padding: 16px 24px;
+  overflow-y: auto;
+  flex: 1;
+}
+.feat-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+.feat-table th, .feat-table td {
+  padding: 8px 12px;
+  text-align: left;
+  border-bottom: 1px solid var(--line-subtle);
+}
+.feat-table th {
+  background: #f5f8f6;
+  color: #4b625b;
+  font-weight: 700;
+  position: sticky;
+  top: 0;
+}
+.feat-table tr:hover { background: #fbfdfc; }
+.feat-badge {
+  display: inline-block;
+  padding: 2px 7px;
+  border-radius: 5px;
+  font-size: 10px;
+  font-weight: 700;
+}
+.badge-f1 { background: #eef2ff; color: #4338ca; }
+.badge-f2 { background: #eff6ff; color: #1d4ed8; }
+.badge-f3 { background: #fefce8; color: #a16207; }
+
+/* FOOTER */
+.footer {
+  margin-top: 36px;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  font-size: 11.5px;
+  color: #8c9e9a;
+  border-top: 1px solid var(--line);
+  padding-top: 20px;
+}
+.footer a { border-bottom: 1px solid #b8cbbe; }
+
+@media(max-width: 900px) {
+  .nav { display: none; }
+  .grid, .tts-grid { grid-template-columns: 1fr; }
+  .wrap { padding: 20px 16px 50px; }
+  .hero { align-items: flex-start; }
+  .hero-badge { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<header class="topbar">
+  <div class="brand">
+    <img src="data:image/png;base64,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" alt="Logo VoiceLab">
+    VoiceLab <small>OMDIOM STUDIO</small>
+  </div>
+  <nav class="nav">
+    <a href="#phan-tich">Phân tích âm thanh</a>
+    <a href="#ket-qua">Kết quả & Đặc trưng</a>
+    <a href="#nhan-ban">Nhân bản Neural TTS</a>
+  </nav>
+  <div class="top-status">
+    <i class="dot" id="sys-dot"></i>
+    <span id="model-status">Đang kết nối hệ thống...</span>
+  </div>
+</header>
+
+<main class="wrap">
+  <!-- HERO -->
+  <section class="hero">
+    <div>
+      <div class="eyebrow">BÀI TẬP LỚN · NHẬN DẠNG MẪU & HỌC SÂU</div>
+      <h1>Khám phá dấu vết<br>trong giọng nói.</h1>
+      <p>Tải lên hoặc thu âm trực tiếp một đoạn âm thanh để phân biệt giọng thật và giọng tổng hợp DeepFake (SVM RBF 75 chiều), đồng thời định danh mã người nói tiếng Việt (Gaussian Naive Bayes).</p>
+    </div>
+    <div class="hero-badge">✦ &nbsp;Đồ án nghiên cứu · Tiếng Việt Zero-Shot</div>
+  </section>
+
+  <!-- 2-COLUMN MAIN -->
+  <div class="grid" id="phan-tich">
+    
+    <!-- LEFT COLUMN: INPUT -->
+    <section class="panel">
+      <div class="panel-head">
+        <div>
+          <h2>Phân tích âm thanh</h2>
+          <p>Tải tệp âm thanh hoặc thu âm trực tiếp từ microphone</p>
+        </div>
+        <span class="pill">BƯỚC 01</span>
+      </div>
+
+      <div class="panel-body">
+        <!-- MODE TABS -->
+        <div class="tab-nav">
+          <button class="tab-btn active" id="tab-file">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            📁 Tải tệp âm thanh
+          </button>
+          <button class="tab-btn" id="tab-mic">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+            🎙️ Thu âm Micro
+          </button>
+        </div>
+
+        <!-- UPLOAD TAB CONTENT -->
+        <label class="drop" id="drop-zone">
+          <input id="audio-file" type="file" accept=".wav,.flac,.ogg,.mp3,.webm,.m4a,audio/*">
+          <div class="upload-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4m-4 4 4-4 4 4M4 16v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
+          </div>
+          <strong>Chọn hoặc kéo thả tệp âm thanh vào đây</strong>
+          <span>WAV, FLAC, OGG, MP3, WebM · Dung lượng tối đa 120 MB</span>
+        </label>
+
+        <!-- MIC TAB CONTENT -->
+        <div class="mic-box" id="mic-box">
+          <button class="mic-btn" id="btn-mic" title="Nhấn để bắt đầu thu âm">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+          </button>
+          <div class="mic-time" id="mic-time">00:00</div>
+          <div class="mic-meter-bar"><div class="mic-meter-fill" id="mic-fill"></div></div>
+          <div style="font-size:11.5px;color:var(--muted);margin-top:6px;">Nhấn nút micro để ghi âm giọng nói (khuyến nghị 3–15 giây)</div>
+        </div>
+
+        <!-- FILE INFO LINE -->
+        <div class="fileline" id="fileline">
+          <strong>
+            <span style="color:#10b981;font-size:14px;">●</span>
+            <span id="file-name">Tệp âm thanh</span>
+          </strong>
+          <span class="file-tag" id="file-size">0.0 MB</span>
+        </div>
+
+        <!-- REAL WAVEFORM VISUALIZER WITH REAL-TIME MOTION -->
+        <div class="waveform-box" id="waveform-box">
+          <div class="waveform-head">
+            <span class="waveform-title">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 10v4M7 6v12M11 2v20M15 6v12M19 10v4"/></svg>
+              Biểu đồ sóng âm thực tế (Waveform)
+            </span>
+            <span class="waveform-timer" id="waveform-timer">00:00 / 00:00</span>
+          </div>
+          <canvas id="waveform-canvas" class="waveform-canvas" title="Nhấp vào biểu đồ sóng để tua phát âm thanh"></canvas>
+          <div class="waveform-hint">
+            <span>💡 Nhấp chuột lên biểu đồ để tua phát âm thanh</span>
+            <span>Thanh quét & sóng chuyển động theo thời gian thực</span>
+          </div>
+        </div>
+
+        <!-- AUDIO PLAYER -->
+        <audio id="input-audio" class="player" controls></audio>
+
+        <!-- ERROR BOX -->
+        <div class="err-box" id="analysis-error" role="alert"></div>
+
+        <!-- ANALYZE BUTTON -->
+        <button class="primary analyze-btn" id="btn-analyze" disabled>
+          Phân tích mẫu giọng & Nhận dạng &nbsp; →
+        </button>
+
+        <!-- PRESET SAMPLES -->
+        <div class="examples">
+          <div class="example-head">
+            <strong>Chưa có mẫu sẵn? Thử dữ liệu có sẵn</strong>
+            <span>Hai clip cùng câu tiếng Việt</span>
+          </div>
+          <div class="example-list">
+            <button class="example-card" id="btn-sample-real">
+              <span class="play-icon">▶</span>
+              <span class="extext">
+                <b>Mẫu giọng thật</b>
+                <span>VIVOS · VIVOSSPK03</span>
+              </span>
+            </button>
+            <button class="example-card" id="btn-sample-fake">
+              <span class="play-icon">▶</span>
+              <span class="extext">
+                <b>Mẫu giọng tổng hợp</b>
+                <span>OmDiOm · VIVOSSPK03</span>
+              </span>
+            </button>
+          </div>
+        </div>
+
+        <!-- PRIVACY NOTE -->
+        <div class="alert-note">
+          🔒 Âm thanh tải lên được xử lý trong bộ nhớ tạm trên máy chủ và xóa ngay sau khi trích xuất đặc trưng. Mô hình xử lý tối đa 120 MB; tệp &gt; 60 giây sẽ tự động trích đoạn đầu để phân tích nhanh.
+        </div>
+      </div>
+    </section>
+
+    <!-- RIGHT COLUMN: RESULTS -->
+    <aside id="ket-qua">
+      <section class="panel">
+        <div class="panel-head">
+          <div>
+            <h2>Kết quả phân tích</h2>
+            <p>Dự đoán từ các mô hình nhận dạng mẫu</p>
+          </div>
+          <span class="pill">BƯỚC 02</span>
+        </div>
+
+        <!-- EMPTY STATE -->
+        <div class="result-empty" id="empty-state">
+          <div class="signal">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 10v4M7 7v10M11 4v16M15 7v10M19 9v6M22 11v2"/></svg>
+          </div>
+          <strong>Kết quả sẽ xuất hiện tại đây</strong>
+          <p>Tải tệp hoặc thu âm giọng nói, sau đó nhấn nút <i>Phân tích mẫu giọng</i> để trích xuất 75 chiều đặc trưng.</p>
+        </div>
+
+        <!-- ACTIVE RESULTS VIEW -->
+        <div class="results-view" id="results-view">
+          
+          <!-- VERDICT BOX -->
+          <div class="verdict-box" id="verdict-box">
+            <div class="verdict-label" id="verdict-label">PHÂN LOẠI THẬT / GIẢ</div>
+            <div class="verdict-title" id="verdict-title">---</div>
+            <div class="verdict-sub" id="verdict-sub">Mô hình SVM RBF (75 chiều)</div>
+            <div class="prob-track">
+              <div class="prob-fill" id="verdict-fill" style="width: 0%;"></div>
+            </div>
+            <div class="prob-score">
+              <span id="verdict-score-txt">Độ tin cậy: --%</span>
+              <span id="verdict-decision-txt">Khoảng cách lề d: --</span>
+            </div>
+          </div>
+
+          <!-- SPEAKER IDENTIFICATION BOX -->
+          <div class="speaker-box">
+            <div class="verdict-label" style="color:#6366f1;">MÃ NGƯỜI NÓI DỰ ĐOÁN (GAUSSIAN NAIVE BAYES)</div>
+            <div class="speaker-title" id="spk-winner">---</div>
+            <div style="font-size:11.5px;color:#64748b;margin-bottom:10px;">Xác suất phân bố Top 5 người nói VIVOS:</div>
+            <div id="spk-bars-list">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+
+          <!-- KEY ACOUSTIC METRICS -->
+          <div class="metrics-grid">
+            <div class="metric-tile">
+              <div class="metric-name">Thời lượng phân tích</div>
+              <div class="metric-val" id="metric-duration">-- s</div>
+            </div>
+            <div class="metric-tile">
+              <div class="metric-name">Tần số lấy mẫu</div>
+              <div class="metric-val" id="metric-sr">-- Hz</div>
+            </div>
+            <div class="metric-tile">
+              <div class="metric-name">Trọng tâm phổ (Centroid)</div>
+              <div class="metric-val" id="metric-centroid">-- Hz</div>
+            </div>
+            <div class="metric-tile">
+              <div class="metric-name">Băng thông phổ (BW)</div>
+              <div class="metric-val" id="metric-bw">-- Hz</div>
+            </div>
+            <div class="metric-tile">
+              <div class="metric-name">Tần số Rolloff 95%</div>
+              <div class="metric-val" id="metric-rolloff">-- Hz</div>
+            </div>
+            <div class="metric-tile">
+              <div class="metric-name">Tỷ lệ im lặng (VAD)</div>
+              <div class="metric-val" id="metric-silence">-- %</div>
+            </div>
+          </div>
+
+          <!-- BUTTON TO OPEN FULL 75 FEATURES MODAL -->
+          <button class="btn-features" id="btn-open-features">
+            🔍 Xem chi tiết toàn bộ 75 chiều đặc trưng (F₁, F₂, F₃) &nbsp; →
+          </button>
+
+          <!-- NOTICE NOTE -->
+          <div class="alert-note" style="margin-top:14px;">
+            ⚠️ Mô hình nhận dạng người nói được huấn luyện trên tập đóng 25 mã VIVOS. Nếu người nói không thuộc 25 mã này, mô hình vẫn chọn mã có xác suất gần nhất.
+          </div>
+        </div>
+      </section>
+
+      <!-- METHODOLOGY EXPLANATION -->
+      <div class="method">
+        <h3>Phương pháp trích xuất & Nhận dạng</h3>
+        <div class="method-row">
+          <span class="stepnum">01</span>
+          <div>
+            <b>Chuẩn hóa 16 kHz Mono & Tự động cắt VAD</b>
+            <span>Tất cả nguồn âm thanh (WAV, FLAC, MP3, WebM) được quy chuẩn 16 kHz mono trước khi tính FFT và MFCC.</span>
+          </div>
+        </div>
+        <div class="method-row">
+          <span class="stepnum">02</span>
+          <div>
+            <b>Trích xuất 75 chiều đặc trưng âm học</b>
+            <span>Bao gồm F₁ (52 chiều MFCC + Delta), F₂ (18 chiều đặc trưng phổ), F₃ (5 chiều nhịp điệu & năng lượng).</span>
+          </div>
+        </div>
+        <div class="method-row">
+          <span class="stepnum">03</span>
+          <div>
+            <b>Mô hình học máy SVM RBF & Gaussian NB</b>
+            <span>SVM kernel RBF phân loại Thật/Giả; Gaussian Naive Bayes phân loại mã danh tính 25 người nói VIVOS.</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+  </div>
+
+  <!-- NEURAL TTS STUDIO (BOTTOM PANEL) -->
+  <section class="panel tts-panel" id="nhan-ban">
+    <div class="panel-head">
+      <div>
+        <h2>Nhân bản giọng nói Zero-Shot (Neural TTS)</h2>
+        <p>Kết nối trực tiếp tới mô hình OmniVoice VN chạy trên GPU thật</p>
+      </div>
+      <span class="pill" id="tts-badge">ĐANG KIỂM TRA GPU</span>
+    </div>
+
+    <div class="panel-body">
+      <div class="tts-grid">
+        <!-- LEFT: TEXT PROMPTS -->
+        <div>
+          <div class="field-label">
+            <span>Văn bản tiếng Việt cần đọc:</span>
+            <span style="font-size:11px;color:var(--muted);" id="char-count">0 / 500 ký tự</span>
+          </div>
+          <textarea class="tts-textarea" id="tts-text" maxlength="500" placeholder="Nhập câu tiếng Việt bạn muốn tổng hợp thành giọng nói...">Xin chào, đây là bản thử nghiệm tổng hợp và nhân bản giọng nói tiếng Việt bằng mô hình OmniVoice.</textarea>
+          
+          <!-- QUICK SAMPLE CHIPS -->
+          <div class="prompt-chips">
+            <span class="prompt-chip" data-txt="Chào bạn! Hôm nay trời thật đẹp, chúc bạn một ngày làm việc hiệu quả và tràn đầy năng lượng.">Mẫu 1: Lời chào</span>
+            <span class="prompt-chip" data-txt="Trí tuệ nhân tạo và học sâu đang làm thay đổi căn bản cách chúng ta tương tác với máy tính hàng ngày.">Mẫu 2: Khoa học</span>
+            <span class="prompt-chip" data-txt="Trong làn sương sớm mai, tiếng chim hót véo von báo hiệu một ngày mới an lành bên dòng sông quê.">Mẫu 3: Văn học</span>
+          </div>
+        </div>
+
+        <!-- RIGHT: VOICE & PARAMETERS -->
+        <div>
+          <div class="field-label">
+            <span>Chọn giọng tham chiếu (Reference Voice):</span>
+            <span style="font-size:11px;color:var(--teal);font-weight:700;" id="voice-accent-label">Miền Nam</span>
+          </div>
+          <select class="tts-select" id="tts-voice" disabled>
+            <option>Đang nạp danh sách 7 giọng chuẩn...</option>
+          </select>
+
+          <!-- PARAMETER SLIDERS -->
+          <div class="param-row">
+            <div class="field-label">
+              <span>Bước giải Euler ODE:</span>
+              <span class="slider-val" id="val-steps">16 bước</span>
+            </div>
+            <div class="slider-group">
+              <span style="font-size:11px;color:var(--muted);">8 (Nhanh)</span>
+              <input type="range" id="param-steps" min="8" max="32" step="8" value="16">
+              <span style="font-size:11px;color:var(--muted);">32 (Chất lượng)</span>
+            </div>
+          </div>
+
+          <div class="param-row">
+            <div class="field-label">
+              <span>Hệ số dẫn đường CFG (Classifier-Free Guidance):</span>
+              <span class="slider-val" id="val-cfg">2.5</span>
+            </div>
+            <div class="slider-group">
+              <span style="font-size:11px;color:var(--muted);">1.0 (Tự nhiên)</span>
+              <input type="range" id="param-cfg" min="1.0" max="4.0" step="0.5" value="2.5">
+              <span style="font-size:11px;color:var(--muted);">4.0 (Rõ nét)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ACTION BAR -->
+      <div class="tts-actions">
+        <button class="primary" id="btn-speak" disabled>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+          Tạo giọng nói bằng GPU &nbsp; →
+        </button>
+        <button class="secondary" id="btn-refresh-tts">Kiểm tra kết nối</button>
+        <span class="tts-status-msg" id="tts-status-msg">Đang kết nối server TTS...</span>
+      </div>
+
+      <!-- TTS ERROR BOX -->
+      <div class="err-box" id="tts-error" role="alert"></div>
+
+      <!-- TTS REAL WAVEFORM VISUALIZER -->
+      <div class="waveform-box" id="tts-waveform-box" style="margin-top:16px;">
+        <div class="waveform-head">
+          <span class="waveform-title">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 10v4M7 6v12M11 2v20M15 6v12M19 10v4"/></svg>
+            Biểu đồ sóng âm vừa tổng hợp (Neural Output)
+          </span>
+          <span class="waveform-timer" id="tts-waveform-timer">00:00 / 00:00</span>
+        </div>
+        <canvas id="tts-waveform-canvas" class="waveform-canvas" title="Nhấp vào biểu đồ sóng để tua phát âm thanh"></canvas>
+      </div>
+
+      <!-- TTS AUDIO PLAYER -->
+      <audio id="tts-audio" class="player" controls style="margin-top:12px;"></audio>
+
+      <!-- 1-CLICK PIPE LOOPBACK BUTTON -->
+      <button class="btn-loopback" id="btn-use-generated">
+        🔁 Đưa ngay clip vừa tạo vào máy soi giọng ở trên ↑ (Kiểm tra xem mô hình có phát hiện là giọng giả không)
+      </button>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div>
+      <b>VoiceLab VN</b> · Hệ thống mô phỏng nhận dạng mẫu và tổng hợp giọng nói tiếng Việt Zero-Shot.
+    </div>
+    <div>
+      Dữ liệu nghiên cứu: <a href="https://huggingface.co/datasets/AILAB-VNUHCM/vivos" target="_blank" rel="noopener">VIVOS (VNU-HCM)</a> · Mô hình TTS: OmniVoice Flow Matching.
+    </div>
+  </footer>
+</main>
+
+<!-- MODAL: FULL 75 ACOUSTIC FEATURES -->
+<div class="modal-overlay" id="modal-features">
+  <div class="modal-card">
+    <div class="modal-head">
+      <h3>Bảng chi tiết 75 chiều đặc trưng âm học đã trích xuất</h3>
+      <button class="modal-close" id="btn-close-modal">✕</button>
+    </div>
+    <div class="modal-filter">
+      <input type="text" id="feat-search" placeholder="🔍 Lọc đặc trưng theo tên (ví dụ: mfcc, centroid, rolloff, f1, f2)...">
+      <select id="feat-group-filter" style="padding:8px 12px;border:1px solid var(--line);border-radius:8px;font-size:12px;">
+        <option value="">Tất cả nhóm (F1 + F2 + F3)</option>
+        <option value="F1">F1: 52 chiều MFCC & Delta</option>
+        <option value="F2">F2: 18 chiều Phổ (Spectral)</option>
+        <option value="F3">F3: 5 chiều Năng lượng & Nhịp</option>
+      </select>
+    </div>
+    <div class="modal-body">
+      <table class="feat-table">
+        <thead>
+          <tr>
+            <th style="width:45px;">STT</th>
+            <th style="width:85px;">Nhóm</th>
+            <th>Tên đặc trưng âm học</th>
+            <th style="width:140px;text-align:right;">Giá trị trích xuất</th>
+          </tr>
+        </thead>
+        <tbody id="feat-table-body">
+          <!-- Dynamically populated -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script>
+'use strict';
+
+const $ = id => document.getElementById(id);
+
+// STATE
+let chosenFile = null;
+let chosenURL = null;
+let generatedBlob = null;
+let generatedURL = null;
+let lastFeatures = [];
+let audioCtx = null;
+let currentBuffer = null;
+let ttsBuffer = null;
+let animFrameId = null;
+let ttsAnimFrameId = null;
+
+// RECORDING STATE
+let mediaRecorder = null;
+let recordedChunks = [];
+let recordTimer = null;
+let recordSeconds = 0;
+let audioStream = null;
+let micAudioCtx = null;
+let micAnalyser = null;
+let micMeterAnim = null;
+
+// TAB SWITCHING (UPLOAD VS MIC)
+$('tab-file').onclick = () => {
+  $('tab-file').classList.add('active');
+  $('tab-mic').classList.remove('active');
+  $('drop-zone').style.display = 'block';
+  $('mic-box').style.display = 'none';
+};
+
+$('tab-mic').onclick = () => {
+  $('tab-mic').classList.add('active');
+  $('tab-file').classList.remove('active');
+  $('mic-box').style.display = 'block';
+  $('drop-zone').style.display = 'none';
+};
+
+// FORMAT TIME (MM:SS)
+function formatTime(sec) {
+  if (isNaN(sec) || !isFinite(sec)) return '00:00';
+  const m = Math.floor(sec / 60);
+  const s = Math.floor(sec % 60);
+  return (m < 10 ? '0' + m : m) + ':' + (s < 10 ? '0' + s : s);
+}
+
+// SHOW / HIDE ERROR
+function fail(el, msg) {
+  el.textContent = msg;
+  el.style.display = msg ? 'block' : 'none';
+}
+
+// =========================================================================
+// REAL WAVEFORM VISUALIZER WITH REAL-TIME MOTION & INTERACTIVE SCRUBBING
+// =========================================================================
+
+function drawWave(canvas, buffer, progress = 0) {
+  if (!canvas || !buffer) return;
+  const ctx = canvas.getContext('2d');
+  const dpr = window.devicePixelRatio || 1;
+  const w = canvas.offsetWidth;
+  const h = canvas.offsetHeight;
+  if (!w || !h) return;
+
+  if (canvas.width !== Math.floor(w * dpr) || canvas.height !== Math.floor(h * dpr)) {
+    canvas.width = Math.floor(w * dpr);
+    canvas.height = Math.floor(h * dpr);
+  }
+  ctx.save();
+  ctx.scale(dpr, dpr);
+  ctx.clearRect(0, 0, w, h);
+
+  const data = buffer.getChannelData(0);
+  const barWidth = 2.4;
+  const barGap = 1.2;
+  const stepPixels = barWidth + barGap;
+  const totalBars = Math.floor(w / stepPixels);
+  const step = Math.floor(data.length / totalBars);
+  const mid = h / 2;
+  const progressX = progress * w;
+
+  for (let i = 0; i < totalBars; i++) {
+    const x = i * stepPixels;
+    let min = 1.0;
+    let max = -1.0;
+    const start = i * step;
+    const end = Math.min(start + step, data.length);
+    const hop = Math.max(1, Math.floor((end - start) / 16));
+    for (let j = start; j < end; j += hop) {
+      const v = data[j];
+      if (v < min) min = v;
+      if (v > max) max = v;
+    }
+    const amp = (max - min) / 2;
+    const barH = Math.max(2.5, amp * (h * 0.88));
+
+    // Color: Played section vs Upcoming section
+    if (x <= progressX) {
+      ctx.fillStyle = '#1b6b61'; // Deep vibrant teal for played portion
+    } else {
+      ctx.fillStyle = '#cbdcd4'; // Soft light sage for upcoming portion
+    }
+
+    ctx.beginPath();
+    ctx.roundRect(x, mid - (barH / 2), barWidth, barH, 1.1);
+    ctx.fill();
+  }
+
+  // Draw smooth scanning needle / playhead
+  if (progress > 0 && progress < 1) {
+    ctx.fillStyle = '#14554d';
+    ctx.fillRect(progressX - 0.75, 0, 1.5, h);
+    ctx.beginPath();
+    ctx.arc(progressX, 4, 3, 0, Math.PI * 2);
+    ctx.fillStyle = '#1b6b61';
+    ctx.fill();
+  }
+
+  ctx.restore();
+}
+
+async function decodeAndRenderWave(file, canvas, timerEl, wrapEl, isTTS = false) {
+  wrapEl.style.display = 'block';
+  try {
+    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    if (audioCtx.state === 'suspended') await audioCtx.resume();
+
+    // Read full arrayBuffer without slicing so headers remain 100% valid
+    const arrayBuffer = await file.arrayBuffer();
+    const decoded = await audioCtx.decodeAudioData(arrayBuffer.slice(0));
+    
+    if (isTTS) {
+      ttsBuffer = decoded;
+    } else {
+      currentBuffer = decoded;
+    }
+    
+    drawWave(canvas, decoded, 0);
+    timerEl.textContent = '00:00 / ' + formatTime(decoded.duration);
+  } catch(e) {
+    console.warn('Real waveform decode notice:', e);
+  }
+}
+
+// SETUP INTERACTIVE CANVAS PLAYBACK SYNC
+function attachWaveSync(audioEl, canvas, timerEl, getBuffer) {
+  let animId = null;
+
+  function update() {
+    const buf = getBuffer();
+    if (audioEl.duration && buf) {
+      const p = audioEl.currentTime / audioEl.duration;
+      drawWave(canvas, buf, p);
+      timerEl.textContent = formatTime(audioEl.currentTime) + ' / ' + formatTime(audioEl.duration);
+    }
+  }
+
+  audioEl.addEventListener('timeupdate', update);
+  
+  audioEl.addEventListener('play', () => {
+    function loop() {
+      if (!audioEl.paused) {
+        update();
+        animId = requestAnimationFrame(loop);
+      }
+    }
+    animId = requestAnimationFrame(loop);
+  });
+
+  audioEl.addEventListener('pause', () => {
+    if (animId) cancelAnimationFrame(animId);
+    update();
+  });
+
+  audioEl.addEventListener('ended', () => {
+    if (animId) cancelAnimationFrame(animId);
+    update();
+  });
+
+  // CLICK-TO-SEEK SCRUBBING
+  canvas.addEventListener('click', e => {
+    const rect = canvas.getBoundingClientRect();
+    const clickX = e.clientX - rect.left;
+    const pct = Math.max(0, Math.min(1, clickX / rect.width));
+    if (audioEl.duration) {
+      audioEl.currentTime = pct * audioEl.duration;
+      update();
+      if (audioEl.paused) audioEl.play().catch(()=>{});
+    }
+  });
+}
+
+attachWaveSync($('input-audio'), $('waveform-canvas'), $('waveform-timer'), () => currentBuffer);
+attachWaveSync($('tts-audio'), $('tts-waveform-canvas'), $('tts-waveform-timer'), () => ttsBuffer);
+
+// =========================================================================
+// FILE HANDLING & DRAG-AND-DROP
+// =========================================================================
+
+function useFile(file) {
+  if (!file) return;
+  chosenFile = file;
+  
+  $('file-name').textContent = file.name;
+  $('file-size').textContent = (file.size / 1048576).toFixed(2) + ' MB';
+  $('fileline').style.display = 'flex';
+
+  if (chosenURL) URL.revokeObjectURL(chosenURL);
+  chosenURL = URL.createObjectURL(file);
+
+  const audioEl = $('input-audio');
+  audioEl.src = chosenURL;
+  audioEl.style.display = 'block';
+
+  // Decode and draw real waveform
+  decodeAndRenderWave(file, $('waveform-canvas'), $('waveform-timer'), $('waveform-box'), false);
+
+  $('btn-analyze').disabled = false;
+  $('results-view').style.display = 'none';
+  $('empty-state').style.display = 'flex';
+  fail($('analysis-error'), '');
+}
+
+$('audio-file').addEventListener('change', e => useFile(e.target.files[0]));
+
+const dropZone = $('drop-zone');
+['dragenter', 'dragover'].forEach(evt => {
+  dropZone.addEventListener(evt, e => {
+    e.preventDefault();
+    dropZone.classList.add('drag');
+  });
+});
+['dragleave', 'drop'].forEach(evt => {
+  dropZone.addEventListener(evt, e => {
+    e.preventDefault();
+    dropZone.classList.remove('drag');
+  });
+});
+dropZone.addEventListener('drop', e => {
+  if (e.dataTransfer && e.dataTransfer.files.length) {
+    useFile(e.dataTransfer.files[0]);
+  }
+});
+
+// PRESET SAMPLES
+async function loadSample(filename, label) {
+  try {
+    fail($('analysis-error'), '');
+    const r = await fetch('/examples/' + filename);
+    if (!r.ok) throw Error('Không thể tải tệp mẫu ' + filename);
+    const b = await r.blob();
+    useFile(new File([b], label, { type: 'audio/flac' }));
+  } catch(e) {
+    fail($('analysis-error'), e.message);
+  }
+}
+$('btn-sample-real').onclick = () => loadSample('vivos_that.flac', 'Mau_vivos_that.flac');
+$('btn-sample-fake').onclick = () => loadSample('omdiom_gia.flac', 'Mau_omdiom_gia.flac');
+
+// =========================================================================
+// MICROPHONE RECORDING
+// =========================================================================
+
+const btnMic = $('btn-mic');
+btnMic.onclick = async () => {
+  if (mediaRecorder && mediaRecorder.state === 'recording') {
+    mediaRecorder.stop();
+    return;
+  }
+
+  try {
+    audioStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+  } catch(err) {
+    alert('Không thể mở micro: ' + err.message + '. Vui lòng cấp quyền micro cho trình duyệt.');
+    return;
+  }
+
+  recordedChunks = [];
+  mediaRecorder = new MediaRecorder(audioStream);
+
+  // Audio meter
+  micAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  const source = micAudioCtx.createMediaStreamSource(audioStream);
+  micAnalyser = micAudioCtx.createAnalyser();
+  micAnalyser.fftSize = 256;
+  source.connect(micAnalyser);
+  const dataArray = new Uint8Array(micAnalyser.frequencyBinCount);
+
+  function updateMeter() {
+    if (mediaRecorder && mediaRecorder.state === 'recording') {
+      micAnalyser.getByteFrequencyData(dataArray);
+      let sum = 0;
+      for (let i = 0; i < dataArray.length; i++) sum += dataArray[i];
+      const avg = sum / dataArray.length;
+      $('mic-fill').style.width = Math.min(100, Math.floor(avg * 2.5)) + '%';
+      micMeterAnim = requestAnimationFrame(updateMeter);
+    }
+  }
+  updateMeter();
+
+  mediaRecorder.ondataavailable = e => {
+    if (e.data.size > 0) recordedChunks.push(e.data);
+  };
+
+  mediaRecorder.onstop = () => {
+    clearInterval(recordTimer);
+    if (micMeterAnim) cancelAnimationFrame(micMeterAnim);
+    $('mic-fill').style.width = '0%';
+    btnMic.classList.remove('recording');
+    audioStream.getTracks().forEach(t => t.stop());
+    if (micAudioCtx) micAudioCtx.close();
+
+    const blob = new Blob(recordedChunks, { type: mediaRecorder.mimeType || 'audio/webm' });
+    const file = new File([blob], 'ghi_am_micro_' + Date.now() + '.webm', { type: blob.type });
+    useFile(file);
+  };
+
+  mediaRecorder.start();
+  btnMic.classList.add('recording');
+  recordSeconds = 0;
+  $('mic-time').textContent = '00:00';
+  recordTimer = setInterval(() => {
+    recordSeconds++;
+    $('mic-time').textContent = formatTime(recordSeconds);
+  }, 1000);
+};
+
+// =========================================================================
+// ANALYZE AUDIO (POST /api/phan-tich)
+// =========================================================================
+
+$('btn-analyze').onclick = async () => {
+  if (!chosenFile) return;
+  const btn = $('btn-analyze');
+  btn.disabled = true;
+  btn.textContent = '⏳ Đang phân tích 75 chiều đặc trưng...';
+  fail($('analysis-error'), '');
+
+  try {
+    const fd = new FormData();
+    fd.append('audio', chosenFile);
+
+    const r = await fetch('/api/phan-tich', { method: 'POST', body: fd });
+    let j;
+    try {
+      j = await r.json();
+    } catch(errJson) {
+      throw Error('Máy chủ phản hồi định dạng không hợp lệ (mã ' + r.status + ')');
+    }
+    if (!r.ok) throw Error(j.error || ('Lỗi máy chủ (' + r.status + ')'));
+
+    renderAnalysisResults(j);
+  } catch(e) {
+    fail($('analysis-error'), e.message || 'Không thể kết nối đến máy chủ demo.');
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Phân tích mẫu giọng & Nhận dạng  →';
+  }
+};
+
+function renderAnalysisResults(j) {
+  $('empty-state').style.display = 'none';
+  $('results-view').style.display = 'block';
+
+  // 1. Verdict Card
+  const box = $('verdict-box');
+  const isFake = j.la_gia;
+  box.className = 'verdict-box ' + (isFake ? 'fake' : 'real');
+  $('verdict-label').textContent = isFake ? 'PHÂN LOẠI: GIẢ / TỔNG HỢP (DEEPFAKE)' : 'PHÂN LOẠI: THẬT / TỰ NHIÊN (GENUINE)';
+  $('verdict-title').textContent = j.du_doan_that_gia;
+  
+  const conf = j.confidence_pct || 50;
+  $('verdict-fill').style.width = conf + '%';
+  $('verdict-score-txt').textContent = 'Độ tin cậy: ' + conf + '%';
+  $('verdict-decision-txt').textContent = 'Khoảng cách lề d: ' + (j.decision_score > 0 ? '+' : '') + (j.decision_score || 0).toFixed(4);
+
+  // 2. Speaker Top 5
+  $('spk-winner').textContent = j.ma_nguoi || '---';
+  const spkList = $('spk-bars-list');
+  spkList.innerHTML = '';
+  if (j.speaker_top5 && j.speaker_top5.length) {
+    j.speaker_top5.forEach(spk => {
+      const pct = (spk.prob * 100).toFixed(1);
+      const row = document.createElement('div');
+      row.className = 'spk-bar-row';
+      row.innerHTML = `
+        <span class="spk-id">${spk.id}</span>
+        <div class="spk-track"><div class="spk-fill" style="width:${pct}%;"></div></div>
+        <span class="spk-pct">${pct}%</span>
+      `;
+      spkList.appendChild(row);
+    });
+  }
+
+  // 3. Acoustic Metrics
+  $('metric-duration').textContent = (j.thoi_luong || 0).toFixed(2) + ' s' + (j.thoi_luong_goc ? ' (gốc ' + j.thoi_luong_goc.toFixed(1) + 's)' : '');
+  $('metric-sr').textContent = (j.tan_so_goc || 16000) + ' Hz';
+  
+  if (j.summary) {
+    $('metric-centroid').textContent = Math.round(j.summary.centroid_mean || 0) + ' Hz';
+    $('metric-bw').textContent = Math.round(j.summary.bandwidth_mean || 0) + ' Hz';
+    $('metric-rolloff').textContent = Math.round(j.summary.rolloff_mean || 0) + ' Hz';
+    $('metric-silence').textContent = ((j.summary.silence_ratio || 0) * 100).toFixed(1) + ' %';
+  }
+
+  // 4. Full Features Modal Data
+  lastFeatures = j.features_full || [];
+}
+
+// =========================================================================
+// FULL 75 FEATURES MODAL
+// =========================================================================
+
+$('btn-open-features').onclick = () => {
+  $('modal-features').style.display = 'flex';
+  renderFeaturesTable();
+};
+$('btn-close-modal').onclick = () => { $('modal-features').style.display = 'none'; };
+$('modal-features').onclick = e => { if (e.target === $('modal-features')) $('modal-features').style.display = 'none'; };
+
+$('feat-search').oninput = renderFeaturesTable;
+$('feat-group-filter').onchange = renderFeaturesTable;
+
+function renderFeaturesTable() {
+  const tbody = $('feat-table-body');
+  tbody.innerHTML = '';
+  const search = $('feat-search').value.toLowerCase().trim();
+  const group = $('feat-group-filter').value;
+
+  const filtered = lastFeatures.filter(f => {
+    if (group && f.group !== group) return false;
+    if (search && !f.name.toLowerCase().includes(search) && !f.group.toLowerCase().includes(search)) return false;
+    return true;
+  });
+
+  if (!filtered.length) {
+    tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;padding:24px;color:var(--muted);">Không tìm thấy đặc trưng phù hợp.</td></tr>';
+    return;
+  }
+
+  filtered.forEach((f, idx) => {
+    const tr = document.createElement('tr');
+    let badgeClass = 'badge-f1';
+    if (f.group === 'F2') badgeClass = 'badge-f2';
+    if (f.group === 'F3') badgeClass = 'badge-f3';
+
+    tr.innerHTML = `
+      <td style="color:var(--muted);">${idx + 1}</td>
+      <td><span class="feat-badge ${badgeClass}">${f.group}</span></td>
+      <td><strong style="color:var(--ink);">${f.name}</strong></td>
+      <td style="text-align:right;font-family:monospace;font-weight:700;color:var(--teal);">${Number(f.value).toFixed(5)}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+// =========================================================================
+// NEURAL TTS STUDIO (ZERO-SHOT FASTAPI / OMNIVOICE)
+// =========================================================================
+
+const voiceAccentMap = {
+  'Ut_Linh': 'Nữ · Út Linh (Ma mị / Huyền bí)',
+  'To_Thanh': 'Nam · Tô Thành (Kể chuyện / Truyền cảm)',
+  'Phuong_Thy': 'Nữ · Phương Thy (Dẫn truyện / Phát thanh)',
+  'Cao_Hung': 'Nam · Cao Hùng (Trầm ấm / Ông già)',
+  'Linh_Duc_Tu': 'Nữ · Linh Dục Tú (Nữ trẻ / Trong sáng)',
+  'Minh_Nhi': 'Thiếu nhi · Minh Nhí (Vui tươi / Hồn nhiên)',
+  'Minh_Quy': 'Nam · Minh Quý (Nam trẻ / Đĩnh đạc)',
+  'U_LINH': 'Nữ · Miền Nam (Ấm áp, truyền cảm)',
+  'H_QUAN': 'Nam · Miền Bắc (Trầm, đĩnh đạc)',
+  'N_SON': 'Nam · Miền Bắc (Hào sảng, tự nhiên)',
+  'T_TRUC': 'Nữ · Miền Trung (Thanh thoát, dịu dàng)',
+  'X_HOA': 'Nữ · Miền Nam (Trong trẻo, tươi sáng)',
+  'V_MAI': 'Nữ · Miền Bắc (Chính luận, phát thanh)',
+  'L_KHANG': 'Nam · Miền Nam (Hiện đại, thân thiện)'
+};
+
+$('param-steps').oninput = () => { $('val-steps').textContent = $('param-steps').value + ' bước'; };
+$('param-cfg').oninput = () => { $('val-cfg').textContent = Number($('param-cfg').value).toFixed(1); };
+
+$('tts-voice').onchange = () => {
+  const v = $('tts-voice').value;
+  $('voice-accent-label').textContent = voiceAccentMap[v] || 'Tiếng Việt chuẩn';
+};
+
+// QUICK PROMPT CHIPS
+document.querySelectorAll('.prompt-chip').forEach(chip => {
+  chip.onclick = () => {
+    $('tts-text').value = chip.dataset.txt;
+    $('char-count').textContent = $('tts-text').value.length + ' / 500 ký tự';
+  };
+});
+$('tts-text').oninput = () => {
+  $('char-count').textContent = $('tts-text').value.length + ' / 500 ký tự';
+};
+
+async function checkTTS() {
+  const btn = $('btn-refresh-tts');
+  btn.disabled = true;
+  $('btn-speak').disabled = true;
+  $('tts-status-msg').textContent = 'Đang kiểm tra server TTS...';
+
+  try {
+    const r = await fetch('/api/tts-status');
+    const j = await r.json();
+    $('tts-status-msg').textContent = j.message;
+
+    if (j.ready) {
+      $('tts-badge').textContent = 'GPU SẴN SÀNG (' + (j.device || 'NVIDIA RTX') + ')';
+      $('tts-badge').style.background = '#eefdf4';
+      $('tts-badge').style.color = '#15803d';
+      
+      const sel = $('tts-voice');
+      sel.innerHTML = '';
+      if (j.voices && j.voices.length) {
+        j.voices.forEach(v => {
+          const opt = document.createElement('option');
+          opt.value = v.id;
+          opt.textContent = (v.name || v.id) + ' — ' + (voiceAccentMap[v.id] || '');
+          sel.appendChild(opt);
+        });
+        sel.disabled = false;
+        $('btn-speak').disabled = false;
+        $('voice-accent-label').textContent = voiceAccentMap[sel.value] || 'Tiếng Việt chuẩn';
+      }
+    } else {
+      $('tts-badge').textContent = 'CHƯA KẾT NỐI';
+      $('tts-badge').style.background = '#fef2f2';
+      $('tts-badge').style.color = '#b91c1c';
+    }
+  } catch(e) {
+    $('tts-status-msg').textContent = 'Không kết nối được server TTS.';
+    $('tts-badge').textContent = 'CHƯA KẾT NỐI';
+  } finally {
+    btn.disabled = false;
+  }
+}
+$('btn-refresh-tts').onclick = checkTTS;
+
+// SPEAK BUTTON
+$('btn-speak').onclick = async () => {
+  const text = $('tts-text').value.trim();
+  const voiceId = $('tts-voice').value;
+  if (!text) return alert('Vui lòng nhập văn bản tiếng Việt.');
+
+  const btn = $('btn-speak');
+  btn.disabled = true;
+  btn.textContent = '⏳ Đang tổng hợp giọng nói trên GPU...';
+  fail($('tts-error'), '');
+  $('btn-use-generated').style.display = 'none';
+
+  try {
+    const r = await fetch('/api/tts', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        text: text,
+        voice_id: voiceId,
+        steps: parseInt($('param-steps').value, 10),
+        guidance: parseFloat($('param-cfg').value)
+      })
+    });
+
+    if (!r.ok) {
+      let errText = 'Lỗi tổng hợp giọng (' + r.status + ')';
+      try {
+        const j = await r.json();
+        errText = j.error || errText;
+      } catch(_) {}
+      throw Error(errText);
+    }
+
+    generatedBlob = await r.blob();
+    if (generatedURL) URL.revokeObjectURL(generatedURL);
+    generatedURL = URL.createObjectURL(generatedBlob);
+
+    const audioEl = $('tts-audio');
+    audioEl.src = generatedURL;
+    audioEl.style.display = 'block';
+
+    // Decode generated waveform
+    const genFile = new File([generatedBlob], 'omdiom_' + voiceId + '.wav', { type: 'audio/wav' });
+    decodeAndRenderWave(genFile, $('tts-waveform-canvas'), $('tts-waveform-timer'), $('tts-waveform-box'), true);
+
+    $('btn-use-generated').style.display = 'block';
+    audioEl.play().catch(()=>{});
+  } catch(e) {
+    fail($('tts-error'), e.message);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Tạo giọng nói bằng GPU  →';
+  }
+};
+
+// 1-CLICK PIPE LOOPBACK BUTTON
+$('btn-use-generated').onclick = () => {
+  if (!generatedBlob) return;
+  const f = new File([generatedBlob], 'omdiom_tts_' + ($('tts-voice').value || 'sample') + '.wav', { type: 'audio/wav' });
+  useFile(f);
+  $('phan-tich').scrollIntoView({ behavior: 'smooth' });
+};
+
+// SYSTEM STATUS INIT
+fetch('/api/status').then(r => r.json()).then(j => {
+  $('model-status').textContent = (j.detect && j.speaker) ? 'Mô hình nhận dạng sẵn sàng (75 chiều)' : 'Chưa nạp đủ mô hình';
+  $('sys-dot').className = (j.detect && j.speaker) ? 'dot' : 'dot warn';
+}).catch(() => {
+  $('model-status').textContent = 'Chưa kết nối máy chủ';
+  $('sys-dot').className = 'dot warn';
+});
+
+checkTTS();
+</script>
+</body>
+</html>

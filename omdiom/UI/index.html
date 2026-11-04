@@ -1,0 +1,1463 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OmDiOm STUDIO</title>
+    <link rel="icon" type="image/x-icon" href="assets/logo/rosette.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/logo/rosette-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/logo/rosette-16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/logo/rosette-180.png">
+  <link rel="stylesheet" href="css/style.css?v=2.4">
+
+</head>
+
+<body>
+  <div class="wrap">
+    <header class="top">
+      <div class="brand">
+        <div class="brand-logo-wrap" style="width:38px;height:38px;min-width:38px;min-height:38px;max-width:38px;max-height:38px;border-radius:10px;overflow:hidden;border:2px solid #111;box-shadow:2px 2px 0 #111;background:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;cursor:pointer;" title="OmDiOm Studio">
+          <img src="assets/logo/rosette-128.png" alt="OmDiOm Logo" style="width:100%;height:100%;max-width:100%;max-height:100%;object-fit:cover;display:block;">
+        </div>
+        <h1>OmDiOm</h1>
+        <div class="divider"></div><strong>VOICE STUDIO. TIẾNG VIỆT</strong>
+      </div>
+      <div class="top-right">
+        <div class="status"><span>◂▴▮</span> <span id="statusText">Chưa kết nối</span> <span class="dot"
+            id="dot"></span></div><button class="btn" id="btnSaveProj"
+          title="Lưu toàn bộ kịch bản, cấu hình và trạng thái dự án (.omproj)"
+          style="background:#fef08a;color:#854d0e;border-color:#eab308">💾 Lưu dự án</button><button class="btn"
+          id="btnLoadProj" title="Mở tệp dự án (.omproj) đã lưu">📂 Mở dự án</button><input type="file"
+          id="fileProjInput" accept=".omproj,.json" hidden><button class="btn" id="btnOpenHelp"
+          style="background:var(--yellow)">❓ Hướng dẫn</button><button class="btn config">⚙ Cấu hình</button>
+      </div>
+    </header>
+    <nav class="tabs" aria-label="Chế độ"><button class="tab active" data-tab="tts">Văn bản → Giọng</button><button
+        class="tab" data-tab="dialogue">🎭 Studio phân vai</button><button class="tab" data-tab="clone">Nhân bản
+        giọng</button><button class="tab" data-tab="design">Thiết kế giọng</button><button class="tab"
+        data-tab="thuvien">Thư viện giọng</button></nav>
+    <div class="status-row"><span class="badge" id="badgeMode" style="background:#bdeeea">ĐÃ KẾT NỐI (CỤC
+        BỘ)</span><span class="badge">OmDiOm Core</span><button class="btn small" id="btnHwTop">💻 Cấu hình: Đang kiểm
+        tra...</button></div>
+
+    <!-- TAB 1: VĂN BẢN -> GIỌNG -->
+    <section class="main-content" id="tts">
+      <div class="grid">
+        <div class="left">
+          <section class="card">
+            <div class="row-between">
+              <div>
+                <h2>Văn bản → Giọng nói</h2>
+              </div>
+              <div style="display:flex;align-items:center;gap:10px">
+                <button type="button" class="btn small" id="btnExpandTtsEditor"
+                  title="Mở rộng khung soạn thảo toàn màn hình để dễ dàng nhìn rõ và chỉnh sửa chi tiết"
+                  style="padding:3px 10px;font-size:11.5px;background:#fef08a;color:#854d0e;border:1.5px solid #ca8a04;font-weight:700;display:inline-flex;align-items:center;gap:5px;cursor:pointer">
+                  <span>⛶</span> Mở rộng soạn thảo
+                </button>
+                <span class="counter"><span data-count>0</span> ký tự</span>
+              </div>
+            </div>
+            <div class="emotion-toolbar">
+              <div class="emotion-header">
+                <span class="emotion-title"><span>🎭</span> THẺ CẢM XÚC &amp; BIỂU CẢM:</span>
+                <small class="emotion-hint">Click để chèn vào vị trí con trỏ</small>
+              </div>
+              <div class="emotion-tags">
+                <button type="button" class="btn-emotion" data-tag="[cười]"
+                  title="Chèn thẻ [cười] · Tiếng cười bật ra tự nhiên">😆 Cười</button>
+                <button type="button" class="btn-emotion" data-tag="[thở dài]"
+                  title="Chèn thẻ [thở dài] · Tiếng thở dài nhẹ nhõm hoặc trầm ngâm">😮‍💨 Thở dài</button>
+                <button type="button" class="btn-emotion" data-tag="[ngạc nhiên]"
+                  title="Chèn thẻ [ngạc nhiên] · Cảm thán ngạc nhiên 'Ồ!'">😲 Ngạc nhiên (Ồ)</button>
+                <button type="button" class="btn-emotion" data-tag="[trầm trồ]"
+                  title="Chèn thẻ [trầm trồ] · Trầm trồ thán phục 'Oa!'">🤩 Trầm trồ (Oa)</button>
+                <button type="button" class="btn-emotion" data-tag="[nghi vấn]"
+                  title="Chèn thẻ [nghi vấn] · Ngữ điệu nghi vấn hỏi 'Hả?'">❓ Nghi vấn (Hả)</button>
+                <button type="button" class="btn-emotion" data-tag="[thắc mắc]"
+                  title="Chèn thẻ [thắc mắc] · Ngữ điệu thắc mắc hỏi 'Ơ / Ủa?'">🤔 Thắc mắc (Ơ)</button>
+                <button type="button" class="btn-emotion" data-tag="[đồng tình]"
+                  title="Chèn thẻ [đồng tình] · Âm thanh gật đầu 'Ừm / Dạ'">👍 Đồng tình (Ừm)</button>
+                <button type="button" class="btn-emotion" data-tag="[bất mãn]"
+                  title="Chèn thẻ [bất mãn] · Âm thanh bất mãn 'Hừm / Hứ'">😤 Bất mãn (Hừm)</button>
+              </div>
+            </div><textarea data-text maxlength="5000"
+              placeholder="Nhập nội dung cần đọc hoặc kéo thả tệp .txt ở cột bên phải...&#10;&#10;Ví dụ: Xin chào các bạn. Chào mừng bạn đến với hệ thống chuyển văn bản thành giọng nói OmDiOm!"></textarea>
+            <div class="attribute" style="grid-template-columns:1fr;margin-top:14px;margin-bottom:6px"><span>Chọn giọng
+                đọc mẫu</span></div><select id="selGiongTts" class="sel-giong"
+              aria-label="Chọn giọng đọc có sẵn"></select>
+            <details class="adv-settings">
+              <summary><span>⚙️ Tùy chọn mở rộng (Tốc độ đọc, num_step, guidance)</span></summary>
+              <div class="settings" style="margin-top:10px">
+                <div class="setting"><label for="tSteps">num_step <output id="tStepsV">16</output></label><input
+                    id="tSteps" type="range" min="0" max="2" step="1" value="1">
+                  <div class="scale"><span>8</span><span>16</span><span>32</span></div>
+                </div>
+                <div class="setting"><label for="tSpeed" class="lbl-speed">Tốc độ đọc <output
+                      id="tSpeedV">1.00×</output></label><input id="tSpeed" type="range" min="0.85" max="1.30"
+                    step="0.05" value="1">
+                  <div class="scale"><span>0.85×</span><span>1.30×</span></div>
+                </div>
+                <div class="setting"><label for="tGuid">guidance <output id="tGuidV">2.0</output></label><input
+                    id="tGuid" type="number" value="2" min="0.5" max="5" step="0.5"></div>
+              </div>
+            </details><button class="btn primary" data-run>✦ &nbsp;Tạo giọng nói</button>
+          </section>
+          <section class="card">
+            <div class="card-title">
+              <div>
+                <h2>Kết quả âm thanh</h2>
+              </div>
+              <div class="act-group">
+                <button class="btn small" data-dl disabled title="Tải xuống tệp âm thanh WAV">↓ .WAV</button>
+                <button class="btn small mini-txt" id="btnDlTxt" disabled title="Tải xuống nội dung tệp văn bản .TXT">↓
+                  .TXT</button>
+                <button class="btn small mini-srt" id="btnDlSrt" disabled title="Chọn thư mục và tải tệp phụ đề .SRT">↓
+                  .SRT</button>
+                <button class="btn small" id="btnDlAll" disabled
+                  title="Chọn 1 thư mục và lưu toàn bộ cả 3 tệp (.WAV, .TXT, .SRT)"
+                  style="background:#bbf7d0;color:#15803d;border-color:#16a34a">📁 Chọn thư mục lưu tất cả</button>
+              </div>
+            </div>
+            <div class="progress-box" data-prog style="display:none">
+              <div class="circle-wrap">
+                <svg viewBox="0 0 100 100" aria-label="Tiến trình">
+                  <circle class="circle-bg" cx="50" cy="50" r="40"></circle>
+                  <circle class="circle-val" cx="50" cy="50" r="40"></circle>
+                </svg>
+                <div class="circle-text">0%</div>
+              </div>
+              <div class="prog-info">
+                <div class="prog-status">Đang chuẩn bị tạo giọng nói...</div>
+                <div class="prog-track">
+                  <div class="prog-fill"></div>
+                </div>
+                <div class="prog-meta"><span class="prog-step-text">Đang xử lý AI</span><span
+                    class="prog-timer">0.0s</span></div>
+              </div>
+            </div>
+            <div class="audio-box" data-box>
+              <div class="player"><button class="play" data-play aria-label="Phát âm thanh">▶</button>
+                <div class="wave" data-wave aria-label="Dạng sóng"></div><span aria-hidden="true">◖))</span>
+              </div>
+              <div class="audio-meta"><span data-time>0:00 / 0:00</span><span data-state>CHƯA CÓ ÂM THANH</span></div>
+            </div>
+
+            <!-- TAB ẨN TERMINAL CONSOLE LOG THEO THỜI GIAN THỰC -->
+            <details class="adv-settings" id="ttsTerminalDetails" style="margin-top:12px">
+              <summary style="display:flex;align-items:center;justify-content:space-between;cursor:pointer">
+                <span style="display:flex;align-items:center;gap:6px"><span>📟</span> <b>Bảng lệnh quy trình xử lý chi
+                    tiết (Console Terminal Log)</b></span>
+                <button type="button" class="btn small" id="btnExpandTtsTerminal"
+                  title="Mở rộng Console Log toàn màn hình để xem quy trình chi tiết nhất"
+                  style="padding:3px 10px;font-size:11.5px;background:#fef08a;color:#854d0e;border:1.5px solid #ca8a04;font-weight:700;display:inline-flex;align-items:center;gap:5px;cursor:pointer">
+                  <span>⛶</span> Mở rộng
+                </button>
+              </summary>
+              <div class="term-panel" id="ttsTerminal" style="margin-top:8px">
+                <div class="term-line"><span class="term-dim">00:00:00</span> <span class="term-tag">[HỆ THỐNG]</span>
+                  Sẵn sàng... Bấm "Tạo giọng nói" để xem quy trình chi tiết tại đây.</div>
+              </div>
+            </details>
+
+            <!-- Ô TÙY CHỌN XEM FILE TXT VÀ FILE SRT PHỤ ĐỀ -->
+            <details class="adv-settings" id="ttsPreviewDetails" style="margin-top:8px" open>
+              <summary style="display:flex;align-items:center;justify-content:space-between;cursor:pointer">
+                <span style="display:flex;align-items:center;gap:6px"><span>📑</span> <b>Xem văn bản (.TXT) &amp;
+                    Phụ đề (.SRT) khớp thời gian</b></span>
+                <button type="button" class="btn small" id="btnExpandTtsPreview"
+                  title="Mở rộng toàn màn hình để xem tổng quát và chi tiết hơn giống như tab hướng dẫn"
+                  style="padding:3px 10px;font-size:11.5px;background:#fef08a;color:#854d0e;border:1.5px solid #ca8a04;font-weight:700;display:inline-flex;align-items:center;gap:5px;cursor:pointer">
+                  <span>⛶</span> Mở rộng
+                </button>
+              </summary>
+              <div style="margin-top:8px">
+                <div class="segmented" style="margin-bottom:8px">
+                  <button type="button" class="segment selected" id="btnTabTxt">📄 Nội dung văn bản (.TXT)</button>
+                  <button type="button" class="segment" id="btnTabSrt">⏱️ Phụ đề khớp thời gian (.SRT)</button>
+                </div>
+                <div id="boxViewTxt">
+                  <textarea id="txtPreviewArea" readonly
+                    style="min-height:80px;background:#fffdf4;font-size:12px;margin-top:0"
+                    placeholder="Nội dung tệp .txt tương ứng với giọng đọc sẽ xuất hiện tại đây..."></textarea>
+                </div>
+                <div id="boxViewSrt" style="display:none">
+                  <textarea id="srtPreviewArea" readonly
+                    style="min-height:110px;background:#18181b;color:#38bdf8;font-family:monospace;font-size:11.5px;margin-top:0"
+                    placeholder="Phụ đề SRT với mốc thời gian chuẩn xác của từng câu sẽ xuất hiện tại đây..."></textarea>
+                </div>
+              </div>
+            </details>
+          </section>
+        </div>
+        <div class="right">
+          <section class="card">
+            <div class="card-title">
+              <div>
+                <h2>📄 Tùy chọn Văn bản &amp; Ngắt nghỉ</h2>
+              </div>
+            </div>
+            <div class="attribute" style="grid-template-columns:1fr;margin-top:10px;margin-bottom:6px"><span>1 · Tải lên
+                tệp văn bản (.TXT)</span></div>
+            <div class="drop" id="txtDrop" tabindex="0" role="button" aria-label="Tải tệp văn bản .txt"><b
+                id="txtDropTitle">Chọn hoặc kéo thả tệp .txt vào đây</b></div>
+            <input type="file" id="txtFileInput" accept=".txt,text/plain" hidden>
+            <div class="src" id="txtFileInfo" style="margin-top:5px;font-weight:bold;color:#171717;display:none"></div>
+
+            <div class="attribute" style="grid-template-columns:1fr;margin-top:14px;margin-bottom:6px"><span>2 · Chế độ
+                ngắt nghỉ khi đọc</span></div>
+            <div class="segmented" id="grpSplitMode" style="display:flex;gap:3px;padding:3px">
+              <button type="button" class="segment" data-split="none">Đọc liền mạch</button>
+              <button type="button" class="segment selected" data-split="sentence">Ngắt theo câu (●)</button>
+              <button type="button" class="segment" data-split="paragraph">Ngắt theo đoạn</button>
+            </div>
+
+            <details class="adv-settings" id="detailsPause" style="margin-top:12px">
+              <summary><span>⚙️ Tùy chọn mở rộng (Thời gian nghỉ chi tiết)</span></summary>
+              <div class="settings" id="boxPauseControls"
+                style="grid-template-columns:1fr 1fr;gap:12px;margin-top:10px">
+                <div class="setting"><label for="tPauseSent">Nghỉ giữa câu <output
+                      id="tPauseSentV">0.50s</output></label><input id="tPauseSent" type="range" min="0.1" max="2.0"
+                    step="0.05" value="0.5">
+                  <div class="scale"><span>0.1s</span><span>2.0s</span></div>
+                </div>
+                <div class="setting"><label for="tPausePara">Nghỉ xuống đoạn <output
+                      id="tPauseParaV">1.00s</output></label><input id="tPausePara" type="range" min="0.3" max="3.0"
+                    step="0.1" value="1.0">
+                  <div class="scale"><span>0.3s</span><span>3.0s</span></div>
+                </div>
+              </div>
+            </details>
+          </section>
+
+          <section class="card">
+            <h2>Thống kê kết quả</h2>
+            <div class="metrics">
+              <div class="metric"><span>Thời lượng</span><strong data-m="dur">—</strong></div>
+              <div class="metric"><span>Thời gian sinh</span><strong data-m="gen">—</strong></div>
+              <div class="metric"><span>RTF</span><strong data-m="rtf">—</strong></div>
+            </div>
+          </section>
+          <section class="card history">
+            <div class="card-title">
+              <div>
+                <h2>Lịch sử kết quả</h2>
+              </div><button class="btn small" data-clear>Xóa tất cả</button>
+            </div>
+            <div class="table-scroll">
+              <table>
+                <thead>
+                  <tr>
+                    <th>THỜI GIAN</th>
+                    <th>CHẾ ĐỘ</th>
+                    <th>THÔNG SỐ</th>
+                    <th>THỜI LƯỢNG</th>
+                    <th>THAO TÁC</th>
+                  </tr>
+                </thead>
+                <tbody data-hist>
+                  <tr>
+                    <td colspan="5" class="empty">Chưa có kết quả nào.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 2: STUDIO PHÂN VAI & ĐỐI THOẠI ĐA NHÂN VẬT -->
+    <section class="main-content hidden" id="dialogue">
+      <div class="grid">
+        <div class="left">
+          <!-- DÀN DIỄN VIÊN / PHÂN VAI -->
+          <section class="card">
+            <div class="card-title">
+              <div>
+                <h2>🎭 Dàn diễn viên &amp; Phân vai</h2>
+                <div class="muted">Gán tên nhân vật vào giọng đọc tương ứng trong thư viện</div>
+              </div>
+              <button class="btn small" id="btnThemVai"
+                style="background:#bbf7d0;color:#15803d;border-color:#16a34a;font-weight:700">
+                + Thêm nhân vật
+              </button>
+            </div>
+
+            <div id="danhSachVaiContainer" style="display:grid;gap:8px;margin-top:10px">
+              <!-- Render danh sách vai bằng JS -->
+            </div>
+          </section>
+
+          <!-- KỊCH BẢN ĐỐI THOẠI -->
+          <section class="card">
+            <div class="row-between">
+              <div>
+                <h2>📝 Soạn thảo kịch bản đối thoại</h2>
+              </div>
+              <div style="display:flex;align-items:center;gap:10px">
+                <button type="button" class="btn small" id="btnExpandDlgEditor"
+                  title="Mở rộng khung kịch bản toàn màn hình để dễ dàng nhìn rõ và chỉnh sửa chi tiết"
+                  style="padding:3px 10px;font-size:11.5px;background:#fef08a;color:#854d0e;border:1.5px solid #ca8a04;font-weight:700;display:inline-flex;align-items:center;gap:5px;cursor:pointer">
+                  <span>⛶</span> Mở rộng kịch bản
+                </button>
+                <span class="counter"><span id="dialogueCount">0</span> ký tự</span>
+              </div>
+            </div>
+
+            <!-- THANH CÔNG CỤ CHÈN NHANH VAI DIỄN -->
+            <div style="margin-top:10px;padding:8px 10px;background:#fffdf4;border:var(--line);border-radius:6px">
+              <div
+                style="font-size:11px;font-weight:700;color:#475569;margin-bottom:6px;display:flex;align-items:center;gap:5px">
+                <span>👥</span> CHÈN LƯỢT THOẠI NHÂN VẬT:
+              </div>
+              <div id="quickRoleButtons" style="display:flex;gap:6px;flex-wrap:wrap">
+                <!-- Nút chèn vai sẽ render tự động từ danh sách vai -->
+              </div>
+            </div>
+
+            <!-- THANH CÔNG CỤ THẺ CẢM XÚC & KHOẢNG NGHỈ -->
+            <div class="emotion-toolbar" style="margin-top:8px">
+              <div class="emotion-header">
+                <span class="emotion-title"><span>🎭</span> THẺ CẢM XÚC &amp; ⏱️ KHOẢNG NGHỈ:</span>
+                <small class="emotion-hint">Click để chèn vào vị trí con trỏ</small>
+              </div>
+              <div class="emotion-tags">
+                <button type="button" class="btn-emotion" data-tag="[cười]" title="Chèn thẻ [cười]">😆 Cười</button>
+                <button type="button" class="btn-emotion" data-tag="[thở dài]" title="Chèn thẻ [thở dài]">😮‍💨 Thở
+                  dài</button>
+                <button type="button" class="btn-emotion" data-tag="[ngạc nhiên]" title="Chèn thẻ [ngạc nhiên]">😲 Ngạc
+                  nhiên</button>
+                <button type="button" class="btn-emotion" data-tag="[trầm trồ]" title="Chèn thẻ [trầm trồ]">🤩 Trầm
+                  trồ</button>
+                <button type="button" class="btn-emotion" data-tag="[nghi vấn]" title="Chèn thẻ [nghi vấn]">❓ Nghi
+                  vấn</button>
+                <button type="button" class="btn-emotion" data-tag="[thắc mắc]" title="Chèn thẻ [thắc mắc]">🤔 Thắc
+                  mắc</button>
+                <button type="button" class="btn-pause-tag" data-tag="[nghỉ: 0.5s]" title="Chèn khoảng lặng 0.5 giây"
+                  style="background:#e0e7ff;color:#3730a3;border:1.5px solid #818cf8;border-radius:4px;padding:2px 7px;font-size:11px;font-weight:700;cursor:pointer">⏱️
+                  Nghỉ 0.5s</button>
+                <button type="button" class="btn-pause-tag" data-tag="[nghỉ: 1.0s]" title="Chèn khoảng lặng 1.0 giây"
+                  style="background:#e0e7ff;color:#3730a3;border:1.5px solid #818cf8;border-radius:4px;padding:2px 7px;font-size:11px;font-weight:700;cursor:pointer">⏱️
+                  Nghỉ 1.0s</button>
+              </div>
+            </div>
+
+            <textarea id="dialogueScriptText" maxlength="10000" style="min-height:160px"
+              placeholder="Soạn kịch bản đối thoại hoặc bấm nút chèn nhân vật ở trên...&#10;&#10;Ví dụ:&#10;[Người dẫn chuyện]: Đêm đó, sấm chớp ầm ầm ngoài hiên [thở dài].&#10;[Bác Ba]: Trời này mưa to rồi, cháu có muốn ở lại trú không?&#10;[nghỉ: 0.6s]&#10;[Mai Lan]: Dạ không sao đâu bác [cười], cháu có áo mưa rồi ạ!"></textarea>
+
+            <details class="adv-settings" style="margin-top:10px">
+              <summary><span>⚙️ Tùy chọn mở rộng (Tốc độ đọc, num_step, khoảng nghỉ đổi vai)</span></summary>
+              <div class="settings" style="margin-top:10px">
+                <div class="setting">
+                  <label for="dlgSteps">num_step <output id="dlgStepsV">16</output></label>
+                  <input id="dlgSteps" type="range" min="0" max="2" step="1" value="1">
+                  <div class="scale"><span>8</span><span>16</span><span>32</span></div>
+                </div>
+                <div class="setting">
+                  <label for="dlgSpeed" class="lbl-speed">Tốc độ đọc <output id="dlgSpeedV">1.00×</output></label>
+                  <input id="dlgSpeed" type="range" min="0.85" max="1.30" step="0.05" value="1">
+                  <div class="scale"><span>0.85×</span><span>1.30×</span></div>
+                </div>
+                <div class="setting">
+                  <label for="dlgPauseDefault">Nghỉ đổi vai <output id="dlgPauseDefaultV">0.60s</output></label>
+                  <input id="dlgPauseDefault" type="range" min="0.2" max="2.5" step="0.1" value="0.6">
+                  <div class="scale"><span>0.2s</span><span>2.5s</span></div>
+                </div>
+              </div>
+            </details>
+
+            <button class="btn primary" id="btnRunDialogue">✦ &nbsp;Tạo âm thanh kịch bản đối thoại</button>
+          </section>
+        </div>
+
+        <div class="right">
+          <!-- KẾT QUẢ ÂM THANH KỊCH BẢN -->
+          <section class="card">
+            <div class="card-title">
+              <div>
+                <h2>Kết quả âm thanh kịch bản</h2>
+              </div>
+              <div class="act-group">
+                <button class="btn small" id="btnDlDlgWav" data-dl disabled title="Tải xuống tệp âm thanh WAV">↓
+                  .WAV</button>
+                <button class="btn small mini-txt" id="btnDlDlgTxt" disabled title="Tải xuống nội dung kịch bản .TXT">↓
+                  .TXT</button>
+                <button class="btn small mini-srt" id="btnDlDlgSrt" disabled title="Tải tệp phụ đề .SRT phân vai">↓
+                  .SRT</button>
+                <button class="btn small" id="btnDlDlgAll" disabled title="Lưu trọn bộ cả 3 tệp vào 1 thư mục"
+                  style="background:#bbf7d0;color:#15803d;border-color:#16a34a">📁 Lưu tất cả</button>
+              </div>
+            </div>
+
+            <div class="progress-box" id="dlgProgBox" style="display:none">
+              <div class="circle-wrap">
+                <svg viewBox="0 0 100 100" aria-label="Tiến trình">
+                  <circle class="circle-bg" cx="50" cy="50" r="40"></circle>
+                  <circle class="circle-val" id="dlgCircleVal" cx="50" cy="50" r="40"></circle>
+                </svg>
+                <div class="circle-text" id="dlgCircleText">0%</div>
+              </div>
+              <div class="prog-info">
+                <div class="prog-status" id="dlgProgStatus">Đang chuẩn bị tạo kịch bản...</div>
+                <div class="prog-track">
+                  <div class="prog-fill" id="dlgProgFill"></div>
+                </div>
+                <div class="prog-meta"><span class="prog-step-text" id="dlgProgStep">Đang phân tích kịch bản</span><span
+                    class="prog-timer" id="dlgProgTimer">0.0s</span></div>
+              </div>
+            </div>
+
+            <div class="audio-box" id="dlgAudioBox" data-box style="display:none">
+              <div class="player">
+                <button class="play" id="dlgPlayBtn" data-play aria-label="Phát âm thanh">▶</button>
+                <div class="wave" id="dlgWave" data-wave aria-label="Dạng sóng"></div>
+                <span aria-hidden="true">◖))</span>
+              </div>
+              <div class="audio-meta">
+                <span id="dlgTime" data-time>0:00 / 0:00</span>
+                <span id="dlgState" data-state>KỊCH BẢN HOÀN TẤT</span>
+              </div>
+            </div>
+
+            <!-- TERMINAL CONSOLE LOG KỊCH BẢN -->
+            <details class="adv-settings" id="dlgTerminalDetails" style="margin-top:12px" open>
+              <summary style="display:flex;align-items:center;justify-content:space-between;cursor:pointer">
+                <span style="display:flex;align-items:center;gap:6px"><span>📟</span> <b>Bảng điều khiển tiến trình phân
+                    vai (Console Log)</b></span>
+                <button type="button" class="btn small" id="btnExpandDlgTerminal"
+                  title="Mở rộng Console Log toàn màn hình để xem quy trình chi tiết nhất"
+                  style="padding:3px 10px;font-size:11.5px;background:#fef08a;color:#854d0e;border:1.5px solid #ca8a04;font-weight:700;display:inline-flex;align-items:center;gap:5px;cursor:pointer">
+                  <span>⛶</span> Mở rộng
+                </button>
+              </summary>
+              <div class="term-panel" id="dlgTerminal" style="margin-top:8px">
+                <div class="term-line"><span class="term-dim">00:00:00</span> <span class="term-tag">[KỊCH BẢN]</span>
+                  Sẵn sàng... Bấm "Tạo âm thanh kịch bản" để bắt đầu tiến trình.</div>
+              </div>
+            </details>
+
+            <!-- XEM TRƯỚC VĂN BẢN VÀ PHỤ ĐỀ PHÂN VAI -->
+            <details class="adv-settings" id="dlgPreviewDetails" style="margin-top:8px" open>
+              <summary style="display:flex;align-items:center;justify-content:space-between;cursor:pointer">
+                <span style="display:flex;align-items:center;gap:6px"><span>📑</span> <b>Xem kịch bản (.TXT)
+                    &amp; Phụ đề phân vai (.SRT)</b></span>
+                <button type="button" class="btn small" id="btnExpandDlgPreview"
+                  title="Mở rộng toàn màn hình để xem tổng quát và chi tiết hơn giống như tab hướng dẫn"
+                  style="padding:3px 10px;font-size:11.5px;background:#fef08a;color:#854d0e;border:1.5px solid #ca8a04;font-weight:700;display:inline-flex;align-items:center;gap:5px;cursor:pointer">
+                  <span>⛶</span> Mở rộng
+                </button>
+              </summary>
+              <div style="margin-top:8px">
+                <div class="segmented" style="margin-bottom:8px">
+                  <button type="button" class="segment selected" id="btnTabDlgTxt">📄 Kịch bản (.TXT)</button>
+                  <button type="button" class="segment" id="btnTabDlgSrt">⏱️ Phụ đề phân vai (.SRT)</button>
+                </div>
+                <div id="boxViewDlgTxt">
+                  <textarea id="dlgTxtPreviewArea" readonly
+                    style="min-height:90px;background:#fffdf4;font-size:12px;margin-top:0"
+                    placeholder="Nội dung kịch bản sẽ hiển thị tại đây..."></textarea>
+                </div>
+                <div id="boxViewDlgSrt" style="display:none">
+                  <textarea id="dlgSrtPreviewArea" readonly
+                    style="min-height:110px;background:#18181b;color:#38bdf8;font-family:monospace;font-size:11.5px;margin-top:0"
+                    placeholder="Phụ đề SRT với tên nhân vật và mốc thời gian sẽ xuất hiện tại đây..."></textarea>
+                </div>
+              </div>
+            </details>
+          </section>
+
+          <!-- THỐNG KÊ KẾT QUẢ KỊCH BẢN -->
+          <section class="card">
+            <h2>Thống kê kết quả kịch bản</h2>
+            <div class="metrics">
+              <div class="metric"><span>Thời lượng</span><strong id="dlgDur">—</strong></div>
+              <div class="metric"><span>Thời gian sinh</span><strong id="dlgGen">—</strong></div>
+              <div class="metric"><span>RTF</span><strong id="dlgRtf">—</strong></div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- TAB 2: NHÂN BẢN GIỌNG -->
+    <section class="main-content hidden" id="clone">
+      <div class="grid">
+        <div class="left">
+          <section class="card">
+            <div class="row-between">
+              <div>
+                <h2>Nhân bản giọng</h2>
+              </div><span class="counter">0-shot</span>
+            </div>
+            <div
+              style="margin-top:10px;padding:9px 12px;background:#f0fdf4;border:1.5px solid #86efac;border-radius:6px;font-size:12px;line-height:1.4">
+              <b style="color:#166534">⚡ Lưu ý hiệu năng (Khuyến nghị GPU):</b>
+              <span style="color:#15803d">Nhân bản giọng 0-shot là tác vụ AI rất nặng (khuếch tán Diffusion Vocoder).
+                Nên ưu tiên kết nối <b>Kaggle GPU (Tesla T4)</b> để tạo giọng trong <b>1–3 giây</b> (thay vì 30–60s trên
+                CPU).</span>
+            </div>
+            <div class="attribute" style="grid-template-columns:1fr;margin-top:14px;margin-bottom:8px"><span>1 · Clip
+                mẫu (3–10 giây)</span></div>
+            <div class="drop" data-drop tabindex="0" role="button" aria-label="Chọn tệp âm thanh mẫu"><b
+                data-dropmain>Chọn hoặc kéo thả tệp audio</b><small data-dropsub>WAV / MP3 · nên là giọng rõ, ít tạp
+                âm</small></div>
+                        <input type="file" accept="audio/*" data-file hidden>
+            
+            <!-- KHUNG XEM TRƯỚC, NGHE THỬ VÀ TỰ ĐỘNG CHỌN ĐOẠN SẠCH (VAD) CHO FILE TẢI LÊN -->
+            <div class="upload-vad-panel" id="uploadVadPanel" style="display:none;margin-top:10px;padding:12px;border:2px solid #111;border-radius:8px;background:#fefce8;box-shadow:2px 2px 0 #111">
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap">
+                <div style="display:flex;align-items:center;gap:8px">
+                  <span style="font-size:18px">🎵</span>
+                  <div>
+                    <b id="uploadFileName" style="font-size:12.5px;color:#171717;display:block">ten_file.wav</b>
+                    <span class="muted" id="uploadFileMeta" style="font-size:11px">1.2 MB · 14.5s · 44.1 kHz</span>
+                  </div>
+                </div>
+                <div style="display:flex;gap:6px;align-items:center">
+                  <button type="button" class="btn small" id="btnPlayOriginal" style="background:var(--yellow);font-weight:700" title="Nghe toàn bộ file gốc tải lên">▶ Nghe file gốc</button>
+                  <button type="button" class="btn small" id="btnReanalyzeVad" style="background:#fff" title="Phân tích lại VAD">↻ Quét lại</button>
+                </div>
+              </div>
+
+              <!-- KẾT QUẢ VAD CHO TỆP TẢI LÊN -->
+              <div id="uploadVadStatus" style="margin-top:10px;padding:8px 10px;border-radius:6px;background:#f0fdf4;border:1.5px solid #86efac;font-size:11.5px;line-height:1.4">
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:6px">
+                  <b style="color:#166534" id="uploadVadTitle">⭐ Tự động chọn đoạn sạch nhất (VAD):</b>
+                  <span class="badge" id="uploadVadScoreBadge" style="background:#dcfce7;color:#15803d;padding:2px 6px;font-size:10.5px">Điểm: 9.8</span>
+                </div>
+                <div id="uploadVadDetails" style="color:#166534;margin-top:3px;font-family:monospace;font-size:11px">
+                  0.8s → 5.2s (Thời lượng: 4.4s) · Tối ưu cho AI nhân bản
+                </div>
+                <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap;align-items:center">
+                  <button type="button" class="btn small" id="btnPlayCleanSeg" style="background:#22c55e;color:#fff;border-color:#15803d;font-weight:700">
+                    ▶ Nghe đoạn sạch
+                  </button>
+                  <button type="button" class="btn small" id="btnToggleAllSegs" style="background:#fff;font-size:11px">
+                    📑 Chọn đoạn khác (3 đoạn)
+                  </button>
+                  <button type="button" class="btn small" id="btnToggleUseMode" style="background:#fff;margin-left:auto;font-size:11px" title="Chuyển đổi giữa dùng đoạn sạch và file gốc">
+                    Dùng cả file gốc
+                  </button>
+                </div>
+              </div>
+
+              <!-- DANH SÁCH CÁC ĐOẠN KHÁC (ẨN MẶC ĐỊNH, BẬT KHI BẤM XEM THÊM) -->
+              <div id="uploadVadSegsList" style="display:none;margin-top:8px" class="rec-segments"></div>
+            </div>
+            <div class="ref-audio" data-fileinfo></div>
+            <div class="rec-or">── hoặc ──</div>
+            <div class="rec-panel" id="recPanel">
+              <div class="rec-header"><b>🎙️ Ghi âm trực tiếp (tối đa 30 giây)</b><span class="tag" id="recTag">SẴN
+                  SÀNG</span></div>
+              <div id="recSecureWarn" class="warnbar"
+                style="margin-top:0;margin-bottom:10px;display:none;background:#fef3c7;border-color:#d97706">
+                <b>⚠️ Quyền truy cập Micro:</b>
+                <span id="recSecureWarnMsg">Trình duyệt chặn Micro trên giao thức <code>file:///</code>.</span>
+                <div style="margin-top:6px">
+                  <a href="http://127.0.0.1:8000" target="_blank" class="btn small"
+                    style="background:var(--yellow);display:inline-block;text-decoration:none;font-size:11px">
+                    👉 Bấm vào đây để mở Studio tại http://127.0.0.1:8000 (Cho phép Micro 100%)
+                  </a>
+                </div>
+              </div>
+              <div class="rec-timer idle" id="recTimer">00:00</div>
+              <div class="rec-bar-wrap">
+                <div class="rec-bar-level" id="recLevel"></div>
+              </div>
+              <div class="rec-btns">
+                <button class="btn btn-rec" id="btnRecStart">🎙️ Bắt đầu ghi</button>
+                <button class="btn" id="btnRecStop" disabled>⏹ Dừng ghi</button>
+                <button class="btn" id="btnRecReset" disabled>↻ Ghi lại</button>
+              </div>
+              <div class="rec-result" id="recResult">
+                <b>📊 Phân tích đoạn ghi âm</b>
+                <div class="muted" id="recResultInfo">Đang phân tích...</div>
+                <div class="rec-segments" id="recSegments"></div>
+                <button class="btn primary" id="btnRecUse" style="margin-top:10px;width:100%" disabled>✦&nbsp;Dùng đoạn
+                  sạch nhất làm clip mẫu</button>
+              </div>
+            </div>
+            <div class="attribute" style="grid-template-columns:1fr;margin-top:6px;margin-bottom:6px"><span>2 · Lời
+                thoại CỦA CLIP MẪU (không phải câu cần đọc)</span></div>
+            <input type="text" data-reftext placeholder="Gõ đúng những gì người trong clip đang nói"
+              style="width:100%;height:38px;border:var(--line);border-radius:6px;padding:0 10px;background:#fffdf4;font-family:monospace;font-size:12.5px">
+            <div class="row-between" style="margin-top:14px"><span
+                style="font-family:monospace;font-weight:bold;font-size:12px">3 · Câu cần đọc bằng giọng đó</span><span
+                class="counter"><span data-count>0</span>/600</span></div>
+            <div class="emotion-toolbar">
+              <div class="emotion-header">
+                <span class="emotion-title"><span>🎭</span> THẺ CẢM XÚC &amp; BIỂU CẢM:</span>
+                <small class="emotion-hint">Click để chèn vào vị trí con trỏ</small>
+              </div>
+              <div class="emotion-tags">
+                <button type="button" class="btn-emotion" data-tag="[cười]"
+                  title="Chèn thẻ [cười] · Tiếng cười bật ra tự nhiên">😆 Cười</button>
+                <button type="button" class="btn-emotion" data-tag="[thở dài]"
+                  title="Chèn thẻ [thở dài] · Tiếng thở dài nhẹ nhõm hoặc trầm ngâm">😮‍💨 Thở dài</button>
+                <button type="button" class="btn-emotion" data-tag="[ngạc nhiên]"
+                  title="Chèn thẻ [ngạc nhiên] · Cảm thán ngạc nhiên 'Ồ!'">😲 Ngạc nhiên (Ồ)</button>
+                <button type="button" class="btn-emotion" data-tag="[trầm trồ]"
+                  title="Chèn thẻ [trầm trồ] · Trầm trồ thán phục 'Oa!'">🤩 Trầm trồ (Oa)</button>
+                <button type="button" class="btn-emotion" data-tag="[nghi vấn]"
+                  title="Chèn thẻ [nghi vấn] · Ngữ điệu nghi vấn hỏi 'Hả?'">❓ Nghi vấn (Hả)</button>
+                <button type="button" class="btn-emotion" data-tag="[thắc mắc]"
+                  title="Chèn thẻ [thắc mắc] · Ngữ điệu thắc mắc hỏi 'Ơ / Ủa?'">🤔 Thắc mắc (Ơ)</button>
+                <button type="button" class="btn-emotion" data-tag="[đồng tình]"
+                  title="Chèn thẻ [đồng tình] · Âm thanh gật đầu 'Ừm / Dạ'">👍 Đồng tình (Ừm)</button>
+                <button type="button" class="btn-emotion" data-tag="[bất mãn]"
+                  title="Chèn thẻ [bất mãn] · Âm thanh bất mãn 'Hừm / Hứ'">😤 Bất mãn (Hừm)</button>
+              </div>
+            </div>
+            <textarea data-text maxlength="600"
+              placeholder="Nhập câu bạn muốn model đọc bằng giọng trong clip...&#10;&#10;Ví dụ: Hôm nay trời đẹp, chúng ta cùng đi dạo nhé."></textarea>
+            <details class="adv-settings">
+              <summary><span>⚙️ Tùy chọn mở rộng (Tốc độ đọc, num_step, guidance)</span></summary>
+              <div class="settings" style="margin-top:10px">
+                <div class="setting"><label for="cSteps">num_step <output id="cStepsV">16</output></label><input
+                    id="cSteps" type="range" min="0" max="2" step="1" value="1">
+                  <div class="scale"><span>8</span><span>16</span><span>32</span></div>
+                </div>
+                <div class="setting"><label for="cSpeed" class="lbl-speed">Tốc độ đọc <output
+                      id="cSpeedV">1.00×</output></label><input id="cSpeed" type="range" min="0.85" max="1.30"
+                    step="0.05" value="1">
+                  <div class="scale"><span>0.85×</span><span>1.30×</span></div>
+                </div>
+                <div class="setting"><label for="cGuid">guidance <output id="cGuidV">2.0</output></label><input
+                    id="cGuid" type="number" value="2" min="0.5" max="5" step="0.5"></div>
+              </div>
+            </details>
+            <button class="btn primary" data-run>✦ &nbsp;Nhân bản &amp; đọc</button>
+          </section>
+          <section class="card" id="saveVoiceCard" style="display:none">
+            <div class="card-title">
+              <div>
+                <h2>🎛️ Tinh chỉnh chất giọng &amp; Lưu giọng</h2>
+              </div>
+              <span class="tag" style="background:#e0e7ff;color:#3730a3">HẬU KỲ DSP</span>
+            </div>
+
+            <div style="font-size:12px;color:var(--text-muted);margin-bottom:12px">
+              Tinh chỉnh cao độ (Pitch), tốc độ (Speed) và độ dày trầm ấm (Bass) trước khi lưu vào thư viện để sử dụng
+              về sau.
+            </div>
+
+            <!-- PHẦN 1: CÁC THANH TRƯỢT TINH CHỈNH -->
+            <div class="settings" style="grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
+              <!-- Cao độ / Pitch -->
+              <div class="setting" style="background:#fffdf4;border:var(--line);border-radius:6px;padding:8px 10px">
+                <div class="row-between" style="margin-bottom:4px">
+                  <label for="tunePitch" style="font-weight:600;font-size:12px">🎵 Cao độ (Pitch):</label>
+                  <output id="tunePitchV" style="font-weight:bold;color:#4f46e5;font-size:12px">0 st (Chuẩn)</output>
+                </div>
+                <input id="tunePitch" type="range" min="-6" max="6" step="1" value="0" style="width:100%">
+                <div class="scale"
+                  style="font-size:10px;color:var(--text-muted);display:flex;justify-content:space-between">
+                  <span>-6 (Trầm ấm)</span>
+                  <span>0 (Gốc)</span>
+                  <span>+6 (Thanh cao)</span>
+                </div>
+              </div>
+
+              <!-- Tốc độ đọc / Speed -->
+              <div class="setting" style="background:#fffdf4;border:var(--line);border-radius:6px;padding:8px 10px">
+                <div class="row-between" style="margin-bottom:4px">
+                  <label for="tuneSpeed" style="font-weight:600;font-size:12px">⏱️ Tốc độ đọc (Speed):</label>
+                  <output id="tuneSpeedV" style="font-weight:bold;color:#4f46e5;font-size:12px">1.00x</output>
+                </div>
+                <input id="tuneSpeed" type="range" min="0.75" max="1.35" step="0.05" value="1.00" style="width:100%">
+                <div class="scale"
+                  style="font-size:10px;color:var(--text-muted);display:flex;justify-content:space-between">
+                  <span>0.75x (Chậm)</span>
+                  <span>1.00x</span>
+                  <span>1.35x (Nhanh)</span>
+                </div>
+              </div>
+
+              <!-- Độ dày / Bass Boost -->
+              <div class="setting"
+                style="background:#fffdf4;border:var(--line);border-radius:6px;padding:8px 10px;grid-column:span 2">
+                <div class="row-between" style="margin-bottom:4px">
+                  <label for="tuneBass" style="font-weight:600;font-size:12px">🎙️ Âm sắc trầm ấm (Bass Boost):</label>
+                  <output id="tuneBassV" style="font-weight:bold;color:#4f46e5;font-size:12px">0 dB</output>
+                </div>
+                <input id="tuneBass" type="range" min="0" max="8" step="1" value="0" style="width:100%">
+                <div class="scale"
+                  style="font-size:10px;color:var(--text-muted);display:flex;justify-content:space-between">
+                  <span>0 dB (Tự nhiên)</span>
+                  <span>+4 dB (Ấm áp)</span>
+                  <span>+8 dB (Rất đầm tiếng / Podcast)</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- NÚT NGHE THỬ DSP VÀ TẢI VỀ -->
+            <div style="display:flex;gap:8px;margin-bottom:14px;align-items:center;flex-wrap:wrap">
+              <button class="btn small" id="btnTunePreview"
+                style="background:#e0e7ff;color:#3730a3;border-color:#818cf8;font-weight:600">
+                ▶ Nghe thử chất giọng
+              </button>
+              <button class="btn small" id="btnTuneReset" title="Đặt lại mọi thông số về chuẩn">
+                ↺ Đặt lại
+              </button>
+              <button class="btn small mini-dl" id="btnTuneDownload" title="Tải xuống tệp WAV đã áp dụng tinh chỉnh">
+                ↓ Tải WAV đã chỉnh
+              </button>
+              <span id="tuneAudioStatus" style="font-size:11px;color:var(--text-muted);margin-left:auto">Sẵn sàng nghe
+                thử</span>
+            </div>
+
+            <hr style="border:none;border-top:1px dashed var(--line-color,#cbd5e1);margin:12px 0">
+
+            <!-- PHẦN 2: LƯU VÀO THƯ VIỆN GIỌNG -->
+            <div class="attribute" style="grid-template-columns:1fr;margin-bottom:6px">
+              <span>Tên gợi nhớ cho giọng</span>
+            </div>
+            <input type="text" id="saveVoiceName" placeholder="Ví dụ: Minh Quý (Trầm), Giọng MC Truyền Cảm…"
+              style="width:100%;height:38px;border:var(--line);border-radius:6px;padding:0 10px;background:#fffdf4;font-family:monospace;font-size:12.5px">
+
+            <div style="display:grid;grid-template-columns:1fr 2fr;gap:10px;margin-top:10px">
+              <div>
+                <div class="attribute" style="margin-bottom:4px"><span>Giới tính</span></div>
+                <select id="saveVoiceGender"
+                  style="width:100%;height:36px;border:var(--line);border-radius:6px;padding:0 8px;background:#fffdf4;font-size:12px">
+                  <option value="">(Tự chọn)</option>
+                  <option value="nam">Nam</option>
+                  <option value="nu">Nữ</option>
+                  <option value="khac">Khác</option>
+                </select>
+              </div>
+              <div>
+                <div class="attribute" style="margin-bottom:4px"><span>Ghi chú thêm</span></div>
+                <input type="text" id="saveVoiceNote" placeholder="Tự động ghi lại thông số Pitch, Speed, Bass..."
+                  style="width:100%;height:36px;border:var(--line);border-radius:6px;padding:0 8px;background:#fffdf4;font-size:12px">
+              </div>
+            </div>
+
+            <div class="btnrow" style="margin-top:12px">
+              <button class="btn primary" id="btnSaveVoice" style="margin:0;width:100%;font-weight:600">
+                💾 &nbsp;Lưu vào thư viện giọng
+              </button>
+            </div>
+            <div class="muted" id="saveVoiceStatus" style="margin-top:8px;font-size:11px"></div>
+          </section>
+        </div>
+        <div class="right">
+          <section class="card">
+            <div class="card-title">
+              <div>
+                <h2>Kết quả âm thanh</h2>
+              </div><button class="btn small" data-dl disabled>↓ Tải xuống</button>
+            </div>
+            <div class="progress-box" data-prog style="display:none">
+              <div class="circle-wrap">
+                <svg viewBox="0 0 100 100" aria-label="Tiến trình">
+                  <circle class="circle-bg" cx="50" cy="50" r="40"></circle>
+                  <circle class="circle-val" cx="50" cy="50" r="40"></circle>
+                </svg>
+                <div class="circle-text">0%</div>
+              </div>
+              <div class="prog-info">
+                <div class="prog-status">Đang chuẩn bị tạo giọng nói...</div>
+                <div class="prog-track">
+                  <div class="prog-fill"></div>
+                </div>
+                <div class="prog-meta"><span class="prog-step-text">Đang xử lý AI</span><span
+                    class="prog-timer">0.0s</span></div>
+              </div>
+            </div>
+            <div class="audio-box" data-box>
+              <div class="player"><button class="play" data-play aria-label="Phát âm thanh">▶</button>
+                <div class="wave" data-wave aria-label="Dạng sóng"></div><span aria-hidden="true">◖))</span>
+              </div>
+              <div class="audio-meta"><span data-time>0:00 / 0:00</span><span data-state>CHƯA CÓ ÂM THANH</span></div>
+            </div>
+          </section>
+          <section class="card">
+            <h2>Thống kê kết quả</h2>
+            <div class="metrics">
+              <div class="metric"><span>Thời lượng</span><strong data-m="dur">—</strong></div>
+              <div class="metric"><span>Thời gian sinh</span><strong data-m="gen">—</strong></div>
+              <div class="metric"><span>RTF</span><strong data-m="rtf">—</strong></div>
+            </div>
+          </section>
+          <section class="card history">
+            <div class="card-title">
+              <div>
+                <h2>Lịch sử kết quả</h2>
+              </div><button class="btn small" data-clear>Xóa tất cả</button>
+            </div>
+            <div class="table-scroll">
+              <table>
+                <thead>
+                  <tr>
+                    <th>THỜI GIAN</th>
+                    <th>CHẾ ĐỘ</th>
+                    <th>THÔNG SỐ</th>
+                    <th>THỜI LƯỢNG</th>
+                    <th>THAO TÁC</th>
+                  </tr>
+                </thead>
+                <tbody data-hist>
+                  <tr>
+                    <td colspan="5" class="empty">Chưa có kết quả nào.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 3: THIẾT KẾ GIỌNG -->
+    <main class="main-content hidden" id="design">
+      <div class="grid">
+        <div class="left">
+          <section class="card">
+            <div class="row-between">
+              <div>
+                <h2>Thiết kế giọng nói</h2>
+              </div><span class="counter"><span data-count>0</span>/600</span>
+            </div>
+            <div class="emotion-toolbar">
+              <div class="emotion-header">
+                <span class="emotion-title"><span>🎭</span> THẺ CẢM XÚC &amp; BIỂU CẢM:</span>
+                <small class="emotion-hint">Click để chèn vào vị trí con trỏ</small>
+              </div>
+              <div class="emotion-tags">
+                <button type="button" class="btn-emotion" data-tag="[cười]"
+                  title="Chèn thẻ [cười] · Tiếng cười bật ra tự nhiên">😆 Cười</button>
+                <button type="button" class="btn-emotion" data-tag="[thở dài]"
+                  title="Chèn thẻ [thở dài] · Tiếng thở dài nhẹ nhõm hoặc trầm ngâm">😮‍💨 Thở dài</button>
+                <button type="button" class="btn-emotion" data-tag="[ngạc nhiên]"
+                  title="Chèn thẻ [ngạc nhiên] · Cảm thán ngạc nhiên 'Ồ!'">😲 Ngạc nhiên (Ồ)</button>
+                <button type="button" class="btn-emotion" data-tag="[trầm trồ]"
+                  title="Chèn thẻ [trầm trồ] · Trầm trồ thán phục 'Oa!'">🤩 Trầm trồ (Oa)</button>
+                <button type="button" class="btn-emotion" data-tag="[nghi vấn]"
+                  title="Chèn thẻ [nghi vấn] · Ngữ điệu nghi vấn hỏi 'Hả?'">❓ Nghi vấn (Hả)</button>
+                <button type="button" class="btn-emotion" data-tag="[thắc mắc]"
+                  title="Chèn thẻ [thắc mắc] · Ngữ điệu thắc mắc hỏi 'Ơ / Ủa?'">🤔 Thắc mắc (Ơ)</button>
+                <button type="button" class="btn-emotion" data-tag="[đồng tình]"
+                  title="Chèn thẻ [đồng tình] · Âm thanh gật đầu 'Ừm / Dạ'">👍 Đồng tình (Ừm)</button>
+                <button type="button" class="btn-emotion" data-tag="[bất mãn]"
+                  title="Chèn thẻ [bất mãn] · Âm thanh bất mãn 'Hừm / Hứ'">😤 Bất mãn (Hừm)</button>
+              </div>
+            </div><textarea data-text maxlength="600"
+              placeholder="Nhập nội dung cần chuyển thành giọng nói...&#10;&#10;Ví dụ: Chào mừng bạn đến với OmDiOm!"></textarea>
+            <details class="adv-settings">
+              <summary><span>⚙️ Tùy chọn mở rộng (Tốc độ đọc, num_step, guidance)</span></summary>
+              <div class="settings" style="margin-top:10px">
+                <div class="setting"><label for="dSteps">num_step <output id="dStepsV">16</output></label><input
+                    id="dSteps" type="range" min="0" max="2" step="1" value="1">
+                  <div class="scale"><span>8</span><span>16</span><span>32</span></div>
+                </div>
+                <div class="setting"><label for="dSpeed" class="lbl-speed">Tốc độ đọc <output
+                      id="dSpeedV">1.00×</output></label><input id="dSpeed" type="range" min="0.85" max="1.30"
+                    step="0.05" value="1">
+                  <div class="scale"><span>0.85×</span><span>1.30×</span></div>
+                </div>
+                <div class="setting"><label for="dGuid">guidance <output id="dGuidV">2.0</output></label><input
+                    id="dGuid" type="number" value="2" min="0.5" max="5" step="0.5"></div>
+              </div>
+            </details><button class="btn primary" data-run>✦ &nbsp;Tạo giọng nói</button>
+          </section>
+          <section class="card">
+            <div class="card-title">
+              <div>
+                <h2>Kết quả âm thanh</h2>
+              </div><button class="btn small" data-dl disabled>↓ Tải xuống</button>
+            </div>
+            <div class="progress-box" data-prog style="display:none">
+              <div class="circle-wrap">
+                <svg viewBox="0 0 100 100" aria-label="Tiến trình">
+                  <circle class="circle-bg" cx="50" cy="50" r="40"></circle>
+                  <circle class="circle-val" cx="50" cy="50" r="40"></circle>
+                </svg>
+                <div class="circle-text">0%</div>
+              </div>
+              <div class="prog-info">
+                <div class="prog-status">Đang chuẩn bị tạo giọng nói...</div>
+                <div class="prog-track">
+                  <div class="prog-fill"></div>
+                </div>
+                <div class="prog-meta"><span class="prog-step-text">Đang xử lý AI</span><span
+                    class="prog-timer">0.0s</span></div>
+              </div>
+            </div>
+            <div class="audio-box" data-box>
+              <div class="player"><button class="play" data-play aria-label="Phát âm thanh">▶</button>
+                <div class="wave" data-wave aria-label="Dạng sóng"></div><span aria-hidden="true">◖))</span>
+              </div>
+              <div class="audio-meta"><span data-time>0:00 / 0:00</span><span data-state>CHƯA CÓ ÂM THANH</span></div>
+            </div>
+          </section>
+        </div>
+        <div class="right">
+          <section class="card">
+            <h2>Thuộc tính giọng nói</h2>
+            <div class="attribute"><span>Giới tính</span>
+              <div class="segmented" data-group="gender" role="group" aria-label="Giới tính"><button
+                  class="segment selected" aria-pressed="true" data-val="male">Nam</button><button class="segment"
+                  aria-pressed="false" data-val="female">Nữ</button></div>
+            </div>
+            <div class="attribute"><span>Độ tuổi</span>
+              <div class="segmented" data-group="age" role="group" aria-label="Độ tuổi"><button class="segment selected"
+                  aria-pressed="true" data-val="young adult">Trẻ</button><button class="segment" aria-pressed="false"
+                  data-val="middle-aged">Trung niên</button><button class="segment" aria-pressed="false"
+                  data-val="elderly">Lớn tuổi</button></div>
+            </div>
+            <div class="attribute"><span>Cao độ</span>
+              <div class="segmented pitch" data-group="pitch" role="group" aria-label="Cao độ"><button type="button"
+                  class="segment" aria-pressed="false" data-val="low pitch">Thấp</button><button type="button"
+                  class="segment selected" aria-pressed="true" data-val="moderate pitch">Trung bình</button><button
+                  type="button" class="segment" aria-pressed="false" data-val="high pitch">Cao</button></div>
+            </div>
+            <div class="attribute"><span>Phong cách</span>
+              <div></div>
+            </div>
+            <div class="style-grid" data-styles><button class="style-pill" aria-pressed="false" data-val="natural"><span
+                  class="style-icon">✳</span><span><b>Tự nhiên</b><small>natural</small></span><span
+                  class="style-check">✓</span></button><button class="style-pill" aria-pressed="true"><span
+                  class="style-icon">✦</span><span><b>Whisper</b><small>Giọng thì thầm</small></span><span
+                  class="style-check">✓</span></button><button class="style-pill" aria-pressed="false"
+                data-val="storytelling"><span class="style-icon">✎</span><span><b>Kể
+                    chuyện</b><small>storytelling</small></span><span class="style-check">✓</span></button><button
+                class="style-pill" aria-pressed="false" data-val="formal"><span
+                  class="style-icon">▪</span><span><b>Trang trọng</b><small>formal</small></span><span
+                  class="style-check">✓</span></button></div>
+            <div class="instruct-line">Gửi lên model: <b data-instruct>female, young adult, moderate pitch</b></div>
+          </section>
+          <section class="card">
+            <h2>Thống kê kết quả</h2>
+            <div class="metrics">
+              <div class="metric"><span>Thời lượng</span><strong data-m="dur">—</strong></div>
+              <div class="metric"><span>Thời gian sinh</span><strong data-m="gen">—</strong></div>
+              <div class="metric"><span>RTF</span><strong data-m="rtf">—</strong></div>
+            </div>
+          </section>
+          <section class="card history">
+            <div class="card-title">
+              <div>
+                <h2>Lịch sử kết quả</h2>
+              </div><button class="btn small" data-clear>Xóa tất cả</button>
+            </div>
+            <div class="table-scroll">
+              <table>
+                <thead>
+                  <tr>
+                    <th>THỜI GIAN</th>
+                    <th>CHẾ ĐỘ</th>
+                    <th>THÔNG SỐ</th>
+                    <th>THỜI LƯỢNG</th>
+                    <th>THAO TÁC</th>
+                  </tr>
+                </thead>
+                <tbody data-hist>
+                  <tr>
+                    <td colspan="5" class="empty">Chưa có kết quả nào.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+        </div>
+      </div>
+    </main>
+
+    <!-- TAB 4: THƯ VIỆN GIỌNG -->
+    <section class="main-content hidden" id="thuvien">
+      <div class="grid">
+        <div class="left">
+          <section class="card">
+            <div class="card-title">
+              <div>
+                <h2>Giọng đọc trong thư viện</h2>
+              </div><button class="btn small" data-vrefresh>↻ Đọc lại</button>
+            </div>
+            <div class="voice-grid" data-vlist>
+              <div class="muted">Chưa đọc thư viện. Bấm Đọc lại.</div>
+            </div>
+            <div class="kvline" data-vdir>Thư mục: —</div>
+          </section>
+        </div>
+        <div class="right">
+          <section class="card">
+            <div class="card-title">
+              <div>
+                <h2>Kết quả âm thanh</h2>
+              </div><button class="btn small" data-dl disabled>↓ Tải xuống</button>
+            </div>
+            <div class="progress-box" data-prog style="display:none">
+              <div class="circle-wrap">
+                <svg viewBox="0 0 100 100" aria-label="Tiến trình">
+                  <circle class="circle-bg" cx="50" cy="50" r="40"></circle>
+                  <circle class="circle-val" cx="50" cy="50" r="40"></circle>
+                </svg>
+                <div class="circle-text">0%</div>
+              </div>
+              <div class="prog-info">
+                <div class="prog-status">Đang chuẩn bị câu nghe thử...</div>
+                <div class="prog-track">
+                  <div class="prog-fill"></div>
+                </div>
+                <div class="prog-meta"><span class="prog-step-text">Đang đọc câu mẫu</span><span
+                    class="prog-timer">0.0s</span></div>
+              </div>
+            </div>
+            <div class="audio-box" data-box>
+              <div class="player"><button class="play" data-play aria-label="Phát âm thanh">▶</button>
+                <div class="wave" data-wave aria-label="Dạng sóng"></div><span aria-hidden="true">◖))</span>
+              </div>
+              <div class="audio-meta"><span data-time>0:00 / 0:00</span><span data-state>CHƯA CÓ ÂM THANH</span></div>
+            </div>
+          </section>
+          <section class="card">
+            <h2>Thống kê kết quả</h2>
+            <div class="metrics">
+              <div class="metric"><span>Thời lượng</span><strong data-m="dur">—</strong></div>
+              <div class="metric"><span>Thời gian sinh</span><strong data-m="gen">—</strong></div>
+              <div class="metric"><span>RTF</span><strong data-m="rtf">—</strong></div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 5: CẤU HÌNH & KẾT NỐI -->
+    <section class="main-content hidden" id="ketnoi">
+      <div class="grid">
+        <div class="left">
+          <section class="card" id="cardHardware">
+            <div class="card-title">
+              <div>
+                <h2 id="cardHardwareTitle">💻 Cấu hình máy &amp; Khả năng xử lý</h2>
+              </div><button class="btn small" id="btnCheckHw">↻ Kiểm tra lại</button>
+            </div>
+            <div class="metrics">
+              <div class="metric"><span>Vi xử lý (CPU)</span><strong id="hwCpu"
+                  style="font-size:12px;line-height:1.2;display:block;margin-top:4px">—</strong><small class="src"
+                  id="hwCpuSub">0 nhân / 0 luồng</small></div>
+              <div class="metric"><span>Bộ nhớ RAM</span><strong id="hwRam" style="font-size:17px">—</strong><small
+                  class="src" id="hwRamSub">Khả dụng: —</small></div>
+              <div class="metric"><span>Card đồ họa (GPU)</span><strong id="hwGpu"
+                  style="font-size:12px;line-height:1.2;display:block;margin-top:4px">—</strong><small class="src"
+                  id="hwGpuSub">VRAM: —</small></div>
+            </div>
+            <div class="metrics" style="margin-top:8px">
+              <div class="metric"><span>PyTorch / AI</span><strong id="hwTorch" style="font-size:12px">—</strong><small
+                  class="src" id="hwCudaSub">CUDA: —</small></div>
+              <div class="metric"><span>Chế độ chạy</span><strong id="hwMode"
+                  style="font-size:12px;color:var(--ok,#16a34a);line-height:1.3;display:block;margin-top:4px">CỤC BỘ
+                  (CPU/GPU)</strong><small class="src" id="hwModeSub">7 giọng có sẵn</small></div>
+              <div class="metric"><span>Tải CPU hiện tại</span><strong id="hwLoad" style="font-size:17px">—</strong>
+              </div>
+            </div>
+
+            <!-- TÙY CHỌN CHỌN SỬ DỤNG CPU HOẶC GPU TRÊN MÁY CÁ NHÂN -->
+            <div class="device-selector" id="boxDeviceSelector"
+              style="margin-top:14px;padding:12px 14px;border:1px solid #cbd5e1;border-radius:8px;background:#f8fafc">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+                <strong
+                  style="font-size:12px;color:#1e293b;letter-spacing:0.3px;display:flex;align-items:center;gap:6px">
+                  <span>⚙️</span> TÙY CHỌN THIẾT BỊ XỬ LÝ (MÁY CÁ NHÂN):
+                </strong>
+                <span class="badge" id="badgeDeviceTarget"
+                  style="font-size:10.5px;padding:2px 8px;background:#e0f2fe;color:#0369a1;font-weight:600">MÁY CÁ
+                  NHÂN</span>
+              </div>
+
+              <div class="device-options" id="deviceOptionsGroup"
+                style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+                <!-- Nút chọn CPU -->
+                <label class="device-opt" id="lblDevCpu"
+                  style="display:flex;align-items:flex-start;gap:10px;padding:10px 12px;border:2px solid #10b981;border-radius:8px;background:#f0fdf4;cursor:pointer;transition:all .15s">
+                  <input type="radio" name="localDeviceChoice" id="radioDevCpu" value="cpu" checked
+                    style="margin-top:3px;cursor:pointer">
+                  <div style="flex:1">
+                    <div style="font-weight:700;font-size:13px;color:#0f172a;display:flex;align-items:center;gap:4px">
+                      <span>💻</span> Vi xử lý CPU
+                    </div>
+                    <div id="devCpuFull"
+                      style="font-size:11px;color:#334155;margin-top:3px;line-height:1.3;font-weight:500">Intel(R)
+                      Core(TM) i9-9880H CPU @ 2.30GHz</div>
+                    <div id="devCpuMeta" style="font-size:10px;color:#10b981;font-weight:600;margin-top:2px">8 nhân · 16
+                      luồng</div>
+                  </div>
+                </label>
+
+                <!-- Nút chọn GPU -->
+                <label class="device-opt" id="lblDevGpu"
+                  style="display:flex;align-items:flex-start;gap:10px;padding:10px 12px;border:2px solid #cbd5e1;border-radius:8px;background:#ffffff;cursor:pointer;transition:all .15s">
+                  <input type="radio" name="localDeviceChoice" id="radioDevGpu" value="gpu"
+                    style="margin-top:3px;cursor:pointer">
+                  <div style="flex:1">
+                    <div style="font-weight:700;font-size:13px;color:#0f172a;display:flex;align-items:center;gap:4px">
+                      <span>⚡</span> Card đồ họa GPU
+                    </div>
+                    <div id="devGpuFull"
+                      style="font-size:11px;color:#334155;margin-top:3px;line-height:1.3;font-weight:500">NVIDIA Quadro
+                      T2000</div>
+                    <div id="devGpuMeta" style="font-size:10px;color:#64748b;font-weight:600;margin-top:2px">4.0 GB VRAM
+                    </div>
+                  </div>
+                </label>
+              </div>
+
+              <!-- Thông báo tự động chuyển sang Kaggle GPU khi kết nối Kaggle -->
+              <div id="kaggleAutoBanner"
+                style="display:none;margin-top:10px;padding:10px 12px;background:#eff6ff;border:1px solid #bfdbfe;border-radius:6px;font-size:12px;color:#1e40af;line-height:1.4">
+                ☁️ <b>Đang kết nối Kaggle:</b> Hệ thống <b>tự động (auto)</b> sử dụng GPU trên Kaggle (<span
+                  id="kaggleGpuName" style="font-weight:700">NVIDIA Tesla T4 / P100</span>) để tăng tốc tổng hợp giọng
+                nói cao nhất. Tùy chọn trên máy cá nhân tạm thời được bảo lưu.
+              </div>
+            </div>
+
+            <!-- Ô NHỎ CHUYỂN ĐỔI MODEL: OMDIOM (VIỆT HÓA) HOẶC OMNIVOICE (GỐC) -->
+            <div class="model-selector" id="boxModelSelector"
+              style="margin-top:14px;padding:12px 14px;border:1px solid #cbd5e1;border-radius:8px;background:#f8fafc">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+                <strong
+                  style="font-size:12px;color:#1e293b;letter-spacing:0.3px;display:flex;align-items:center;gap:6px">
+                  <span>🎯</span> MÔ HÌNH AI ĐANG SỬ DỤNG (ACTIVE MODEL):
+                </strong>
+                <span class="badge" id="badgeActiveModel"
+                  style="font-size:10.5px;padding:2px 8px;background:#fef3c7;color:#92400e;font-weight:600">ĐANG DÙNG:
+                  OMDIOM</span>
+              </div>
+
+              <div class="model-options" id="modelOptionsGroup"
+                style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+                <!-- Nút chọn OmDiOm -->
+                <label class="model-opt" id="lblModelOmdiom"
+                  style="display:flex;align-items:flex-start;gap:10px;padding:10px 12px;border:2px solid #3b82f6;border-radius:8px;background:#eff6ff;cursor:pointer;transition:all .15s">
+                  <input type="radio" name="modelChoice" id="radioModelOmdiom" value="omdiom" checked
+                    style="margin-top:3px;cursor:pointer">
+                  <div style="flex:1">
+                    <div style="font-weight:700;font-size:13px;color:#0f172a;display:flex;align-items:center;gap:4px">
+                      <span>🇻🇳</span> OmDiOm (Việt hóa)
+                    </div>
+                    <div style="font-size:11px;color:#334155;margin-top:3px;line-height:1.3;font-weight:500">
+                      Fine-tuned 4.000 bước VIVOS
+                    </div>
+                    <div style="font-size:10px;color:#2563eb;font-weight:600;margin-top:2px">
+                      Ngữ âm tiếng Việt tự nhiên
+                    </div>
+                  </div>
+                </label>
+
+                <!-- Nút chọn OmniVoice gốc -->
+                <label class="model-opt" id="lblModelOmnivoice"
+                  style="display:flex;align-items:flex-start;gap:10px;padding:10px 12px;border:2px solid #cbd5e1;border-radius:8px;background:#ffffff;cursor:pointer;transition:all .15s">
+                  <input type="radio" name="modelChoice" id="radioModelOmnivoice" value="omnivoice"
+                    style="margin-top:3px;cursor:pointer">
+                  <div style="flex:1">
+                    <div style="font-weight:700;font-size:13px;color:#0f172a;display:flex;align-items:center;gap:4px">
+                      <span>🌐</span> OmniVoice (Gốc)
+                    </div>
+                    <div style="font-size:11px;color:#334155;margin-top:3px;line-height:1.3;font-weight:500">
+                      k2-fsa/OmniVoice Base
+                    </div>
+                    <div style="font-size:10px;color:#64748b;font-weight:600;margin-top:2px">
+                      Mô hình quốc tế đa ngôn ngữ
+                    </div>
+                  </div>
+                </label>
+              </div>
+              <div id="modelSwitchStatus"
+                style="display:none;margin-top:8px;padding:6px 10px;background:#e0f2fe;border-radius:4px;font-size:11.5px;color:#0369a1;font-weight:500">
+                ⏳ Đang hoán đổi trọng số mô hình trong bộ nhớ, vui lòng đợi...
+              </div>
+            </div>
+          </section>
+          <section class="card">
+            <div class="card-title">
+              <div>
+                <h2>Máy chủ đang chạy gì</h2>
+              </div><button class="btn small" data-kn-refresh>↻ Đọc lại</button>
+            </div>
+            <div class="metrics">
+              <div class="metric"><span>Thiết bị</span><strong data-si="device">—</strong></div>
+              <div class="metric"><span>Model</span><strong data-si="model"
+                  style="font-size:11px;word-break:break-all">—</strong></div>
+              <div class="metric"><span>Đã nạp</span><strong data-si="loaded">—</strong></div>
+            </div>
+            <div class="metrics">
+              <div class="metric"><span>Thời gian nạp</span><strong data-si="load">—</strong></div>
+              <div class="metric"><span>Tần số mẫu</span><strong data-si="sr">—</strong></div>
+              <div class="metric"><span>Chế độ</span><strong data-si="mode">—</strong></div>
+            </div>
+            <div class="kvline" data-si="defaults">num_step · guidance · t_shift · speed — chưa đọc được</div>
+          </section>
+        </div>
+        <div class="right">
+          <section class="card">
+            <div class="card-title">
+              <div>
+                <h2>Kết nối máy chủ Kaggle GPU</h2>
+              </div>
+            </div>
+            <div class="conn-state"><span class="bigdot" data-kn-dot></span><span><b data-kn-text>Chưa kết nối</b><small
+                  data-kn-sub>Chưa nhập địa chỉ máy chủ</small></span><span class="tag ok" data-kn-tag>SẴN SÀNG</span>
+            </div>
+            <div class="attribute" style="grid-template-columns:1fr;margin-top:16px;margin-bottom:6px"><span>Địa chỉ máy
+                chủ (link tunnel)</span></div>
+            <input id="knUrl" type="url" placeholder="https://ten-ngau-nhien.trycloudflare.com" spellcheck="false">
+            <div class="attribute" style="grid-template-columns:1fr;margin-top:12px;margin-bottom:6px"><span>API key —
+                để trống nếu máy chủ không đặt</span></div>
+            <input id="knKey" type="text" placeholder="dán key mà Kaggle in ra ở mục 5" spellcheck="false">
+            <div class="btnrow"><button class="btn" id="knTest">Kiểm tra</button><button class="btn primary" id="knSave"
+                style="margin:0;width:auto;flex:2">Lưu &amp; kết nối</button><button class="btn"
+                id="knClear">Ngắt</button></div>
+            <div class="kvline" id="knOut" style="display:none"></div>
+          </section>
+        </div>
+      </div>
+    </section>
+
+    <!-- MODAL HƯỚNG DẪN SỬ DỤNG ẨN -->
+    <dialog class="modal" id="helpModal" style="width:min(680px,94vw);max-height:85vh;overflow-y:auto">
+      <div class="card-title" style="display:flex;align-items:center;gap:14px">
+        <img src="assets/logo/rosette-128.png" alt="OmDiOm Logo" style="width:46px;height:46px;border-radius:12px;border:2px solid #111;box-shadow:2px 2px 0 #111;flex-shrink:0">
+        <div>
+          <h2>📖 Cẩm Nang Hướng Dẫn Sử Dụng</h2>
+          <div class="muted">Tài liệu chi tiết các tính năng của OmDiOm Studio</div>
+        </div>
+        <button class="btn small" id="btnCloseHelp" style="margin-left:auto">✕ Đóng</button>
+      </div>
+      <div style="margin-top:14px;display:grid;gap:14px">
+        <section class="card" style="box-shadow:none;border-color:#b2aa8d">
+          <h3>1. Đọc văn bản &amp; Tải tệp .TXT</h3>
+          <ul class="checklist">
+            <li><span class="check">✓</span><span><b>Kéo thả file .txt</b> vào ô tải tệp để tự động nạp nội dung.</span>
+            </li>
+            <li><span class="check">✓</span><span><b>Chế độ ngắt nghỉ theo câu</b>: Tự động tách theo dấu chấm (. ! ?
+                \n) và chèn khoảng lặng chuẩn.</span></li>
+            <li><span class="check">✓</span><span><b>Chế độ ngắt nghỉ theo đoạn</b>: Dừng lâu hơn khi xuống dòng (\n\n),
+                phù hợp đọc truyện/sách nói.</span></li>
+            <li><span class="check">✓</span><span>Bạn có thể tùy chỉnh thời gian nghỉ giữa các câu từ 0.1s đến 2.0s tùy
+                ý.</span></li>
+          </ul>
+        </section>
+        <section class="card" style="box-shadow:none;border-color:#b2aa8d">
+          <h3>2. Nhân bản giọng (Zero-shot Voice Clone)</h3>
+          <ul class="checklist">
+            <li><span class="check">✓</span><span><b>Clip mẫu 3–10 giây</b>: Giọng rõ ràng, không lẫn nhạc nền hoặc tạp
+                âm.</span></li>
+            <li><span class="check">✓</span><span><b>Gõ đúng lời thoại của clip mẫu</b>: Giúp model căn chỉnh ngữ âm
+                chính xác nhất.</span></li>
+            <li><span class="check">✓</span><span>Sau khi nhân bản thành công, bấm <b>💾 Lưu giọng</b> để đưa vào thư
+                viện dùng lại vĩnh viễn.</span></li>
+          </ul>
+        </section>
+        <section class="card" style="box-shadow:none;border-color:#b2aa8d">
+          <h3>3. Chạy Cục Bộ vs Kết nối Kaggle GPU</h3>
+          <ul class="checklist">
+            <li><span class="check">✓</span><span><b>Chạy trực tiếp trên máy</b>: Model đã được lưu tại
+                <code>models/OmDiOm</code>, chạy ngay trên CPU i9 hoặc GPU rời.</span></li>
+            <li><span class="check">✓</span><span><b>Kết nối Kaggle GPU</b>: Chạy notebook
+                <code>kaggle/omdiom_server.ipynb</code>, lấy link cloudflare dán vào tab Cấu hình &amp; Kết nối.</span>
+            </li>
+          </ul>
+        </section>
+      </div>
+      <div class="modal-actions" style="margin-top:16px"><button class="btn primary" id="btnCloseHelp2">Đã hiểu</button>
+      </div>
+    </dialog>
+
+    <!-- MODAL XEM CHI TIẾT VĂN BẢN VÀ PHỤ ĐỀ SRT (MỞ RỘNG TỔNG QUÁT) -->
+    <dialog class="modal" id="previewModal" style="width:min(980px,95vw);max-height:88vh;overflow-y:auto;padding:22px">
+      <div class="card-title"
+        style="display:flex;align-items:center;justify-content:space-between;border-bottom:2px solid #171717;padding-bottom:12px;margin-bottom:14px">
+        <div>
+          <h2 style="margin:0;display:flex;align-items:center;gap:8px;font-size:17px">
+            <span>📑</span> <span id="modalPreviewTitle">Xem Chi Tiết Văn Bản &amp; Phụ Đề (.SRT)</span>
+          </h2>
+          <div class="muted" style="font-size:12px;margin-top:3px" id="modalPreviewSubtitle">
+            Chế độ xem tổng quát toàn màn hình — Dễ dàng theo dõi toàn bộ nội dung kịch bản và mốc thời gian phụ đề
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <button type="button" class="btn small" id="btnModalCopy"
+            style="background:#eff6ff;color:#1e40af;border-color:#3b82f6;font-weight:600">📋 Sao chép</button>
+          <button type="button" class="btn small" id="btnModalDownload"
+            style="background:#f0fdf4;color:#166534;border-color:#22c55e;font-weight:600">⬇ Tải tệp</button>
+          <button type="button" class="btn small" id="btnModalClose">✕ Thu nhỏ</button>
+        </div>
+      </div>
+
+      <div
+        style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:8px">
+        <div class="segmented" style="margin-bottom:0">
+          <button type="button" class="segment selected" id="btnModalTabTxt" style="padding:6px 16px;font-weight:700">📄
+            Nội dung văn bản (.TXT)</button>
+          <button type="button" class="segment" id="btnModalTabSrt" style="padding:6px 16px;font-weight:700">⏱ Phụ đề
+            khớp thời gian (.SRT)</button>
+        </div>
+        <div class="muted" id="modalPreviewStats" style="font-size:12px;font-weight:600">
+          📊 Đang xem nội dung
+        </div>
+      </div>
+
+      <div style="flex:1;display:flex;flex-direction:column;min-height:400px">
+        <div id="modalBoxTxt" style="display:block;flex:1">
+          <textarea id="modalAreaTxt" readonly
+            style="width:100%;height:450px;background:#fffdf4;font-size:14px;line-height:1.7;padding:16px;border:2px solid #171717;border-radius:8px;box-shadow:2px 2px 0 #171717;resize:none;font-family:inherit"
+            placeholder="Nội dung văn bản tương ứng với giọng đọc sẽ xuất hiện tại đây..."></textarea>
+        </div>
+        <div id="modalBoxSrt" style="display:none;flex:1">
+          <textarea id="modalAreaSrt" readonly
+            style="width:100%;height:450px;background:#18181b;color:#38bdf8;font-family:Consolas, Monaco, monospace;font-size:13px;line-height:1.6;padding:16px;border:2px solid #171717;border-radius:8px;box-shadow:2px 2px 0 #171717;resize:none"
+            placeholder="Phụ đề SRT với mốc thời gian chuẩn xác của từng câu sẽ xuất hiện tại đây..."></textarea>
+        </div>
+      </div>
+
+      <div class="modal-actions" style="margin-top:16px;display:flex;align-items:center;justify-content:space-between">
+        <span class="muted" style="font-size:11.5px">💡 Phím tắt: Bấm phím <b>Esc</b> hoặc nút <b>Thu nhỏ lại</b> để
+          quay lại kích thước nhỏ như ban đầu.</span>
+        <button type="button" class="btn primary" id="btnModalClose2">Thu nhỏ lại</button>
+      </div>
+    </dialog>
+
+    <!-- MODAL SOẠN THẢO VĂN BẢN & KỊCH BẢN TOÀN MÀN HÌNH (FOCUS ZEN EDITOR) -->
+    <dialog class="modal" id="editorModal" style="width:min(1080px,96vw);max-height:90vh;overflow-y:auto;padding:22px">
+      <div class="card-title"
+        style="display:flex;align-items:center;justify-content:space-between;border-bottom:2px solid #171717;padding-bottom:12px;margin-bottom:12px">
+        <div>
+          <h2 style="margin:0;display:flex;align-items:center;gap:8px;font-size:17.5px">
+            <span>📝</span> <span id="editorModalTitle">Trình Soạn Thảo Toàn Màn Hình</span>
+          </h2>
+          <div class="muted" style="font-size:12px;margin-top:3px" id="editorModalSubtitle">
+            Không gian soạn thảo rộng rãi, thoáng đãng — Dễ dàng theo dõi, đọc duyệt và tinh chỉnh văn bản chi tiết
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <div
+            style="display:flex;align-items:center;background:#ede5c9;border:1.5px solid #171717;border-radius:6px;padding:2px 4px;gap:2px"
+            title="Điều chỉnh kích cỡ phông chữ">
+            <button type="button" class="btn small" id="btnEditorFontDec"
+              style="padding:2px 7px;font-size:11px;background:#fffdf4">A-</button>
+            <span id="editorFontSizeLabel" style="font-size:11.5px;font-weight:700;padding:0 4px">15px</span>
+            <button type="button" class="btn small" id="btnEditorFontInc"
+              style="padding:2px 7px;font-size:11px;background:#fffdf4">A+</button>
+          </div>
+          <button type="button" class="btn small" id="btnEditorCopy"
+            style="background:#eff6ff;color:#1e40af;border-color:#3b82f6;font-weight:600">📋 Sao chép</button>
+          <button type="button" class="btn small" id="btnEditorClear"
+            style="background:#fff1f2;color:#be123c;border-color:#fb7185">🗑️ Xóa</button>
+          <button type="button" class="btn small" id="btnEditorClose">✕ Thu nhỏ</button>
+        </div>
+      </div>
+
+      <!-- THANH CÔNG CỤ THẺ CẢM XÚC TRONG TRÌNH SOẠN THẢO LỚN -->
+      <div class="emotion-toolbar" style="margin-top:0;margin-bottom:10px">
+        <div class="emotion-header">
+          <span class="emotion-title"><span>🎭</span> THẺ CẢM XÚC &amp; BIỂU CẢM:</span>
+          <small class="emotion-hint">Bấm để chèn ngay vào vị trí con trỏ</small>
+        </div>
+        <div class="emotion-tags" id="editorEmotionTags">
+          <button type="button" class="btn-emotion" data-tag="[cười]" title="Chèn thẻ [cười]">😆 Cười</button>
+          <button type="button" class="btn-emotion" data-tag="[thở dài]" title="Chèn thẻ [thở dài]">😮‍💨 Thở
+            dài</button>
+          <button type="button" class="btn-emotion" data-tag="[ngạc nhiên]" title="Chèn thẻ [ngạc nhiên]">😲 Ngạc
+            nhiên</button>
+          <button type="button" class="btn-emotion" data-tag="[trầm trồ]" title="Chèn thẻ [trầm trồ]">🤩 Trầm
+            trồ</button>
+          <button type="button" class="btn-emotion" data-tag="[nghi vấn]" title="Chèn thẻ [nghi vấn]">❓ Nghi
+            vấn</button>
+          <button type="button" class="btn-emotion" data-tag="[thắc mắc]" title="Chèn thẻ [thắc mắc]">🤔 Thắc
+            mắc</button>
+          <button type="button" class="btn-emotion" data-tag="[đồng tình]" title="Chèn thẻ [đồng tình]">👍 Đồng
+            tình</button>
+          <button type="button" class="btn-emotion" data-tag="[bất mãn]" title="Chèn thẻ [bất mãn]">😤 Bất mãn</button>
+          <button type="button" class="btn-pause-tag" data-tag="[nghỉ: 0.5s]" title="Chèn khoảng lặng 0.5 giây"
+            style="background:#e0e7ff;color:#3730a3;border:1.5px solid #818cf8;border-radius:4px;padding:2px 7px;font-size:11px;font-weight:700;cursor:pointer">⏱️
+            Nghỉ 0.5s</button>
+          <button type="button" class="btn-pause-tag" data-tag="[nghỉ: 1.0s]" title="Chèn khoảng lặng 1.0 giây"
+            style="background:#e0e7ff;color:#3730a3;border:1.5px solid #818cf8;border-radius:4px;padding:2px 7px;font-size:11px;font-weight:700;cursor:pointer">⏱️
+            Nghỉ 1.0s</button>
+        </div>
+      </div>
+
+      <div style="flex:1;display:flex;flex-direction:column;min-height:420px">
+        <textarea id="editorModalTextarea"
+          style="width:100%;height:440px;background:#fffdf4;font-size:15px;line-height:1.75;padding:16px 18px;border:2px solid #171717;border-radius:8px;box-shadow:2px 2px 0 #171717;resize:none;font-family:inherit"
+          placeholder="Nhập hoặc chỉnh sửa văn bản của bạn tại đây..."></textarea>
+      </div>
+
+      <div class="modal-actions" style="margin-top:14px;display:flex;align-items:center;justify-content:space-between">
+        <div id="editorModalStats" style="font-size:12.5px;font-weight:700;color:#555045">
+          📊 0 từ · 0 ký tự · ~0s ước tính thời lượng
+        </div>
+        <div style="display:flex;gap:8px">
+          <button type="button" class="btn primary" id="btnEditorApply"
+            style="margin-top:0;padding:8px 20px;font-size:13.5px;font-weight:800">
+            ✓ Áp dụng &amp; Thu nhỏ lại
+          </button>
+        </div>
+      </div>
+    </dialog>
+
+    <!-- MODAL XEM CHI TIẾT CONSOLE TERMINAL LOG TOÀN MÀN HÌNH -->
+    <dialog class="modal" id="terminalModal"
+      style="width:min(1080px,96vw);max-height:90vh;overflow-y:auto;padding:22px">
+      <div class="card-title"
+        style="display:flex;align-items:center;justify-content:space-between;border-bottom:2px solid #171717;padding-bottom:12px;margin-bottom:12px">
+        <div>
+          <h2 style="margin:0;display:flex;align-items:center;gap:8px;font-size:17.5px">
+            <span>📟</span> <span id="terminalModalTitle">Bảng Lệnh Quy Trình Xử Lý Chi Tiết (Full Terminal Log)</span>
+          </h2>
+          <div class="muted" style="font-size:12px;margin-top:3px" id="terminalModalSubtitle">
+            Theo dõi thời gian thực từng bước tính toán AI, thời lượng, RTF và phản hồi chi tiết từ hệ thống
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <button type="button" class="btn small" id="btnTerminalAutoScroll"
+            style="background:#e0f2fe;color:#0369a1;border-color:#38bdf8;font-weight:700">⬇ Tự cuộn: BẬT</button>
+          <button type="button" class="btn small" id="btnTerminalCopy"
+            style="background:#eff6ff;color:#1e40af;border-color:#3b82f6;font-weight:600">📋 Sao chép log</button>
+          <button type="button" class="btn small" id="btnTerminalClear"
+            style="background:#fff1f2;color:#be123c;border-color:#fb7185">🗑️ Xóa log</button>
+          <button type="button" class="btn small" id="btnTerminalClose">✕ Thu nhỏ</button>
+        </div>
+      </div>
+
+      <div style="flex:1;display:flex;flex-direction:column;min-height:440px">
+        <div class="term-panel" id="modalTerminalPanel"
+          style="height:460px;max-height:460px;overflow-y:auto;font-size:12.5px;line-height:1.7;padding:16px;border:2px solid #171717;box-shadow:inset 2px 2px 0 #000">
+          <!-- Logs render tự động tại đây -->
+        </div>
+      </div>
+
+      <div class="modal-actions" style="margin-top:14px;display:flex;align-items:center;justify-content:space-between">
+        <span class="muted" style="font-size:11.5px">🟢 Trạng thái: Đang theo dõi thời gian thực · Nhấn phím <b>Esc</b>
+          hoặc nút <b>Thu nhỏ lại</b> để đóng.</span>
+        <button type="button" class="btn primary" id="btnTerminalClose2"
+          style="margin-top:0;padding:8px 20px;font-size:13.5px">Thu nhỏ lại</button>
+      </div>
+    </dialog>
+
+    <footer class="footer"><span>OMDIOM &nbsp; / &nbsp; VOICE STUDIO</span><span>OmDiOm · Zero-shot Voice Studio</span>
+    </footer>
+  </div>
+  <div class="toast" id="toast" role="status"></div>
+  <div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
+
+  <!-- CÁC MODULE JAVASCRIPT ĐƯỢC TÁCH BIỆT RÕ RÀNG THEO CHỨC NĂNG -->
+  <script src="js/config.js"></script>
+  <script src="js/audio-dsp.js"></script>
+  <script src="js/file-manager.js"></script>
+  <script src="js/recorder.js?v=2.4"></script>
+  <script src="js/tts-engine.js"></script>
+  <script src="js/voice-library.js"></script>
+  <script src="js/dialogue-studio.js"></script>
+  <script src="js/preview-modal.js"></script>
+  <script src="js/editor-modal.js"></script>
+  <script src="js/terminal-modal.js"></script>
+  <script src="js/kinetic-motion.js"></script>
+  <script src="js/app.js?v=2.4"></script>
+</body>
+
+</html>

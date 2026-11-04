@@ -1,0 +1,301 @@
+﻿sentence_id,speaker_id,thanh_trong_tam,noi_dung,do_dai_ky_tu,cum_danh_tu
+S0001,,ngang,Ba ra sân sau ngắm hoa.,23,"sân sau, hoa"
+S0002,,ngang,Nam ra sân sau ngắm hoa.,24,"sân sau, hoa"
+S0003,,ngang,Lan ra sân sau ngắm hoa.,24,"sân sau, hoa"
+S0004,,ngang,An ra sân sau ngắm hoa.,23,"sân sau, hoa"
+S0005,,ngang,Nga ra sân sau ngắm hoa.,24,"sân sau, hoa"
+S0006,,ngang,Ba mang hoa ra sân.,19,hoa
+S0007,,ngang,Ba mang cam ra sân.,19,cam
+S0008,,ngang,Ba mang rau ra sân.,19,rau
+S0009,,ngang,Ba mang dao ra sân.,19,dao
+S0010,,ngang,Ba mang nem ra sân.,19,nem
+S0011,,ngang,Nam đi qua ga xa.,17,ga xa
+S0012,,ngang,Lan đi qua ga xa.,17,ga xa
+S0013,,ngang,An đi qua ga xa.,16,ga xa
+S0014,,ngang,Nga đi qua ga xa.,17,ga xa
+S0015,,ngang,Ba đi qua ga xa.,16,ga xa
+S0016,,ngang,Ta ca vang qua sân.,19,sân
+S0017,,ngang,Ta ca vang qua ga.,18,ga
+S0018,,ngang,Ta ca vang qua ao.,18,ao
+S0019,,ngang,Ta ca vang qua ban công.,24,ban công
+S0020,,ngang,Ta ca vang qua sân sau.,23,sân sau
+S0021,,ngang,Ba mua cam cho Lan.,19,cam
+S0022,,ngang,Ba mua hoa cho Lan.,19,hoa
+S0023,,ngang,Ba mua rau cho Lan.,19,rau
+S0024,,ngang,Ba mua dao cho Lan.,19,dao
+S0025,,ngang,Ba mua nem cho Lan.,19,nem
+S0026,,ngang,Nam đi ngang qua ga.,20,ga
+S0027,,ngang,Nam đi ngang qua sân.,21,sân
+S0028,,ngang,Nam đi ngang qua ao.,20,ao
+S0029,,ngang,Nam đi ngang qua bờ ao.,23,bờ ao
+S0030,,ngang,Nam đi ngang qua sân sau.,25,sân sau
+S0031,,ngang,Hoa lan nở quanh sân.,21,sân
+S0032,,ngang,Hoa lan nở quanh ao.,20,ao
+S0033,,ngang,Hoa lan nở quanh ban công.,26,ban công
+S0034,,ngang,Hoa lan nở quanh sân sau.,25,sân sau
+S0035,,ngang,Hoa lan nở quanh ga xa.,23,ga xa
+S0036,,ngang,Con chim bay qua sân.,21,sân
+S0037,,ngang,Con chim bay qua ao.,20,ao
+S0038,,ngang,Con chim bay qua ga.,20,ga
+S0039,,ngang,Con chim bay qua ban công.,26,ban công
+S0040,,ngang,Con chim bay qua sân sau.,25,sân sau
+S0041,,ngang,Ta đưa hoa ra ban công.,23,ban công
+S0042,,ngang,Ta đưa hoa ra sân sau.,22,sân sau
+S0043,,ngang,Ta đưa hoa ra ga xa.,20,ga xa
+S0044,,ngang,Ta đưa hoa ra sân nhà.,22,sân nhà
+S0045,,ngang,Ta đưa hoa ra bờ ao.,20,bờ ao
+S0046,,ngang,Ba kê ghế ra sân.,17,sân
+S0047,,ngang,Ba kê ghế ra ban công.,22,ban công
+S0048,,ngang,Ba kê ghế ra sân sau.,21,sân sau
+S0049,,ngang,Ba kê ghế ra bờ ao.,19,bờ ao
+S0050,,ngang,Ba kê ghế ra ga xa.,19,ga xa
+S0051,,huyen,Bà Hà về nhà rồi.,17,nhà
+S0052,,huyen,Bà Hà về làng rồi.,18,làng
+S0053,,huyen,Bà Hà về phòng rồi.,19,phòng
+S0054,,huyen,Bà Hà về quê nhà rồi.,21,quê nhà
+S0055,,huyen,Bà Hà về miền quê rồi.,22,miền quê
+S0056,,huyen,Ánh đèn vàng soi thềm nhà.,26,đèn vàng
+S0057,,huyen,Ánh đèn mờ soi thềm nhà.,24,đèn mờ
+S0058,,huyen,Ánh đèn hồng soi thềm nhà.,26,đèn hồng
+S0059,,huyen,Ánh đèn dầu soi thềm nhà.,25,đèn dầu
+S0060,,huyen,Ánh đèn lồng soi thềm nhà.,26,đèn lồng
+S0061,,huyen,Người già thường về làng.,25,làng
+S0062,,huyen,Người già thường về nhà.,24,nhà
+S0063,,huyen,Người già thường về miền quê.,29,miền quê
+S0064,,huyen,Người già thường về quê nhà.,28,quê nhà
+S0065,,huyen,Người già thường về làng xưa.,29,làng xưa
+S0066,,huyen,Bà mang trà về nhà.,19,trà
+S0067,,huyen,Bà mang chè về nhà.,19,chè
+S0068,,huyen,Bà mang quà về nhà.,19,quà
+S0069,,huyen,Bà mang dầu về nhà.,19,dầu
+S0070,,huyen,Bà mang tiền về nhà.,20,tiền
+S0071,,huyen,"Mùa hè, mẹ về nhà.",18,nhà
+S0072,,huyen,"Mùa hè, mẹ về làng.",19,làng
+S0073,,huyen,"Mùa hè, mẹ về quê nhà.",22,quê nhà
+S0074,,huyen,"Mùa hè, mẹ về miền Nam.",23,miền Nam
+S0075,,huyen,"Mùa hè, mẹ về miền Trung.",25,miền Trung
+S0076,,huyen,Con đường làng đầy lá vàng.,27,lá vàng
+S0077,,huyen,Con đường làng đầy sương mờ.,28,sương mờ
+S0078,,huyen,Con đường làng đầy rêu mềm.,27,rêu mềm
+S0079,,huyen,Con đường làng đầy bụi đường.,29,bụi đường
+S0080,,huyen,Con đường làng đầy ánh đèn.,27,ánh đèn
+S0081,,huyen,"Chiều về, bà ngồi bên thềm.",27,thềm
+S0082,,huyen,"Chiều về, bà ngồi bên hè.",25,hè
+S0083,,huyen,"Chiều về, bà ngồi bên hiên nhà.",31,hiên nhà
+S0084,,huyen,"Chiều về, bà ngồi bên đường làng.",33,đường làng
+S0085,,huyen,"Chiều về, bà ngồi bên bờ tường.",31,bờ tường
+S0086,,huyen,"Ngoài hè, người già nằm chờ.",28,"ngoài hè, người già"
+S0087,,huyen,"Ngoài hè, người già nằm mơ.",27,"ngoài hè, người già"
+S0088,,huyen,"Ngoài hè, người già nằm nghe chèo.",34,"ngoài hè, người già"
+S0089,,huyen,"Ngoài hè, người già nằm bên thềm.",33,"ngoài hè, người già"
+S0090,,huyen,"Ngoài hè, người già nằm nhìn về làng.",37,"ngoài hè, người già"
+S0091,,huyen,Mẹ đem chè về nhà.,18,chè
+S0092,,huyen,Mẹ đem trà về nhà.,18,trà
+S0093,,huyen,Mẹ đem dầu về nhà.,18,dầu
+S0094,,huyen,Mẹ đem tiền về nhà.,19,tiền
+S0095,,huyen,Mẹ đem đèn về nhà.,18,đèn
+S0096,,huyen,"Bà kể về mùa hè, về làng quê.",29,làng quê
+S0097,,huyen,"Bà kể về mùa hè, về đường làng.",31,đường làng
+S0098,,huyen,"Bà kể về mùa hè, về miền xa.",28,miền xa
+S0099,,huyen,"Bà kể về mùa hè, về quê nhà.",28,quê nhà
+S0100,,huyen,"Bà kể về mùa hè, về bờ đê.",26,bờ đê
+S0101,,sac,Bé thích uống nước mát.,23,nước mát
+S0102,,sac,Phúc thích uống nước mát.,25,nước mát
+S0103,,sac,Bích thích uống nước mát.,25,nước mát
+S0104,,sac,Tú thích uống nước mát.,23,nước mát
+S0105,,sac,Lý thích uống nước mát.,23,nước mát
+S0106,,sac,"Bé thích sách mới, bút sắc.",27,"sách mới, bút sắc"
+S0107,,sac,"Bé thích sách mới, bút tốt.",27,"sách mới, bút tốt"
+S0108,,sac,"Bé thích sách mới, bút trắng.",29,"sách mới, bút trắng"
+S0109,,sac,"Bé thích sách mới, bút mới.",27,"sách mới, bút mới"
+S0110,,sac,"Bé thích sách mới, bút đẹp.",27,"sách mới, bút đẹp"
+S0111,,sac,"Sáng nay, chúng cháu đến lớp, thích hát.",40,chúng cháu đến lớp
+S0112,,sac,"Sáng nay, chúng cháu đến lớp, thích múa.",40,chúng cháu đến lớp
+S0113,,sac,"Sáng nay, chúng cháu đến lớp, thích vẽ.",39,chúng cháu đến lớp
+S0114,,sac,"Sáng nay, chúng cháu đến lớp, thích đọc sách.",45,chúng cháu đến lớp
+S0115,,sac,"Sáng nay, chúng cháu đến lớp, thích học toán.",45,chúng cháu đến lớp
+S0116,,sac,"Chúc mừng năm mới, chúc bạn thành công.",39,"năm mới, sức khỏe"
+S0117,,sac,"Chúc mừng năm mới, chúc bạn sức khỏe tốt.",41,"năm mới, sức khỏe"
+S0118,,sac,"Chúc mừng năm mới, chúc bạn phát tài.",37,"năm mới, sức khỏe"
+S0119,,sac,"Chúc mừng năm mới, chúc bạn may mắn.",36,"năm mới, sức khỏe"
+S0120,,sac,"Chúc mừng năm mới, chúc bạn tiến bộ.",36,"năm mới, sức khỏe"
+S0121,,sac,Tiếng sáo réo rắt khắp xóm.,27,tiếng sáo réo rắt
+S0122,,sac,Tiếng sáo réo rắt khắp phố.,27,tiếng sáo réo rắt
+S0123,,sac,Tiếng sáo réo rắt khắp xứ.,26,tiếng sáo réo rắt
+S0124,,sac,Tiếng sáo réo rắt khắp xóm nhỏ.,31,tiếng sáo réo rắt
+S0125,,sac,Tiếng sáo réo rắt khắp phố nhỏ.,31,tiếng sáo réo rắt
+S0126,,sac,"Chiếc bánh nóng, nước mát.",26,"chiếc bánh nóng, nước mát"
+S0127,,sac,"Chiếc bánh nóng, nước nóng.",27,"chiếc bánh nóng, nước nóng"
+S0128,,sac,"Chiếc bánh nóng, nước sốt.",26,"chiếc bánh nóng, nước sốt"
+S0129,,sac,"Chiếc bánh nóng, nước chấm.",27,"chiếc bánh nóng, nước chấm"
+S0130,,sac,"Chiếc bánh nóng, nước sấu.",26,"chiếc bánh nóng, nước sấu"
+S0131,,sac,Phúc thích đọc sách tiếng Việt.,31,sách tiếng Việt
+S0132,,sac,Phúc thích đọc sách tiếng Pháp.,31,sách tiếng Pháp
+S0133,,sac,Phúc thích đọc sách tiếng Thái.,31,sách tiếng Thái
+S0134,,sac,Phúc thích đọc sách tiếng Nhật.,31,sách tiếng Nhật
+S0135,,sac,Phúc thích đọc sách tiếng Anh.,30,sách tiếng Anh
+S0136,,sac,"Sáng sớm, bé thích gió mát.",27,"sáng sớm, gió mát"
+S0137,,sac,"Sáng sớm, Phúc thích gió mát.",29,"sáng sớm, gió mát"
+S0138,,sac,"Sáng sớm, Bích thích gió mát.",29,"sáng sớm, gió mát"
+S0139,,sac,"Sáng sớm, Tú thích gió mát.",27,"sáng sớm, gió mát"
+S0140,,sac,"Sáng sớm, Lý thích gió mát.",27,"sáng sớm, gió mát"
+S0141,,sac,Chúng cháu thích món súp nóng.,30,món súp nóng
+S0142,,sac,Chúng cháu thích món súp bí.,28,món súp bí
+S0143,,sac,Chúng cháu thích món súp nấm.,29,món súp nấm
+S0144,,sac,Chúng cháu thích món súp cá.,28,món súp cá
+S0145,,sac,Chúng cháu thích món súp thịt.,30,món súp thịt
+S0146,,sac,Ánh nắng chiếu sáng mái ngói.,29,"ánh nắng, mái ngói"
+S0147,,sac,Ánh nắng chiếu sáng mái tôn.,28,"ánh nắng, mái tôn"
+S0148,,sac,Ánh nắng chiếu sáng mái sắt.,28,"ánh nắng, mái sắt"
+S0149,,sac,Ánh nắng chiếu sáng mái kính.,29,"ánh nắng, mái kính"
+S0150,,sac,Ánh nắng chiếu sáng mái hiên.,29,"ánh nắng, mái hiên"
+S0151,,hoi,Bạn hỏi mẹ ở cửa sổ.,20,"hỏi mẹ, cửa sổ"
+S0152,,hoi,Cô hỏi mẹ ở cửa sổ.,19,"hỏi mẹ, cửa sổ"
+S0153,,hoi,Bà hỏi mẹ ở cửa sổ.,19,"hỏi mẹ, cửa sổ"
+S0154,,hoi,Chị hỏi mẹ ở cửa sổ.,20,"hỏi mẹ, cửa sổ"
+S0155,,hoi,Cậu hỏi mẹ ở cửa sổ.,20,"hỏi mẹ, cửa sổ"
+S0156,,hoi,"Cửa sổ nhỏ, cô hỏi nhỏ.",23,cửa sổ nhỏ
+S0157,,hoi,"Cửa sổ cũ, cô hỏi nhỏ.",22,cửa sổ cũ
+S0158,,hoi,"Cửa sổ mở, cô hỏi nhỏ.",22,cửa sổ mở
+S0159,,hoi,"Cửa sổ hở, cô hỏi nhỏ.",22,cửa sổ hở
+S0160,,hoi,"Cửa sổ rộng, cô hỏi nhỏ.",24,cửa sổ rộng
+S0161,,hoi,"Cô hỏi thử, chỗ nghỉ ở đâu?",27,chỗ nghỉ
+S0162,,hoi,"Cô hỏi thử, cửa sổ ở đâu?",25,cửa sổ
+S0163,,hoi,"Cô hỏi thử, phòng nhỏ ở đâu?",28,phòng nhỏ
+S0164,,hoi,"Cô hỏi thử, chỗ gửi ở đâu?",26,chỗ gửi
+S0165,,hoi,"Cô hỏi thử, cửa cũ ở đâu?",25,cửa cũ
+S0166,,hoi,Thử sửa cửa sổ nhỏ.,19,cửa sổ nhỏ
+S0167,,hoi,Thử sửa cửa sổ cũ.,18,cửa sổ cũ
+S0168,,hoi,Thử sửa cửa sổ mở.,18,cửa sổ mở
+S0169,,hoi,Thử sửa cửa sổ hở.,18,cửa sổ hở
+S0170,,hoi,Thử sửa cửa sổ rộng.,20,cửa sổ rộng
+S0171,,hoi,"Cô kể chuyện, hỏi thử về chỗ nghỉ.",34,chỗ nghỉ
+S0172,,hoi,"Cô kể chuyện, hỏi thử về cửa sổ.",32,cửa sổ
+S0173,,hoi,"Cô kể chuyện, hỏi thử về cửa nhỏ.",33,cửa nhỏ
+S0174,,hoi,"Cô kể chuyện, hỏi thử về chỗ cũ.",32,chỗ cũ
+S0175,,hoi,"Cô kể chuyện, hỏi thử về chỗ gửi.",33,chỗ gửi
+S0176,,hoi,"Mở cửa sổ, để gió thổi.",23,cửa sổ
+S0177,,hoi,"Mở cửa sổ, để gió thổi nhẹ.",27,cửa sổ
+S0178,,hoi,"Mở cửa sổ, để gió thổi khẽ.",27,cửa sổ
+S0179,,hoi,"Mở cửa sổ, để gió đổi chiều.",28,cửa sổ
+S0180,,hoi,"Mở cửa sổ, để gió thổi mạnh.",28,cửa sổ
+S0181,,hoi,"Bạn gửi thử, rồi hỏi ở cửa sổ.",30,cửa sổ
+S0182,,hoi,"Bạn gửi thử, rồi hỏi ở chỗ nghỉ.",32,chỗ nghỉ
+S0183,,hoi,"Bạn gửi thử, rồi hỏi ở cửa nhỏ.",31,cửa nhỏ
+S0184,,hoi,"Bạn gửi thử, rồi hỏi ở chỗ cũ.",30,chỗ cũ
+S0185,,hoi,"Bạn gửi thử, rồi hỏi ở cửa cũ.",30,cửa cũ
+S0186,,hoi,"Tủ gỗ ở giữa phòng, cửa sổ mở.",30,cửa sổ mở
+S0187,,hoi,"Tủ gỗ ở giữa phòng, cửa sổ nhỏ.",31,cửa sổ nhỏ
+S0188,,hoi,"Tủ gỗ ở giữa phòng, cửa sổ cũ.",30,cửa sổ cũ
+S0189,,hoi,"Tủ gỗ ở giữa phòng, cửa sổ hở.",30,cửa sổ hở
+S0190,,hoi,"Tủ gỗ ở giữa phòng, cửa sổ rộng.",32,cửa sổ rộng
+S0191,,hoi,"Cô hỏi thử, sửa cửa sổ.",23,cửa sổ
+S0192,,hoi,"Cô hỏi thử, sửa cửa nhỏ.",24,cửa nhỏ
+S0193,,hoi,"Cô hỏi thử, sửa cửa cũ.",23,cửa cũ
+S0194,,hoi,"Cô hỏi thử, sửa cửa mở.",23,cửa mở
+S0195,,hoi,"Cô hỏi thử, sửa cửa hở.",23,cửa hở
+S0196,,hoi,"Để tờ giấy ở chỗ cũ, rồi mở cửa.",32,chỗ cũ
+S0197,,hoi,"Để tờ giấy ở chỗ nghỉ, rồi mở cửa.",34,chỗ nghỉ
+S0198,,hoi,"Để tờ giấy ở chỗ gửi, rồi mở cửa.",33,chỗ gửi
+S0199,,hoi,"Để tờ giấy ở chỗ sửa, rồi mở cửa.",33,chỗ sửa
+S0200,,hoi,"Để tờ giấy ở chỗ rửa, rồi mở cửa.",33,chỗ rửa
+S0201,,nga,"Mỗi bữa, những đứa trẻ vẫn nghĩ về mẹ.",38,những đứa trẻ
+S0202,,nga,"Mỗi bữa, những đứa trẻ vẫn nghĩ về nhà.",39,những đứa trẻ
+S0203,,nga,"Mỗi bữa, những đứa trẻ vẫn nghĩ về lời hứa.",43,những đứa trẻ
+S0204,,nga,"Mỗi bữa, những đứa trẻ vẫn nghĩ về chuyện cũ.",45,những đứa trẻ
+S0205,,nga,"Mỗi bữa, những đứa trẻ vẫn nghĩ về nghĩa tình.",46,những đứa trẻ
+S0206,,nga,Lễ nghĩa giữ những điều đáng nhớ.,33,"lễ nghĩa, những điều"
+S0207,,nga,Lễ nghĩa giữ những điều quý giá.,32,"lễ nghĩa, những điều"
+S0208,,nga,Lễ nghĩa giữ những điều còn mãi.,32,"lễ nghĩa, những điều"
+S0209,,nga,Lễ nghĩa giữ những điều đã hứa.,31,"lễ nghĩa, những điều"
+S0210,,nga,Lễ nghĩa giữ những điều nghĩa tình.,35,"lễ nghĩa, những điều"
+S0211,,nga,Bão lũ đã làm vỡ những bức tường.,33,"bão lũ, những bức tường"
+S0212,,nga,Bão lũ đã làm vỡ những mái ngói.,32,"bão lũ, những mái ngói"
+S0213,,nga,Bão lũ đã làm vỡ những cửa kính.,32,"bão lũ, những cửa kính"
+S0214,,nga,Bão lũ đã làm vỡ những bờ kè.,29,"bão lũ, những bờ kè"
+S0215,,nga,Bão lũ đã làm vỡ những căn nhà.,31,"bão lũ, những căn nhà"
+S0216,,nga,"Mỹ mãn, vĩnh viễn, nghĩa tình còn mãi.",38,"mỹ mãn, vĩnh viễn, nghĩa tình"
+S0217,,nga,"Mỹ mãn, vĩnh viễn, nghĩa tình còn mãi mãi.",42,"mỹ mãn, vĩnh viễn, nghĩa tình"
+S0218,,nga,"Mỹ mãn, vĩnh viễn, nghĩa tình còn ở lại.",40,"mỹ mãn, vĩnh viễn, nghĩa tình"
+S0219,,nga,"Mỹ mãn, vĩnh viễn, nghĩa tình còn trong lòng.",45,"mỹ mãn, vĩnh viễn, nghĩa tình"
+S0220,,nga,"Mỹ mãn, vĩnh viễn, nghĩa tình còn nơi ấy.",41,"mỹ mãn, vĩnh viễn, nghĩa tình"
+S0221,,nga,Cũng có những người giữ lời hứa.,32,những người
+S0222,,nga,Cũng có những người giữ nghĩa tình.,35,những người
+S0223,,nga,Cũng có những người giữ kỷ niệm.,32,những người
+S0224,,nga,Cũng có những người giữ chuyện cũ.,34,những người
+S0225,,nga,Cũng có những người giữ bí mật.,31,những người
+S0226,,nga,"Bữa ấy, mẹ vẫn nhớ mãi lời hứa.",31,"bữa ấy, vẫn nhớ mãi"
+S0227,,nga,"Bữa ấy, mẹ vẫn nhớ mãi chuyện cũ.",33,"bữa ấy, vẫn nhớ mãi"
+S0228,,nga,"Bữa ấy, mẹ vẫn nhớ mãi những ngày ấy.",37,"bữa ấy, vẫn nhớ mãi"
+S0229,,nga,"Bữa ấy, mẹ vẫn nhớ mãi nghĩa tình.",34,"bữa ấy, vẫn nhớ mãi"
+S0230,,nga,"Bữa ấy, mẹ vẫn nhớ mãi kỷ niệm.",31,"bữa ấy, vẫn nhớ mãi"
+S0231,,nga,Những kỷ niệm ấy vẫn mãi vẹn nguyên.,36,những kỷ niệm
+S0232,,nga,Những kỷ niệm ấy vẫn mãi vẹn tròn.,34,những kỷ niệm
+S0233,,nga,Những kỷ niệm ấy vẫn mãi vẹn đầy.,33,những kỷ niệm
+S0234,,nga,Những kỷ niệm ấy vẫn mãi vẹn tình.,34,những kỷ niệm
+S0235,,nga,Những kỷ niệm ấy vẫn mãi vẹn nghĩa.,35,những kỷ niệm
+S0236,,nga,"Đã lỡ, những chuyện cũ vẫn còn mãi.",35,những chuyện cũ
+S0237,,nga,"Đã lỡ, những chuyện cũ vẫn ở đó.",32,những chuyện cũ
+S0238,,nga,"Đã lỡ, những chuyện cũ vẫn trở lại.",35,những chuyện cũ
+S0239,,nga,"Đã lỡ, những chuyện cũ vẫn ám ảnh.",34,những chuyện cũ
+S0240,,nga,"Đã lỡ, những chuyện cũ vẫn chưa quên.",37,những chuyện cũ
+S0241,,nga,Mỗi người giữ những kỷ niệm đã qua.,35,những kỷ niệm
+S0242,,nga,Mỗi người giữ những chuyện cũ đã qua.,37,những chuyện cũ
+S0243,,nga,Mỗi người giữ những lời hứa đã qua.,35,những lời hứa
+S0244,,nga,Mỗi người giữ những ngày cũ đã qua.,35,những ngày cũ
+S0245,,nga,Mỗi người giữ những nghĩa tình đã qua.,38,những nghĩa tình
+S0246,,nga,Những kỷ niệm ấy vẫn mãi trong tâm trí.,39,những kỷ niệm
+S0247,,nga,Những kỷ niệm ấy vẫn mãi trong ký ức.,37,những kỷ niệm
+S0248,,nga,Những kỷ niệm ấy vẫn mãi trong lòng mình.,41,những kỷ niệm
+S0249,,nga,Những kỷ niệm ấy vẫn mãi trong nỗi nhớ.,39,những kỷ niệm
+S0250,,nga,Những kỷ niệm ấy vẫn mãi trong tâm tưởng.,41,những kỷ niệm
+S0251,,nang,Một bạn đặt bát thịt cạnh bếp.,30,"bát thịt, bếp"
+S0252,,nang,Một bạn đặt bát thịt cạnh mâm.,30,"bát thịt, mâm"
+S0253,,nang,Một bạn đặt bát thịt cạnh chạn.,31,"bát thịt, chạn"
+S0254,,nang,Một bạn đặt bát thịt cạnh mặt đất.,34,"bát thịt, mặt đất"
+S0255,,nang,Một bạn đặt bát thịt cạnh góc bếp.,34,"bát thịt, góc bếp"
+S0256,,nang,"Bạn nhặt vật thật sạch, đặt xuống đất.",38,bạn nhặt vật
+S0257,,nang,"Bạn nhặt vật thật sạch, đặt cạnh bếp.",37,bạn nhặt vật
+S0258,,nang,"Bạn nhặt vật thật sạch, đặt sát mặt đất.",40,bạn nhặt vật
+S0259,,nang,"Bạn nhặt vật thật sạch, đặt vào hộp.",36,bạn nhặt vật
+S0260,,nang,"Bạn nhặt vật thật sạch, đặt lên bàn.",36,bạn nhặt vật
+S0261,,nang,"Mặt đất ẩm, bước chân chật hẹp.",31,"mặt đất, bước chân"
+S0262,,nang,"Mặt đất ẩm, bước chân chật chội.",32,"mặt đất, bước chân"
+S0263,,nang,"Mặt đất ẩm, bước chân chật nặng nề.",35,"mặt đất, bước chân"
+S0264,,nang,"Mặt đất ẩm, bước chân chật mệt mỏi.",35,"mặt đất, bước chân"
+S0265,,nang,"Mặt đất ẩm, bước chân chật chật chội.",37,"mặt đất, bước chân"
+S0266,,nang,"Đặt tập sách thật gọn, đừng để lệch.",36,tập sách
+S0267,,nang,"Đặt tập sách thật gọn, đừng làm rách.",37,tập sách
+S0268,,nang,"Đặt tập sách thật gọn, đừng đặt chồng.",38,tập sách
+S0269,,nang,"Đặt tập sách thật gọn, đừng bỏ sót.",35,tập sách
+S0270,,nang,"Đặt tập sách thật gọn, đừng quên mất.",37,tập sách
+S0271,,nang,Một chiếc bát đặt cạnh bếp.,27,"chiếc bát, bếp"
+S0272,,nang,Một chiếc bát đặt cạnh chạn.,28,"chiếc bát, chạn"
+S0273,,nang,Một chiếc bát đặt cạnh mâm cơm.,31,"chiếc bát, mâm cơm"
+S0274,,nang,Một chiếc bát đặt cạnh mặt đất.,31,"chiếc bát, mặt đất"
+S0275,,nang,Một chiếc bát đặt cạnh bậc thềm.,32,"chiếc bát, bậc thềm"
+S0276,,nang,"Bạn đọc chậm, viết thật đẹp.",28,bạn đọc chậm
+S0277,,nang,"Bạn đọc chậm, viết thật cẩn thận.",33,bạn đọc chậm
+S0278,,nang,"Bạn đọc chậm, viết thật ngắn gọn.",33,bạn đọc chậm
+S0279,,nang,"Bạn đọc chậm, viết thật đúng mực.",33,bạn đọc chậm
+S0280,,nang,"Bạn đọc chậm, viết thật rõ ràng.",32,bạn đọc chậm
+S0281,,nang,Mẹ nhặt hạt gạo trên mặt đất.,29,"hạt gạo, mặt đất"
+S0282,,nang,Mẹ nhặt hạt gạo trên mặt bàn.,29,"hạt gạo, mặt bàn"
+S0283,,nang,Mẹ nhặt hạt gạo trên mặt thềm.,30,"hạt gạo, mặt thềm"
+S0284,,nang,Mẹ nhặt hạt gạo trên mặt mâm.,29,"hạt gạo, mặt mâm"
+S0285,,nang,Mẹ nhặt hạt gạo trên mặt chạn.,30,"hạt gạo, mặt chạn"
+S0286,,nang,"Cột chặt túi gạo, đặt sát bếp.",30,túi gạo
+S0287,,nang,"Cột chặt túi gạo, đặt sát mặt đất.",34,túi gạo
+S0288,,nang,"Cột chặt túi gạo, đặt sát vách.",31,túi gạo
+S0289,,nang,"Cột chặt túi gạo, đặt sát cạnh bàn.",35,túi gạo
+S0290,,nang,"Cột chặt túi gạo, đặt sát góc bếp.",34,túi gạo
+S0291,,nang,Đặt bút mực cạnh quyển tập.,27,"bút mực, quyển tập"
+S0292,,nang,Đặt bút mực cạnh quyển vở.,26,"bút mực, quyển vở"
+S0293,,nang,Đặt bút mực cạnh quyển sách.,28,"bút mực, quyển sách"
+S0294,,nang,Đặt bút mực cạnh quyển nhật ký.,31,"bút mực, quyển nhật ký"
+S0295,,nang,Đặt bút mực cạnh quyển sổ tay.,30,"bút mực, quyển sổ tay"
+S0296,,nang,"Thật mệt, bạn đặt vật xuống đất.",32,bạn đặt vật
+S0297,,nang,"Thật mệt, bạn đặt vật xuống mặt bàn.",36,bạn đặt vật
+S0298,,nang,"Thật mệt, bạn đặt vật xuống cạnh bếp.",37,bạn đặt vật
+S0299,,nang,"Thật mệt, bạn đặt vật xuống bậc thềm.",37,bạn đặt vật
+S0300,,nang,"Thật mệt, bạn đặt vật xuống nền gạch.",37,bạn đặt vật

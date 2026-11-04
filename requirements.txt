@@ -1,0 +1,22 @@
+# ==============================================================================
+# GÓI THƯ VIỆN CHUNG: VOICE CLONING & NHẬN DẠNG MẪU (VOICELAB + OMDIOM STUDIO)
+# ==============================================================================
+
+# 1. Thư viện cốt lõi cho VoiceLab (Phân tích âm học & Nhận dạng mẫu)
+numpy>=1.26.0
+scipy>=1.12.0
+soundfile>=0.12.1
+scikit-learn>=1.4.0
+joblib>=1.3.0
+librosa>=0.10.1
+
+# 2. Thư viện cho OmDiOm Studio (Máy chủ Zero-Shot TTS & Quản lý thiết bị)
+fastapi>=0.110.0
+uvicorn>=0.28.0
+python-multipart>=0.0.9
+psutil>=5.9.0
+requests>=2.31.0
+
+# Ghi chú: Để chạy mô hình sinh giọng OmniVoice trên GPU/CPU, cài thêm:
+# pip install torch torchaudio
+# pip install omnivoice

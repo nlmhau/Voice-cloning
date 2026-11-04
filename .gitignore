@@ -1,0 +1,33 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Caches and checkpoints
+.ipynb_checkpoints/
+.pytest_cache/
+*.log
+
+# Environments
+.env
+.venv/
+env/
+venv/
+ENV/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Large files & temporary audio
+*.wav
+*.mp3
+!voicelab/examples/*.flac
+*.webm
+models_cache/
+*.bin
+*.tar.gz
+*.pth
+*.pt
+!omdiom/voices/*.pt

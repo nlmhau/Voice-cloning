@@ -1,0 +1,53 @@
+{
+  "voices": [
+    {
+      "id": "Cao_Hung",
+      "name": "Cao Hùng (Ông già)",
+      "file": "Cao_Hùng.pt",
+      "gender": "Nam",
+      "note": "Nam lớn tuổi, trầm ấm, dạn dày"
+    },
+    {
+      "id": "Linh_Duc_Tu",
+      "name": "Linh Dục Tú (Nữ trẻ)",
+      "file": "Linh_Dục_Tú.pt",
+      "gender": "Nữ",
+      "note": "Nữ trẻ nhẹ nhàng, trong trẻo"
+    },
+    {
+      "id": "Minh_Nhi",
+      "name": "Minh Nhí (Trẻ em)",
+      "file": "Minh_Nhi.pt",
+      "gender": "Trẻ em",
+      "note": "Bé gái ngây thơ, tự nhiên, hoạt bát"
+    },
+    {
+      "id": "Minh_Quy",
+      "name": "Minh Quý (Trai trẻ)",
+      "file": "Minh_Quý.pt",
+      "gender": "Nam",
+      "note": "Nam thanh niên, rõ ràng, dứt khoát"
+    },
+    {
+      "id": "Phuong_Thy",
+      "name": "Phương Thy (Dẫn truyện)",
+      "file": "Phương_Thy.pt",
+      "gender": "Nữ",
+      "note": "Nữ dẫn truyện sâu lắng, truyền cảm"
+    },
+    {
+      "id": "To_Thanh",
+      "name": "Tô Thành (Kể chuyện)",
+      "file": "Tô_Thành.pt",
+      "gender": "Kể chuyện",
+      "note": "Giọng kể chuyện lôi cuốn, nhịp nhàng"
+    },
+    {
+      "id": "Ut_Linh",
+      "name": "Út Linh (Ma mị / Huyền bí)",
+      "file": "Út_Linh.pt",
+      "gender": "Huyền bí",
+      "note": "Nữ ma mị, huyền bí, kịch tính"
+    }
+  ]
+}

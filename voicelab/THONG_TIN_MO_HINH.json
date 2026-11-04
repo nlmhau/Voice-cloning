@@ -1,0 +1,14 @@
+{
+  "muc_dich": "Demo học thuật, không xác thực danh tính",
+  "nguon_that_gia": "SVM RBF tái tạo từ 75 đặc trưng T-A; 420/420 nhãn test khớp Bước 3",
+  "nguon_nhan_dang": "GaussianNB, Bước 6, 52 MFCC/delta, 25 mã VIVOS, nhận dạng tập đóng",
+  "mau_audio": "VIVOSSPK03_T015, bản thật và OmDiOm, lấy từ NGHE_MU_TA.html; bản giả là nhãn A trong CSV đánh giá nghe",
+  "sha256": {
+    "models/svm_TA_tai_tao.joblib": "32b179991474f00640bc7ae38df721051e1020d45ecd1e301aa0dec648ad3989",
+    "models/nhan_dang_25_nguoi.joblib": "07fef4744a7c1168d74c503b31a195a645b0bed5658d645101e83eba561b4b4f",
+    "bo_trich_dac_trung.py": "4cb91082353ac80b4cd47355b68bea4d8efffdc4ea70ce208eb1ea009371b3ff",
+    "examples/vivos_that.flac": "eef733354fe843341f4fac9b210c11a8d878df7ab9e93152cd911b0ef2894cfb",
+    "examples/omdiom_gia.flac": "24cf7426d3922a3fc58d67e53170c32449b135f9b5da8b79167bbbf7b7626900"
+  },
+  "TTS": "Tùy chọn: server thật riêng, chưa kiểm chứng model/.pt người dùng trong phiên này"
+}
