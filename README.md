@@ -10,6 +10,10 @@
 
 ---
 
+> 📖 **CẨM NANG HƯỚNG DẪN SỬ DỤNG TOÀN DIỆN:** Đọc tệp [**`HUONG_DAN_SU_DUNG.md`**](HUONG_DAN_SU_DUNG.md) để xem chi tiết từng bước cài đặt runtime, chuẩn bị checkpoint mô hình `OmDiOm-ft-4000` / `OmniVoice` và cẩm nang vận hành chi tiết cả 2 giao diện web.
+
+---
+
 ## 1. Giới thiệu bài toán & Mục tiêu nghiên cứu
 
 Trong bối cảnh công nghệ tổng hợp và nhân bản giọng nói (Zero-Shot Voice Cloning) bằng học sâu phát triển vượt bậc, âm thanh sinh ra ngày càng tự nhiên và khó phân biệt bằng tai người thường. Đề tài tiếp cận vấn đề dưới góc độ **Nhận dạng mẫu (Pattern Recognition)** thông qua hai bài toán khoa học cốt lõi:
@@ -95,6 +99,7 @@ Huấn luyện trên 295 câu thật của 25 người, kiểm thử trên 75 c�
 ```text
 Voice-cloning/
 ├── README.md                      # Báo cáo chính thức Đề tài 10 · Phương án 2
+├── HUONG_DAN_SU_DUNG.md           # Cẩm nang cài đặt, nạp checkpoint & sử dụng 2 giao diện
 ├── requirements.txt               # Danh sách thư viện Python cần thiết
 ├── .gitignore                     # Bộ lọc loại trừ tệp rác, cache, checkpoint
 ├── chay_lab.ps1 (chay_lab.bat)    # Script khởi chạy nhanh VoiceLab Studio (Port 8765)

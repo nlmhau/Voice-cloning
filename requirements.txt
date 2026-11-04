@@ -1,8 +1,9 @@
 # ==============================================================================
-# GÓI THƯ VIỆN CHUNG: VOICE CLONING & NHẬN DẠNG MẪU (VOICELAB + OMDIOM STUDIO)
+# GÓI THƯ VIỆN ĐỀ TÀI 10: VOICE CLONING & NHẬN DẠNG MẪU (VOICELAB + OMDIOM)
+# Tương thích tối ưu trên Python 3.10, 3.11, 3.12 (64-bit)
 # ==============================================================================
 
-# 1. Thư viện cốt lõi cho VoiceLab (Phân tích âm học & Nhận dạng mẫu)
+# 1. Thư viện cốt lõi cho VoiceLab (Phân tích đặc trưng âm học 75 chiều & Phân loại)
 numpy>=1.26.0
 scipy>=1.12.0
 soundfile>=0.12.1
@@ -10,14 +11,20 @@ scikit-learn>=1.4.0
 joblib>=1.3.0
 librosa>=0.10.1
 
-# 2. Thư viện cho OmDiOm Studio (Máy chủ Zero-Shot TTS & Quản lý thiết bị)
+# 2. Thư viện máy chủ Backend & Giao diện Web (FastAPI + Uvicorn)
 fastapi>=0.110.0
-uvicorn>=0.28.0
+uvicorn[standard]>=0.28.0
 python-multipart>=0.0.9
 psutil>=5.9.0
 requests>=2.31.0
 
-# Ghi chú: Để chạy mô hình sinh giọng OmniVoice trên GPU/CPU, cài thêm:
-# pip install torch torchaudio
-# pip install omnivoice
+# 3. Quản lý mô hình & Tải trọng số tự động từ Hugging Face
+huggingface_hub>=0.23.0
+accelerate>=0.34.0
 
+# 4. Thư viện Học sâu cho OmDiOm Studio (Sinh giọng nói Zero-Shot cục bộ)
+# Lưu ý: Cần cài đặt PyTorch phù hợp với card đồ họa NVIDIA của bạn:
+#   pip install torch torchaudio --index-url https://download.pytorch.org/whl/cu121
+# Sau đó cài thư viện động cơ OmniVoice:
+omnivoice==0.2.1
+transformers>=4.44.0

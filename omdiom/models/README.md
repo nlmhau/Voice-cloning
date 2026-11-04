@@ -43,3 +43,4 @@ omdiom/models/
   Để nạp trọng số nhị phân:
   1. **Chạy tự động:** Nhấp đúp vào `tai_model.bat` ở thư mục gốc hoặc chạy `python omdiom/models/tai_trong_so.py`. Script sẽ tự động phát hiện nếu máy bạn đã có thư mục `D:\OmDiOm\models` và tạo liên kết tức thì (không tốn thêm dung lượng ổ cứng), hoặc tải trực tiếp từ Hugging Face Hub (`k2-fsa/OmniVoice`).
   2. **Chạy trên Kaggle GPU (Không cần tải về máy):** Mở notebook `omdiom/kaggle/OmDiOm.ipynb` trên Kaggle, bật GPU T4 và chạy để khởi động server TTS đám mây. Giao diện OmDiOm và VoiceLab trên máy tính của bạn sẽ kết nối vào GPU Kaggle thông qua đường hầm Cloudflare Tunnel.
+
