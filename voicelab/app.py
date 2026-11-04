@@ -108,7 +108,7 @@ def chuan_hoa_am_thanh(raw, max_duration=30.0):
                 thoi_luong_goc = 0.0
 
         ghi_chu = None
-        cmd = ['ffmpeg', '-y', '-i', str(in_path)]
+        cmd = ['ffmpeg', '-y']
         if thoi_luong_goc > 60.0:
             cmd.extend(['-t', str(max_duration)])
             mins = int(thoi_luong_goc // 60)
@@ -118,7 +118,7 @@ def chuan_hoa_am_thanh(raw, max_duration=30.0):
         elif thoi_luong_goc > 0 and thoi_luong_goc < 0.2:
             raise AppError('Đoạn âm thanh quá ngắn (dưới 0.2 giây). Vui lòng chọn đoạn âm thanh dài hơn.')
         
-        cmd.extend(['-ac', '1', '-ar', '16000', str(out_path)])
+        cmd.extend(['-i', str(in_path), '-ac', '1', '-ar', '16000', str(out_path)])
         
         run_res = subprocess.run(cmd, capture_output=True, text=True, timeout=45)
         if run_res.returncode != 0:

@@ -20,3 +20,4 @@ requests>=2.31.0
 # Ghi chú: Để chạy mô hình sinh giọng OmniVoice trên GPU/CPU, cài thêm:
 # pip install torch torchaudio
 # pip install omnivoice
+

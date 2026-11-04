@@ -962,6 +962,16 @@ a { color: inherit; text-decoration: none; }
 </head>
 <body>
 
+<!-- CẢNH BÁO MỞ TRỰC TIẾP FILE:// -->
+<div id="file-protocol-warning" style="display:none; background:#fff1f2; border-bottom:1.5px solid #fecdd3; color:#9f1239; padding:12px 20px; font-size:13.5px; font-weight:600; text-align:center; position:sticky; top:0; z-index:9999;">
+  ⚠️ <strong>Cảnh báo:</strong> Bạn đang mở giao diện trực tiếp từ tệp cục bộ (<code>file://</code>). Tính năng Phân tích âm thanh, Trích xuất đặc trưng và GPU TTS yêu cầu máy chủ VoiceLab hoạt động. Vui lòng khởi động bằng <code>chay_lab.bat</code> (hoặc <code>python voicelab/app.py</code>) và truy cập <a href="http://localhost:8765" style="color:#e11d48; text-decoration:underline; font-weight:700;">http://localhost:8765</a>.
+</div>
+<script>
+if (window.location.protocol === 'file:') {
+  document.getElementById('file-protocol-warning').style.display = 'block';
+}
+</script>
+
 <!-- TOPBAR -->
 <header class="topbar">
   <div class="brand">
@@ -1621,7 +1631,11 @@ async function loadSample(filename, label) {
     const b = await r.blob();
     useFile(new File([b], label, { type: 'audio/flac' }));
   } catch(e) {
-    fail($('analysis-error'), e.message);
+    let msg = e.message;
+    if (window.location.protocol === 'file:') {
+      msg = '⚠️ Bạn đang mở giao diện từ tệp (file://). Vui lòng chạy "chay_lab.bat" và mở http://localhost:8765 để nạp âm thanh mẫu.';
+    }
+    fail($('analysis-error'), msg);
   }
 }
 $('btn-sample-real').onclick = () => loadSample('vivos_that.flac', 'Mau_vivos_that.flac');
@@ -1721,7 +1735,15 @@ $('btn-analyze').onclick = async () => {
 
     renderAnalysisResults(j);
   } catch(e) {
-    fail($('analysis-error'), e.message || 'Không thể kết nối đến máy chủ demo.');
+    let msg = e.message || 'Không thể kết nối đến máy chủ VoiceLab.';
+    if (msg.includes('Failed to fetch') || msg.includes('NetworkError') || msg.includes('Load failed')) {
+      if (window.location.protocol === 'file:') {
+        msg = '⚠️ Bạn đang mở giao diện từ tệp (file://). Vui lòng khởi động máy chủ VoiceLab qua tệp "chay_lab.bat" (hoặc "python voicelab/app.py") và truy cập http://localhost:8765.';
+      } else {
+        msg = '⚠️ Không thể kết nối đến máy chủ VoiceLab tại http://localhost:8765 (Failed to fetch). Vui lòng kiểm tra xem bạn đã chạy "chay_lab.bat" hoặc "python voicelab/app.py" chưa.';
+      }
+    }
+    fail($('analysis-error'), msg);
   } finally {
     btn.disabled = false;
     btn.textContent = 'Phân tích mẫu giọng & Nhận dạng  →';

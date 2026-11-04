@@ -12,3 +12,4 @@ $env:OMDIOM_MOCK = "0"
 $env:OMDIOM_PRELOAD = "1"
 
 python -m uvicorn app:app --app-dir "$PSScriptRoot\omdiom\server" --host 127.0.0.1 --port 8000
+

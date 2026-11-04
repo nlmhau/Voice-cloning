@@ -7,3 +7,4 @@ Write-Host "  Nhan Ctrl+C de dung may chu." -ForegroundColor Gray
 Write-Host "==========================================================" -ForegroundColor Cyan
 
 python "$PSScriptRoot\voicelab\app.py"
+
