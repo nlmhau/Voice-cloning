@@ -99,6 +99,10 @@ def index_ui():
 def get_available_models():
     """Lấy danh sách các model khả dụng để chuyển đổi."""
     base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "models"))
+    for alt in [base_dir, r"D:\OmDiOm\models", r"C:\OmDiOm\models"]:
+        if os.path.exists(os.path.join(alt, "omdiom", "model.safetensors")):
+            base_dir = alt
+            break
     omdiom_exists = os.path.exists(os.path.join(base_dir, "omdiom", "model.safetensors"))
     omni_exists = os.path.exists(os.path.join(base_dir, "OmniVoice", "model.safetensors"))
     cur_id = "omdiom" if "omdiom" in engine.model_id.lower() else "omnivoice"

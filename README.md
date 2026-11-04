@@ -100,6 +100,7 @@ Voice-cloning/
 ├── chay_lab.ps1 (chay_lab.bat)    # Script khởi chạy nhanh VoiceLab Studio (Port 8765)
 ├── chay_omdiom.ps1 (.bat)         # Script khởi chạy nhanh OmDiOm Studio (Port 8000)
 ├── chay_tat_ca.ps1                # Khởi động đồng thời cả 2 hệ thống với 1 click
+├── tai_model.bat                  # Script 1-click tải/đồng bộ trọng số mô hình TTS
 │
 ├── voicelab/                      # [HỆ THỐNG 1] ỨNG DỤNG NHẬN DẠNG & PHÂN TÍCH ÂM HỌC
 │   ├── app.py                     # Máy chủ backend Python (Port 8765, hỗ trợ 120MB, ffmpeg)
@@ -115,9 +116,16 @@ Voice-cloning/
 │       └── omdiom_gia.flac        # Mẫu giọng nhân bản OmDiOm
 │
 ├── omdiom/                        # [HỆ THỐNG 2] MÁY CHỦ TỔNG HỢP & NHÂN BẢN GIỌNG NÓI GPU
+│   ├── models/                    # Thư mục cấu hình mô hình & Codec âm học (OmDiOm & OmniVoice)
+│   │   ├── omdiom/                # Kiến trúc, config, tokenizer (11.4MB), HiggsAudioV2 codec
+│   │   ├── OmniVoice/             # Kiến trúc gốc, config, tokenizer, HiggsAudioV2 codec
+│   │   ├── active_model.txt       # Cấu hình kích hoạt mô hình mặc định
+│   │   └── tai_trong_so.py (.bat) # Script đồng bộ / tải trọng số nhị phân
+│   ├── kaggle/                    # Notebook chạy backend OmDiOm trên Kaggle GPU miễn phí
+│   │   └── OmDiOm.ipynb           # Khởi động server Cloudflare Tunnel kết nối UI
 │   ├── server/                    # FastAPI Backend (Port 8000)
 │   │   ├── app.py                 # API Router, streaming âm thanh
-│   │   ├── engine.py              # Động cơ OmniVoice Flow Matching ODE
+│   │   ├── engine.py              # Động cơ OmniVoice Flow Matching ODE (Tự động dò trọng số)
 │   │   ├── system_info.py         # Giám sát phần cứng GPU/CPU/RAM
 │   │   └── voices.py              # Quản lý giọng tham chiếu
 │   ├── UI/                        # Giao diện Web Studio phân vai & nhân bản

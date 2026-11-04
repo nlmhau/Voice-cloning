@@ -157,6 +157,10 @@ class TTSEngine:
     def __init__(self, model_id: str = "k2-fsa/OmniVoice", mock: bool = False):
         import os
         base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "models"))
+        for alt in [base_dir, r"D:\OmDiOm\models", r"C:\OmDiOm\models"]:
+            if os.path.exists(os.path.join(alt, "omdiom", "model.safetensors")):
+                base_dir = alt
+                break
         local_omdiom = os.path.join(base_dir, "omdiom")
         local_model = os.path.join(base_dir, "OmniVoice")
         active_file = os.path.join(base_dir, "active_model.txt")
@@ -765,6 +769,10 @@ class TTSEngine:
         import time
         target = (target or "omdiom").strip().lower()
         base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "models"))
+        for alt in [base_dir, r"D:\OmDiOm\models", r"C:\OmDiOm\models"]:
+            if os.path.exists(os.path.join(alt, "omdiom", "model.safetensors")):
+                base_dir = alt
+                break
         
         if "omdiom" in target:
             target_path = os.path.join(base_dir, "omdiom")

@@ -32,3 +32,5 @@ models_cache/
 *.pt
 !omdiom/voices/*.pt
 
+# Trọng số nhị phân kích thước lớn (>100MB không đưa trực tiếp vào Git, dùng tai_model.bat để nạp)
+*.safetensors
