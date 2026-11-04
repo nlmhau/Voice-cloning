@@ -243,4 +243,4 @@ OmDiOm Studio là trạm điều khiển tổng hợp và nhân bản giọng n�
 - **Khắc phục:** Cài đặt FFmpeg trên Windows bằng lệnh winget: `winget install Gyan.FFmpeg` hoặc tải bản zip từ [ffmpeg.org](https://ffmpeg.org/) và thêm vào biến môi trường PATH.
 
 ---
-*Nhóm 05 · Môn Nhận dạng mẫu · Đại học Khoa học Tự nhiên – ĐHQG TP.HCM*
+*Nhóm 05 · Môn Nhận dạng mẫu · Phân hiệu Đại học Thủy Lợi - TP.HCM*
