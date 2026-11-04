@@ -4,7 +4,7 @@
 
 | Thành viên | MSSV | Lớp | Vai trò phụ trách |
 | :--- | :--- | :--- | :--- |
-| **Nguyễn Lê Minh Hậu** | `2351267261` | `65-TTNT` | Trưởng nhóm · Pipeline dữ liệu, tiền xử lý, trích xuất 75 đặc trưng, thực nghiệm T-A |
+| **Nguyễn Lê Minh Hậu** | `2351267261` | `65-TTNT` | Pipeline dữ liệu, tiền xử lý, trích xuất 75 đặc trưng, thực nghiệm T-A |
 | **Phạm Thành Doanh** | `2351267258` | `65-TTNT` | Mô hình phân lớp (SVM, k-NN, GNB, RF), đánh giá chỉ số, phân tích lỗi |
 | **Lê Văn Quang** | `2351267277` | `65-TTNT` | Sinh giọng nhân bản (OmniVoice/OmDiOm), giao diện VoiceLab & OmDiOm Studio, báo cáo |
 
