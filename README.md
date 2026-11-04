@@ -8,7 +8,7 @@
 |-|-|-|
 |`Phạm Thành Doanh`|`2351267258`|`65-TTNT`|
 |`Nguyễn Lê Minh Hậu`|`2351267261`|`65-TTNT`|
-|`Lê Văn Quang`|`2351267277>`|`65-TTNT`|
+|`Lê Văn Quang`|`2351267277`|`65-TTNT`|
 
 
 
